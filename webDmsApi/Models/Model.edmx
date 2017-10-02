@@ -1,0 +1,431 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="webDmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Sys_Application">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationNo" Type="nvarchar" MaxLength="10" />
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApplicationDesc" Type="nvarchar" MaxLength="128" />
+          <Property Name="ShowInMenu" Type="int" />
+        </EntityType>
+        <EntityType Name="Sys_Button">
+          <Key>
+            <PropertyRef Name="BtnID" />
+          </Key>
+          <Property Name="BtnID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BtnName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BtnNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="BtnClass" Type="nvarchar" MaxLength="50" />
+          <Property Name="BtnIcon" Type="nvarchar" MaxLength="50" />
+          <Property Name="BtnScript" Type="nvarchar" MaxLength="50" />
+          <Property Name="MenuNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sys_Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MenuParentNo" Type="nvarchar" MaxLength="10" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="MenuUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="MenuIcon" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsValid" Type="int" />
+          <Property Name="ApplicationID" Type="int" />
+        </EntityType>
+        <EntityType Name="Sys_Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="RecTimeStamp" Type="datetime" />
+          <Property Name="IsValid" Type="int" />
+          <Property Name="ModifyUserID" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="CreateUserID" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="RoleDesc" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Sys_RoleMenu">
+          <Key>
+            <PropertyRef Name="RoleMenuID" />
+          </Key>
+          <Property Name="RoleMenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="MenuID" Type="int" Nullable="false" />
+          <Property Name="RecTimeStamp" Type="datetime" />
+          <Property Name="CreateUserID" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ModifyUserID" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sys_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoginPassword" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DeptID" Type="int" />
+          <Property Name="RealName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="30" />
+          <Property Name="UserType" Type="int" Nullable="false" />
+          <Property Name="BirthDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="IMEICode" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="IsValid" Type="int" />
+          <Property Name="WorkingPlace" Type="nvarchar" MaxLength="128" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="256" />
+          <Property Name="SessionId" Type="uniqueidentifier" />
+          <Property Name="RecTimeStamp" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sys_UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleID" />
+          </Key>
+          <Property Name="UserRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="CreateUserID" Type="datetime" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ModifyUserID" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="RecTimeStamp" Type="datetime" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“webDms.dbo.View_menu”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="View_menu">
+          <Key>
+            <PropertyRef Name="LoginName" />
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="MenuID" />
+            <PropertyRef Name="MenuNo" />
+            <PropertyRef Name="MenuName" />
+          </Key>
+          <Property Name="LoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="MenuID" Type="int" Nullable="false" />
+          <Property Name="MenuNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MenuParentNo" Type="nvarchar" MaxLength="10" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="MenuUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="MenuIcon" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsValid" Type="int" />
+          <Property Name="ApplicationID" Type="int" />
+        </EntityType>
+        <EntityContainer Name="webDmsModelStoreContainer">
+          <EntitySet Name="Sys_Application" EntityType="Self.Sys_Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Button" EntityType="Self.Sys_Button" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Menu" EntityType="Self.Sys_Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Role" EntityType="Self.Sys_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_RoleMenu" EntityType="Self.Sys_RoleMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_User" EntityType="Self.Sys_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_UserRole" EntityType="Self.Sys_UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_menu" EntityType="Self.View_menu" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_menu].[LoginName] AS [LoginName], 
+    [View_menu].[UserID] AS [UserID], 
+    [View_menu].[MenuID] AS [MenuID], 
+    [View_menu].[MenuNo] AS [MenuNo], 
+    [View_menu].[MenuParentNo] AS [MenuParentNo], 
+    [View_menu].[MenuName] AS [MenuName], 
+    [View_menu].[MenuUrl] AS [MenuUrl], 
+    [View_menu].[MenuIcon] AS [MenuIcon], 
+    [View_menu].[IsValid] AS [IsValid], 
+    [View_menu].[ApplicationID] AS [ApplicationID]
+    FROM [dbo].[View_menu] AS [View_menu]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="webDmsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Sys_Application">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationDesc" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ShowInMenu" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sys_Button">
+          <Key>
+            <PropertyRef Name="BtnID" />
+          </Key>
+          <Property Name="BtnID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BtnName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BtnNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BtnClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BtnIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BtnScript" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MenuNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sys_Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MenuName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="ApplicationID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sys_Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="ModifyUserID" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateUserID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="RoleDesc" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_RoleMenu">
+          <Key>
+            <PropertyRef Name="RoleMenuID" />
+          </Key>
+          <Property Name="RoleMenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="MenuID" Type="Int32" Nullable="false" />
+          <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="CreateUserID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUserID" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Sys_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginPassword" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DeptID" Type="Int32" />
+          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UserType" Type="Int32" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IMEICode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="WorkingPlace" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="SessionId" Type="Guid" />
+          <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Sys_UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleID" />
+          </Key>
+          <Property Name="UserRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="CreateUserID" Type="DateTime" Precision="3" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUserID" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="View_menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+            <PropertyRef Name="MenuNo" />
+            <PropertyRef Name="MenuName" />
+            <PropertyRef Name="LoginName" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="MenuID" Type="Int32" Nullable="false" />
+          <Property Name="MenuNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MenuName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="ApplicationID" Type="Int32" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="webDmsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Sys_Application" EntityType="Self.Sys_Application" />
+          <EntitySet Name="Sys_Button" EntityType="Self.Sys_Button" />
+          <EntitySet Name="Sys_Menu" EntityType="Self.Sys_Menu" />
+          <EntitySet Name="Sys_Role" EntityType="Self.Sys_Role" />
+          <EntitySet Name="Sys_RoleMenu" EntityType="Self.Sys_RoleMenu" />
+          <EntitySet Name="Sys_User" EntityType="Self.Sys_User" />
+          <EntitySet Name="Sys_UserRole" EntityType="Self.Sys_UserRole" />
+          <EntitySet Name="View_menu" EntityType="Self.View_menu" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="webDmsModelStoreContainer" CdmEntityContainer="webDmsEntities">
+          <EntitySetMapping Name="Sys_Application">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Application">
+              <MappingFragment StoreEntitySet="Sys_Application">
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+                <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="ApplicationDesc" ColumnName="ApplicationDesc" />
+                <ScalarProperty Name="ShowInMenu" ColumnName="ShowInMenu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Button">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Button">
+              <MappingFragment StoreEntitySet="Sys_Button">
+                <ScalarProperty Name="BtnID" ColumnName="BtnID" />
+                <ScalarProperty Name="BtnName" ColumnName="BtnName" />
+                <ScalarProperty Name="BtnNo" ColumnName="BtnNo" />
+                <ScalarProperty Name="BtnClass" ColumnName="BtnClass" />
+                <ScalarProperty Name="BtnIcon" ColumnName="BtnIcon" />
+                <ScalarProperty Name="BtnScript" ColumnName="BtnScript" />
+                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Menu">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Menu">
+              <MappingFragment StoreEntitySet="Sys_Menu">
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
+                <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
+                <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Role">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Role">
+              <MappingFragment StoreEntitySet="Sys_Role">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RecTimeStamp" ColumnName="RecTimeStamp" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="RoleDesc" ColumnName="RoleDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_RoleMenu">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_RoleMenu">
+              <MappingFragment StoreEntitySet="Sys_RoleMenu">
+                <ScalarProperty Name="RoleMenuID" ColumnName="RoleMenuID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="RecTimeStamp" ColumnName="RecTimeStamp" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_User">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_User">
+              <MappingFragment StoreEntitySet="Sys_User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="LoginPassword" ColumnName="LoginPassword" />
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IMEICode" ColumnName="IMEICode" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="WorkingPlace" ColumnName="WorkingPlace" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="RecTimeStamp" ColumnName="RecTimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_UserRole">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_UserRole">
+              <MappingFragment StoreEntitySet="Sys_UserRole">
+                <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="RecTimeStamp" ColumnName="RecTimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_menu">
+            <EntityTypeMapping TypeName="webDmsModel.View_menu">
+              <MappingFragment StoreEntitySet="View_menu">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
+                <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
+                <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
