@@ -57,6 +57,7 @@ namespace webDmsApi.Areas.Sys
                 Menu replyNode = new Menu();
                 replyNode.MenuID = cc.MenuID;
                 replyNode.MenuNo = cc.MenuNo;
+                replyNode.label= cc.MenuName;
                 replyNode.MenuName = cc.MenuName;
                 replyNode.MenuParentNo = cc.MenuParentNo;
                 replyNode.children= new Menu[] { };
@@ -74,6 +75,7 @@ namespace webDmsApi.Areas.Sys
         {
             public int MenuID { get; set; }
             public string MenuNo { get; set; }
+            public string label { get; set; }
             public string MenuParentNo { get; set; }
             public string MenuName { get; set; }
             public Menu[] children { get; set; }
