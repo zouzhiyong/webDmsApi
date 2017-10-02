@@ -14,6 +14,8 @@ namespace webDmsApi.Models
     
     public partial class View_menu
     {
+        public string LoginName { get; set; }
+        public int UserID { get; set; }
         public int MenuID { get; set; }
         public string MenuNo { get; set; }
         public string MenuParentNo { get; set; }
@@ -22,7 +24,5 @@ namespace webDmsApi.Models
         public string MenuIcon { get; set; }
         public Nullable<int> IsValid { get; set; }
         public Nullable<int> ApplicationID { get; set; }
-        public string LoginName { get; set; }
-        public int UserID { get; set; }
     }
 }

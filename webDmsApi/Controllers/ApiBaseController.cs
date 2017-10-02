@@ -10,7 +10,7 @@ using webDmsApi.App_Start;
 
 namespace webDmsApi.Controllers
 {
-    [RequestAuthorize]
+    //[RequestAuthorize]
     [WebApiExceptionFilter]
     //[Authorize]
     /// <summary>
@@ -42,27 +42,5 @@ namespace webDmsApi.Controllers
             return Json(obj, false);
         }
 
-        #region 获取缺省OrderBy和Asc/Desc
-        public string InitOrderByName(string sOrderbyName, string _defaultOrderByName)
-        {
-            if (!string.IsNullOrEmpty(sOrderbyName))
-                return sOrderbyName;
-            else
-                return _defaultOrderByName;
-        }
-        public string InitOrderByDirection(string sOrderbyDirection)
-        {
-            if (!string.IsNullOrEmpty(sOrderbyDirection) && sOrderbyDirection.ToLower() == "desc")
-                return "desc";
-            else
-                return "asc";
-        }
-
-        public static object JsonToObject(string jsonString)
-        {
-            return JsonConvert.DeserializeObject(jsonString);
-        }
-
-        #endregion
     }
 }

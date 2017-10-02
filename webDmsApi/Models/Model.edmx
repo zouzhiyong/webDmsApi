@@ -173,19 +173,6 @@
           <Property Name="BtnScript" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MenuNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="Sys_Menu">
-          <Key>
-            <PropertyRef Name="MenuID" />
-          </Key>
-          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MenuNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MenuName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsValid" Type="Int32" />
-          <Property Name="ApplicationID" Type="Int32" />
-        </EntityType>
         <EntityType Name="Sys_Role">
           <Key>
             <PropertyRef Name="RoleID" />
@@ -249,35 +236,48 @@
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="View_menu">
-          <Key>
-            <PropertyRef Name="MenuID" />
-            <PropertyRef Name="MenuNo" />
-            <PropertyRef Name="MenuName" />
-            <PropertyRef Name="LoginName" />
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="MenuID" Type="Int32" Nullable="false" />
-          <Property Name="MenuNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MenuName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsValid" Type="Int32" />
-          <Property Name="ApplicationID" Type="Int32" />
-          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="webDmsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Sys_Application" EntityType="Self.Sys_Application" />
           <EntitySet Name="Sys_Button" EntityType="Self.Sys_Button" />
-          <EntitySet Name="Sys_Menu" EntityType="Self.Sys_Menu" />
           <EntitySet Name="Sys_Role" EntityType="Self.Sys_Role" />
           <EntitySet Name="Sys_RoleMenu" EntityType="Self.Sys_RoleMenu" />
           <EntitySet Name="Sys_User" EntityType="Self.Sys_User" />
           <EntitySet Name="Sys_UserRole" EntityType="Self.Sys_UserRole" />
-          <EntitySet Name="View_menu" EntityType="Self.View_menu" />
+          <EntitySet Name="View_menu" EntityType="webDmsModel.View_menu" />
+          <EntitySet Name="Sys_Menu" EntityType="webDmsModel.Sys_Menu" />
         </EntityContainer>
+        <EntityType Name="View_menu">
+          <Key>
+            <PropertyRef Name="LoginName" />
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="MenuID" />
+            <PropertyRef Name="MenuNo" />
+            <PropertyRef Name="MenuName" />
+          </Key>
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="MenuID" Type="Int32" Nullable="false" />
+          <Property Name="MenuNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MenuName" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="ApplicationID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sys_Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MenuName" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="ApplicationID" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -305,20 +305,6 @@
                 <ScalarProperty Name="BtnIcon" ColumnName="BtnIcon" />
                 <ScalarProperty Name="BtnScript" ColumnName="BtnScript" />
                 <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sys_Menu">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_Menu">
-              <MappingFragment StoreEntitySet="Sys_Menu">
-                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
-                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
-                <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
-                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
-                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
-                <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
-                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
-                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -392,16 +378,30 @@
           <EntitySetMapping Name="View_menu">
             <EntityTypeMapping TypeName="webDmsModel.View_menu">
               <MappingFragment StoreEntitySet="View_menu">
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
+                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="LoginName" ColumnName="LoginName" />
-                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
-                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
-                <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
-                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
-                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
-                <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
-                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Menu">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Menu">
+              <MappingFragment StoreEntitySet="Sys_Menu">
                 <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
+                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

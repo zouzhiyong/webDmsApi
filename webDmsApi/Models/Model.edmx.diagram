@@ -7,12 +7,12 @@
       <Diagram DiagramId="d3785251ff854f44ab166118f1e55952" Name="Diagram1">
         <EntityTypeShape EntityType="webDmsModel.Sys_Application" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="webDmsModel.Sys_Button" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_Menu" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="webDmsModel.Sys_Role" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="webDmsModel.Sys_RoleMenu" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="webDmsModel.Sys_User" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="webDmsModel.Sys_UserRole" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="webDmsModel.View_menu" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="webDmsModel.View_menu" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_Menu" Width="1.5" PointX="4.875" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
