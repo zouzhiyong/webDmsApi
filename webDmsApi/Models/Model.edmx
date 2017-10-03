@@ -27,13 +27,45 @@
           <Property Name="BtnScript" Type="nvarchar" MaxLength="50" />
           <Property Name="MenuNo" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="Sys_Control">
+          <Key>
+            <PropertyRef Name="ControlID" />
+          </Key>
+          <Property Name="ControlID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuID" Type="int" />
+          <Property Name="URL" Type="nvarchar" MaxLength="50" />
+          <Property Name="ControlName" Type="nvarchar" MaxLength="50" />
+          <Property Name="describe" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Sys_ControlDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ControlID" Type="int" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+          <Property Name="prop" Type="nvarchar" MaxLength="50" />
+          <Property Name="label" Type="nvarchar" MaxLength="50" />
+          <Property Name="width" Type="nvarchar" MaxLength="50" />
+          <Property Name="align" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sys_dictionarydata">
+          <Key>
+            <PropertyRef Name="dictdata_Id" />
+          </Key>
+          <Property Name="dictdata_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dictdata_Table" Type="nchar" MaxLength="50" />
+          <Property Name="dictdata_Field" Type="nchar" MaxLength="50" />
+          <Property Name="dictdata_Name" Type="nchar" MaxLength="50" />
+          <Property Name="dictdata_Value" Type="nchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Sys_Menu">
           <Key>
             <PropertyRef Name="MenuID" />
           </Key>
           <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MenuNo" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="MenuParentNo" Type="nvarchar" MaxLength="10" />
+          <Property Name="MenuParentNo" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="MenuName" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="MenuUrl" Type="nvarchar" MaxLength="200" />
           <Property Name="MenuIcon" Type="nvarchar" MaxLength="200" />
@@ -111,13 +143,14 @@
             <PropertyRef Name="UserID" />
             <PropertyRef Name="MenuID" />
             <PropertyRef Name="MenuNo" />
+            
             <PropertyRef Name="MenuName" />
           </Key>
           <Property Name="LoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="MenuID" Type="int" Nullable="false" />
           <Property Name="MenuNo" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="MenuParentNo" Type="nvarchar" MaxLength="10" />
+          <Property Name="MenuParentNo" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="MenuName" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="MenuUrl" Type="nvarchar" MaxLength="200" />
           <Property Name="MenuIcon" Type="nvarchar" MaxLength="200" />
@@ -127,6 +160,9 @@
         <EntityContainer Name="webDmsModelStoreContainer">
           <EntitySet Name="Sys_Application" EntityType="Self.Sys_Application" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Button" EntityType="Self.Sys_Button" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Control" EntityType="Self.Sys_Control" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_ControlDetail" EntityType="Self.Sys_ControlDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_dictionarydata" EntityType="Self.Sys_dictionarydata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Menu" EntityType="Self.Sys_Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Role" EntityType="Self.Sys_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_RoleMenu" EntityType="Self.Sys_RoleMenu" Schema="dbo" store:Type="Tables" />
@@ -245,6 +281,9 @@
           <EntitySet Name="Sys_UserRole" EntityType="Self.Sys_UserRole" />
           <EntitySet Name="View_menu" EntityType="webDmsModel.View_menu" />
           <EntitySet Name="Sys_Menu" EntityType="webDmsModel.Sys_Menu" />
+          <EntitySet Name="Sys_dictionarydata" EntityType="webDmsModel.Sys_dictionarydata" />
+          <EntitySet Name="Sys_ControlDetail" EntityType="webDmsModel.Sys_ControlDetail" />
+          <EntitySet Name="Sys_Control" EntityType="webDmsModel.Sys_Control" />
         </EntityContainer>
         <EntityType Name="View_menu">
           <Key>
@@ -258,7 +297,7 @@
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="MenuID" Type="Int32" Nullable="false" />
           <Property Name="MenuNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MenuName" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -271,12 +310,44 @@
           </Key>
           <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MenuNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MenuName" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsValid" Type="Int32" />
           <Property Name="ApplicationID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sys_dictionarydata">
+          <Key>
+            <PropertyRef Name="dictdata_Id" />
+          </Key>
+          <Property Name="dictdata_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dictdata_Table" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="dictdata_Field" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="dictdata_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="dictdata_Value" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_ControlDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ControlID" Type="Int32" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="prop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="label" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="width" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="align" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_Control">
+          <Key>
+            <PropertyRef Name="ControlID" />
+          </Key>
+          <Property Name="ControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuID" Type="Int32" />
+          <Property Name="URL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ControlName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="describe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -402,6 +473,41 @@
                 <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
                 <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
                 <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_dictionarydata">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_dictionarydata">
+              <MappingFragment StoreEntitySet="Sys_dictionarydata">
+                <ScalarProperty Name="dictdata_Value" ColumnName="dictdata_Value" />
+                <ScalarProperty Name="dictdata_Name" ColumnName="dictdata_Name" />
+                <ScalarProperty Name="dictdata_Field" ColumnName="dictdata_Field" />
+                <ScalarProperty Name="dictdata_Table" ColumnName="dictdata_Table" />
+                <ScalarProperty Name="dictdata_Id" ColumnName="dictdata_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_ControlDetail">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_ControlDetail">
+              <MappingFragment StoreEntitySet="Sys_ControlDetail">
+                <ScalarProperty Name="align" ColumnName="align" />
+                <ScalarProperty Name="width" ColumnName="width" />
+                <ScalarProperty Name="label" ColumnName="label" />
+                <ScalarProperty Name="prop" ColumnName="prop" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Control">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Control">
+              <MappingFragment StoreEntitySet="Sys_Control">
+                <ScalarProperty Name="describe" ColumnName="describe" />
+                <ScalarProperty Name="ControlName" ColumnName="ControlName" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

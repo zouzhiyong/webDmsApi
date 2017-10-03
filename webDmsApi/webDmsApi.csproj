@@ -252,6 +252,15 @@
     <Compile Include="Models\Sys_Button.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Sys_Control.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sys_ControlDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sys_dictionarydata.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Sys_Menu.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
