@@ -21,5 +21,9 @@ namespace webDmsApi.Models
         public string label { get; set; }
         public string width { get; set; }
         public string align { get; set; }
+        public Nullable<int> isTemplate { get; set; }
+        public string templateIcon { get; set; }
+        public string templateLabel { get; set; }
+        public Nullable<int> IsValid { get; set; }
     }
 }

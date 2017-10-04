@@ -38,7 +38,7 @@ namespace webDmsApi.Areas.Sys
                              MenuIcon = t.MenuIcon,
                              IsValid = t.IsValid,
                              ApplicationID = t.ApplicationID,
-                             Control = (from t2 in db.Sys_Control
+                             Control = (from t2 in db.Sys_Control                                        
                                         select new {
                                             ControlID = t2.ControlID,
                                             MenuID = t2.MenuID,
@@ -46,7 +46,7 @@ namespace webDmsApi.Areas.Sys
                                             ControlName = t2.ControlName,
                                             describe = t2.describe,
                                             columns = (from a1 in db.Sys_ControlDetail
-                                                       where a1.ControlID == t2.ControlID
+                                                       where a1.ControlID == t2.ControlID && (a1.IsValid==1 || a1.IsValid==null)
                                                        select a1).ToList()
                                      }).ToList()
                          }).ToList();
@@ -118,20 +118,25 @@ namespace webDmsApi.Areas.Sys
             public Menu[] children { get; set; }
         }
 
+        public partial class Rows:Global_Condition
+        {
+            public string MenuNo { get; set; }
+        }
         /// <summary>
         /// 获取菜单编辑窗口右边表格
         /// </summary>
         /// <returns></returns>
-        public HttpResponseMessage FindSysMoudleRow(string parentNo)
+        public HttpResponseMessage FindSysMoudleRow(Rows parentNo)
         {
-            webDmsEntities db = new webDmsEntities();
+            webDmsEntities db = new webDmsEntities();       
+                 
 
             //var list = db.Sys_Menu.Where<Sys_Menu>(p => p.MenuParentNo == parentNo);
 
             var list = (from t1 in db.Sys_Menu
                        join t2 in db.Sys_dictionarydata
                        on t1.ApplicationID.ToString() equals t2.dictdata_Value
-                       where (t2.dictdata_Table== "Sys_Menu" && t2.dictdata_Field== "ApplicationID" && t1.MenuParentNo== parentNo)
+                       where (t2.dictdata_Table== "Sys_Menu" && t2.dictdata_Field== "ApplicationID" && t1.MenuParentNo== parentNo.MenuNo)
                        select new
                        {
                            MenuID=t1.MenuID,
@@ -142,7 +147,7 @@ namespace webDmsApi.Areas.Sys
                            ApplicationID = t2.dictdata_Name
                        }).ToList();
 
-
+            
             //object[] arr = new object[]
             //    {
             //    new  { type="index",prop = "", label = "", width = "50" },
@@ -156,6 +161,7 @@ namespace webDmsApi.Areas.Sys
 
             return Json(true, "", list);
         }
+
 
     }
 }
