@@ -255,10 +255,10 @@
     <Compile Include="Models\Sys_Button.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Sys_Control.cs">
+    <Compile Include="Models\Sys_Control11111.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Sys_ControlDetail.cs">
+    <Compile Include="Models\Sys_ControlDetail1111.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sys_dictionarydata.cs">
@@ -271,6 +271,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sys_RoleMenu.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sys_Template.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sys_User.cs">

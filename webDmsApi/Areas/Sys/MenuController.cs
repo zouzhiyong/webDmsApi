@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -38,19 +39,10 @@ namespace webDmsApi.Areas.Sys
                              MenuIcon = t.MenuIcon,
                              IsValid = t.IsValid,
                              ApplicationID = t.ApplicationID,
-                             Control = (from t2 in db.Sys_Control                                        
-                                        select new {
-                                            ControlID = t2.ControlID,
-                                            MenuID = t2.MenuID,
-                                            URL = t2.URL,
-                                            ControlName = t2.ControlName,
-                                            describe = t2.describe,
-                                            columns = (from a1 in db.Sys_ControlDetail
-                                                       where a1.ControlID == t2.ControlID && (a1.IsValid==1 || a1.IsValid==null)
-                                                       select a1).ToList()
-                                     }).ToList()
+                             Control = (from t2 in db.Sys_Template
+                                        where t2.TemplateName==t.MenuUrl
+                                        select t2).ToList()
                          }).ToList();
-            
 
             return Json(true, "", _list);
         }
@@ -80,7 +72,7 @@ namespace webDmsApi.Areas.Sys
             object[] arr = new object[] { item };
 
             BindTreeView(item, list, "0");
-            return Json(true, "", new { rows = list, tree = arr, id="MenuID" });
+            return Json(true, "", new { rows = list, tree = arr});
         }
 
         private void BindTreeView(Menu item, IQueryable<View_menu> list, string parent)
@@ -128,26 +120,29 @@ namespace webDmsApi.Areas.Sys
         /// <returns></returns>
         public HttpResponseMessage FindSysMoudleRow(Rows parentNo)
         {
-            webDmsEntities db = new webDmsEntities();       
-                 
+            webDmsEntities db = new webDmsEntities();
+
 
             //var list = db.Sys_Menu.Where<Sys_Menu>(p => p.MenuParentNo == parentNo);
-
-            var list = (from t1 in db.Sys_Menu
-                       join t2 in db.Sys_dictionarydata
-                       on t1.ApplicationID.ToString() equals t2.dictdata_Value
-                       where (t2.dictdata_Table== "Sys_Menu" && t2.dictdata_Field== "ApplicationID" && t1.MenuParentNo== parentNo.MenuNo)
-                       select new
-                       {
-                           MenuID=t1.MenuID,
-                           MenuName = t1.MenuName,
-                           MenuUrl = t1.MenuUrl,
-                           MenuIcon = t1.MenuIcon,
-                           IsValid = t1.IsValid==null || t1.IsValid==1 ?"有效":"无效",
-                           ApplicationID = t2.dictdata_Name
-                       }).ToList();
-
             
+            var data = (from t1 in db.Sys_Menu
+                        join t2 in db.Sys_dictionarydata
+                        on t1.ApplicationID.ToString() equals t2.dictdata_Value
+                        where (t2.dictdata_Table == "Sys_Menu" && t2.dictdata_Field == "ApplicationID" && t1.MenuParentNo == parentNo.MenuNo)
+                        select new
+                        {
+                            MenuID = t1.MenuID,
+                            MenuName = t1.MenuName,
+                            MenuUrl = t1.MenuUrl,
+                            MenuIcon = t1.MenuIcon,                            
+                            IsValid = t1.IsValid == null || t1.IsValid == 1 ? "有效" : "无效",
+                            ApplicationID = t2.dictdata_Name
+                        }).ToList();
+            var rows = data
+                       .Skip(parentNo.pageSize * (parentNo.currentPage - 1))
+                       .Take(parentNo.pageSize);
+
+
             //object[] arr = new object[]
             //    {
             //    new  { type="index",prop = "", label = "", width = "50" },
@@ -159,7 +154,7 @@ namespace webDmsApi.Areas.Sys
             //    };
 
 
-            return Json(true, "", list);
+            return Json(rows, parentNo.currentPage,parentNo.pageSize, data.Count);
         }
 
 

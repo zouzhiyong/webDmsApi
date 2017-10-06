@@ -36,9 +36,9 @@ namespace webDmsApi.Controllers
             var obj = new { result = result, message = message, data = data };
             return Json(obj, false);
         }
-        public HttpResponseMessage Json(object data, int pagenumber, int pagesize, int? total)
+        public HttpResponseMessage Json(object data, int currentPage, int pageSize, int? total)
         {
-            var obj = new { rows = data, pagenumber = pagenumber, pagesize = pagesize, total = total };
+            var obj = new { rows = data, currentPage = currentPage, pageSize = pageSize, total = total };
             return Json(obj, false);
         }
 

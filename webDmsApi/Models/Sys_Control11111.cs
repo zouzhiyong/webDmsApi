@@ -12,7 +12,7 @@ namespace webDmsApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Sys_Control
+    public partial class Sys_Control11111
     {
         public int ControlID { get; set; }
         public Nullable<int> MenuID { get; set; }

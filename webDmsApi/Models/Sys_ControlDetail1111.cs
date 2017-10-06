@@ -12,12 +12,13 @@ namespace webDmsApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Sys_ControlDetail
+    public partial class Sys_ControlDetail1111
     {
         public int ID { get; set; }
         public Nullable<int> ControlID { get; set; }
         public string type { get; set; }
         public string prop { get; set; }
+        public string model { get; set; }
         public string label { get; set; }
         public string width { get; set; }
         public string align { get; set; }
