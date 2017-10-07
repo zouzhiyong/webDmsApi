@@ -23,6 +23,7 @@ namespace webDmsApi.Models
         public string MenuUrl { get; set; }
         public string MenuIcon { get; set; }
         public Nullable<int> IsValid { get; set; }
-        public Nullable<int> ApplicationID { get; set; }
+        public Nullable<int> Xh { get; set; }
+        public string ApplicationNo { get; set; }
     }
 }
