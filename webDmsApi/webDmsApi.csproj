@@ -194,6 +194,49 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="webDms\Areas\cust-page.js" />
+    <Content Include="webDms\Areas\cust-pages.js" />
+    <Content Include="webDms\Areas\sys-moudle.js" />
+    <Content Include="webDms\Components\component-dialog.js" />
+    <Content Include="webDms\Components\component-form.js" />
+    <Content Include="webDms\Components\component-table.js" />
+    <Content Include="webDms\Components\component-tree.js" />
+    <Content Include="webDms\Global\css.js" />
+    <Content Include="webDms\Global\css\bootstrap.min.css" />
+    <Content Include="webDms\Global\css\font-awesome.css" />
+    <Content Include="webDms\Global\css\fonts\font-awesome.css" />
+    <Content Include="webDms\Global\css\fonts\fontawesome-webfont.svg" />
+    <Content Include="webDms\Global\css\fonts\iconfont.svg" />
+    <Content Include="webDms\Global\css\global.css" />
+    <Content Include="webDms\Global\css\icon.css" />
+    <Content Include="webDms\Global\css\iconfont.css" />
+    <Content Include="webDms\Global\css\index.css" />
+    <Content Include="webDms\Global\css\layout.css" />
+    <Content Include="webDms\Global\css\login.css" />
+    <Content Include="webDms\Global\js\ajaxData.js" />
+    <Content Include="webDms\Global\js\bootstrap.min.js" />
+    <Content Include="webDms\Global\js\config.js" />
+    <Content Include="webDms\Global\js\element-ui.js" />
+    <Content Include="webDms\Global\js\frame.js" />
+    <Content Include="webDms\Global\js\jquery.cookie.js" />
+    <Content Include="webDms\Global\js\jquery.min.js" />
+    <Content Include="webDms\Global\js\layer\layer.js" />
+    <Content Include="webDms\Global\js\layer\mobile\layer.js" />
+    <Content Include="webDms\Global\js\layer\mobile\need\layer.css" />
+    <Content Include="webDms\Global\js\layer\theme\default\icon-ext.png" />
+    <Content Include="webDms\Global\js\layer\theme\default\icon.png" />
+    <Content Include="webDms\Global\js\layer\theme\default\layer.css" />
+    <Content Include="webDms\Global\js\layer\theme\default\loading-0.gif" />
+    <Content Include="webDms\Global\js\layer\theme\default\loading-1.gif" />
+    <Content Include="webDms\Global\js\layer\theme\default\loading-2.gif" />
+    <Content Include="webDms\Global\js\layer\theme\moon\default.png" />
+    <Content Include="webDms\Global\js\layer\theme\moon\style.css" />
+    <Content Include="webDms\Global\js\less.min.js" />
+    <Content Include="webDms\Global\js\r.js" />
+    <Content Include="webDms\Global\js\require.js" />
+    <Content Include="webDms\Global\js\vue.min.js" />
+    <Content Include="webDms\index.html" />
+    <Content Include="webDms\login.html" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -207,6 +250,19 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="webDms\Global\css\color.less" />
+    <Content Include="webDms\Global\css\fonts\element-icons.ttf" />
+    <Content Include="webDms\Global\css\fonts\element-icons.woff" />
+    <Content Include="webDms\Global\css\fonts\fontawesome-webfont.eot" />
+    <Content Include="webDms\Global\css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="webDms\Global\css\fonts\fontawesome-webfont.woff" />
+    <Content Include="webDms\Global\css\fonts\fontawesome-webfont.woff2" />
+    <Content Include="webDms\Global\css\fonts\FontAwesome.otf" />
+    <Content Include="webDms\Global\css\fonts\iconfont.eot" />
+    <Content Include="webDms\Global\css\fonts\iconfont.ttf" />
+    <Content Include="webDms\Global\css\fonts\iconfont.woff" />
+    <Content Include="webDms\README.md" />
+    <Content Include="webDms\run.cmd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -286,6 +342,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Bas\" />
     <Folder Include="Areas\Home\" />
+    <Folder Include="webDms\Build\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
