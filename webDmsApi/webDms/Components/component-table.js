@@ -36,7 +36,7 @@ Vue.component('component-table', {
                     }
                 });
         },
-        handleRowClick: function(row) {
+        handleRowClick: function (row) {
             this.$emit('edit', row);
         },
         handleSizeChange: function(size) {

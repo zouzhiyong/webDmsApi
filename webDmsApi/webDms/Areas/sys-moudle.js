@@ -39,12 +39,9 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                 var _self = this;
                 this.tableCondition = data;
             },
-            handleRowClick: function(row) {
+            handleRowClick: function (row) {
                 this.formCondition = row;
                 this.dialogFormVisible = true;
-            },
-            handleCloseForm: function() {
-
             }
         },
         render: function(_c) {
@@ -69,8 +66,8 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                             _c('component-table', { attrs: { columns: _self.tableColumns, control: _self.table, condition: _self.tableCondition }, on: { 'edit': _self.handleRowClick } })
                         ])
                     ])
-                ]),
-                _c('component-dialog', { attrs: { "title": _self.title }, model: { value: (_self.dialogFormVisible), callback: function($$v) { _self.dialogFormVisible = $$v }, expression: '_self.dialogFormVisible' } }, [
+                ]),                
+                _c('component-dialog', { attrs: { "title": _self.title }, model: { value: (_self.dialogFormVisible), callback: function ($$v) { _self.dialogFormVisible = $$v}, expression: '_self.dialogFormVisible' } }, [
                     _c('component-form', { attrs: { control: _self.form, condition: _self.formCondition }, slot: "form" }),
                 ])
             ])
