@@ -67,9 +67,7 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                         ])
                     ])
                 ]),                
-                _c('component-dialog', { attrs: { "title": _self.title }, model: { value: (_self.dialogFormVisible), callback: function ($$v) { _self.dialogFormVisible = $$v}, expression: '_self.dialogFormVisible' } }, [
-                    _c('component-form', { attrs: { control: _self.form, condition: _self.formCondition }, slot: "form" }),
-                ])
+                _c('component-dialog', { attrs: { control: _self.form, condition: _self.formCondition,"title": _self.title }, model: { value: (_self.dialogFormVisible), callback: function ($$v) { _self.dialogFormVisible = $$v}, expression: '_self.dialogFormVisible' } })
             ])
         }
     })

@@ -198,5 +198,18 @@ namespace webDmsApi.Areas.Sys
   
                     return Json(true, "", list);
         }
+
+        public HttpResponseMessage SaveSysMoudleForm(Sys_Menu menu)
+        {
+            webDmsEntities db = new webDmsEntities();
+
+            //Sys_Menu u = new Sys_Menu() { MenuID = menu.MenuID };
+
+            db.Entry<Sys_Menu>(menu).State = EntityState.Modified;
+
+            var result = db.SaveChanges();
+
+            return Json(true, result==1?"保存成功！":"保存失败");
+        }
     }
 }
