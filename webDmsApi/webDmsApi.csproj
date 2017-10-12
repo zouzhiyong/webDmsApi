@@ -216,8 +216,8 @@
     <Content Include="webDms\Global\js\ajaxData.js" />
     <Content Include="webDms\Global\js\bootstrap.min.js" />
     <Content Include="webDms\Global\js\config.js" />
-    <Content Include="webDms\Global\js\element-ui.js" />
     <Content Include="webDms\Global\js\frame.js" />
+    <Content Include="webDms\Global\js\index.js" />
     <Content Include="webDms\Global\js\jquery.cookie.js" />
     <Content Include="webDms\Global\js\jquery.min.js" />
     <Content Include="webDms\Global\js\layer\layer.js" />

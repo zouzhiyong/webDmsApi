@@ -20,7 +20,6 @@ Vue.component('component-table', {
         this.height = height;
         this.condition.currentPage = 1;
         this.condition.pageSize = Math.floor(this.height / 40);
-
     },
     methods: {
         GetData: function(condition) {
@@ -32,7 +31,7 @@ Vue.component('component-table', {
                 .then(function(result) {
                     if (result) {
                         _self.tableData = result;
-                        _self.Attributes.attrs.data = result.rows;
+                        //_self.Attributes.attrs.data = result.rows;                        
                     }
                 });
         },
@@ -63,11 +62,11 @@ Vue.component('component-table', {
     },
     render: function(_c) {
         var _self = this;
-
+        
         return _c('div', { staticStyle: { height: "100%" } }, [
             _c('el-table', {
                 ref: JSON.parse(JSON.stringify(_self.Attributes.ref || 'table')),
-                attrs: JSON.parse(JSON.stringify(_self.Attributes.attrs || {})),
+                attrs: $.extend({}, JSON.parse(JSON.stringify(_self.Attributes.attrs || {})), { data: _self.tableData.rows }),//JSON.parse(JSON.stringify(_self.Attributes.attrs || {})),
                 staticStyle: JSON.parse(JSON.stringify(_self.Attributes.staticStyle || {})),
                 staticClass: JSON.parse(JSON.stringify(_self.Attributes.staticClass || '')),
             }, [
@@ -106,15 +105,18 @@ Vue.component('component-table', {
                 })
             ]),
             _c('el-pagination', {
+                ref: 'pagination',
                 attrs: {
                     'page-size': _self.tableData.pageSize,
-                    layout: " prev, pager, next,total",
+                    layout: " slot,->,prev, pager, next",
                     total: _self.tableData.total,
                     "current-page": _self.tableData.currentPage
                 },
-                staticStyle: { padding: '7px 0px' },
+                staticStyle: { padding: '7px 8px' },
                 on: { 'pageNumber': _self.handleSizeChange, 'current-change': _self.handleCurrentChange }
-            })
+            }, [
+                _c('span', '显示第 ' + (_self.tableData.pageSize * _self.tableData.currentPage - _self.tableData.pageSize + 1) + ' 到第 ' + ((_self.tableData.pageSize * _self.tableData.currentPage) > _self.tableData.total ? _self.tableData.total : (_self.tableData.pageSize * _self.tableData.currentPage)) + ' 条记录，总共 ' + _self.tableData.total + ' 条记录')
+            ])
         ])
 
     }
