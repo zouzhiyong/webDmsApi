@@ -21,7 +21,7 @@ header .header_logo {
     vertical-align: middle;
 }
 
-.header_operations {
+/*.header_operations {
     float: right;
     padding-right: 30px;
     height: 100%;
@@ -45,7 +45,7 @@ header .header_logo {
 .header_operations>li>a .img_circle {
     height: 38px;
     border-radius: 5px;
-}
+}*/
 
 .side_bar {
     width: 180px;
@@ -145,11 +145,6 @@ body:not(.mini-navbar) .side_bar>.menu>ul>li {
     margin-top: 2px;
 }
 
-.side_bar ul>li>a .arrow {
-    float: right;
-    margin-top: 2px;
-}
-
 .main {
     margin-left: 180px;
     height: calc(100% - 60px);
@@ -241,7 +236,7 @@ nav.page-tabs .page-tabs-content {
 }
 
 .roll-right.J_tabRight {
-    right: 140px;
+    right: 60px;
 }
 
 .roll-right.J_tabExit {

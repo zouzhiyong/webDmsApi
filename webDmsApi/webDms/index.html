@@ -25,13 +25,12 @@
     <div class="wrapper">
         <header>
             <img src="" class="header_logo">
-            <nav class="nav navbar-top-links navbar-right">
+            <!--<nav class="nav navbar-top-links navbar-right">
                 <ul class="header_operations">
                     <li>
                         <a href="javascript:;" data-toggle="modal" data-target="#myModal">
                             <i class="fa fa-tasks"></i> 主题
                         </a>
-                        <!-- Modal -->
                         <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -99,7 +98,7 @@
                     </li>
 
                 </ul>
-            </nav>
+            </nav>-->
         </header>
         <div class="side_bar">
             <div class="top_nav">
@@ -111,24 +110,24 @@
                 <ul>
                     <li v-for="menuItem in menuData" v-if="menuItem.MenuParentNo=='0'">
                         <template v-if="menuItem.MenuNo=='0'">
-                                <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(menuItem)" data-index="0" expanded="false">
-                                        <i class="fa fa-home"></i>
-                                        <span class="">主页</span>
-                                    </a>
+                            <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(menuItem)" data-index="0" expanded="false">
+                                <i class="fa fa-home"></i>
+                                <span class="">主页</span>
+                            </a>
                         </template>
                         <template v-else>
-                                <a href="javascript:;" :data-index="menuItem.MenuNo" expanded="false">
-                                        <i :class="menuItem.MenuIcon"></i>
-                                        <span class="menu-label">{{menuItem.MenuName}}</span>
-                                        <span class="fa fa-angle-left arrow"> </span>
+                            <a href="javascript:;" :data-index="menuItem.MenuNo" expanded="false">
+                                <i :class="menuItem.MenuIcon"></i>
+                                <span class="menu-label">{{menuItem.MenuName}}</span>
+                                <span class="fa fa-angle-left arrow"> </span>
+                            </a>
+                            <ul class="collapse" expanded="false">
+                                <li v-for="subMenuItem in menuData" v-if="subMenuItem.MenuParentNo==menuItem.MenuNo">
+                                    <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(subMenuItem)" data-index="4">
+                                        <i class=""></i> {{subMenuItem.MenuName}}
                                     </a>
-                                    <ul class="collapse" expanded="false">
-                                        <li v-for="subMenuItem in menuData" v-if="subMenuItem.MenuParentNo==menuItem.MenuNo">
-                                            <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(subMenuItem)" data-index="4">
-                                                <i class=""></i> {{subMenuItem.MenuName}}
-                                            </a>
-                                        </li>
-                                    </ul>
+                                </li>
+                            </ul>
                         </template>
                     </li>
                 </ul>
@@ -142,29 +141,32 @@
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content" style="margin-left: 0px;">
                         <a v-for="(item,index) in openData" href="javascript:;" :class="[item.active?'active':'']+' J_menuTab'" :data-id="item.MenuNo" data-index="12" v-on:click="handleSwitchTab(item)">
-                            {{item.MenuName}} 
-                            <i v-if="item.MenuNo!='0'" class="fa fa-times-circle" v-on:click.stop="handleCloseTab(item,index)"></i></a>
+                            {{item.MenuName}}
+                            <i v-if="item.MenuNo!='0'" class="fa fa-times-circle" v-on:click.stop="handleCloseTab(item,index)"></i>
+                        </a>
                     </div>
                 </nav>
 
                 <button class="roll-nav roll-right J_tabRight">
                     <i class="fa fa-forward"></i>
                 </button>
-                <div class="btn-group roll-nav roll-right">
+                <!--<div class="btn-group roll-nav roll-right">
                     <button class="dropdown-toggle J_tabClose" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
                         关闭操作<span class="caret"></span>
-
                     </button>
                     <ul role="menu" class="dropdown-menu dropdown-menu-right">
-                        <li class="J_tabShowActive"><a>定位当前选项卡</a>
+                        <li class="J_tabShowActive">
+                            <a>定位当前选项卡</a>
                         </li>
                         <li class="divider"></li>
-                        <li class="J_tabCloseAll" v-on:click="handleCloseAll"><a>关闭全部选项卡</a>
+                        <li class="J_tabCloseAll" v-on:click="handleCloseAll">
+                            <a>关闭全部选项卡</a>
                         </li>
-                        <li class="J_tabCloseOther" v-on:click="handleCloseOther"><a>关闭其他选项卡</a>
+                        <li class="J_tabCloseOther" v-on:click="handleCloseOther">
+                            <a>关闭其他选项卡</a>
                         </li>
                     </ul>
-                </div>
+                </div>-->
 
                 <a href="javascript:;" class="roll-nav roll-right J_tabExit logoff-link" v-on:click="handleExit"><i class="fa fa fa-sign-out"></i>退出</a>
             </div>
@@ -193,7 +195,7 @@
     <script src="Global/js/jquery.min.js?ver=20170916"></script>
     <script src="Global/js/jquery.cookie.js?ver=20170916"></script>
     <script src="Global/js/layer/layer.js?ver=20170916"></script>
-    <script src="Global/js/bootstrap.min.js?ver=20170916"></script>
+    <!--<script src="Global/js/bootstrap.min.js?ver=20170916"></script>-->
     <script src="Global/js/vue.min.js?ver=20170916"></script>
     <script src="Global/js/frame.js?ver=20170916"></script>
     <script src="Global/js/element-ui.js?ver=20170916"></script>
@@ -206,9 +208,9 @@
     var menuData = {};
     ajaxData('api/Menu/FindSysMenu', {
         async: false
-    }).then(function(result) {
+    }).then(function (result) {
         if (result) {
-            result.data.map(function(item) {
+            result.data.map(function (item) {
                 if (item.MenuParentNo == null) {
                     item.MenuParentNo = 0;
                 }
@@ -237,23 +239,23 @@
             openData: [],
             menuData: menuData
         },
-        created: function() {
+        created: function () {
             this.menuData.splice(0, 0, this.homePage);
             this.openData.push(this.homePage);
             this.handleMenuItem(this.homePage);
         },
         methods: {
-            handleUnActive: function() {
-                this.openData.map(function(item) {
+            handleUnActive: function () {
+                this.openData.map(function (item) {
                     item.active = false;
                 })
             }, //清除激活状态
-            handleMenuItem: function(subMenuItem) {
+            handleMenuItem: function (subMenuItem) {
                 var _self = this;
-                require(['Areas/' + subMenuItem.MenuUrl + '.js'], function(vuePage) {
+                require(['Areas/' + subMenuItem.MenuUrl + '.js'], function (vuePage) {
                     _self.handleUnActive();
                     var isActive = false;
-                    _self.openData.map(function(item) {
+                    _self.openData.map(function (item) {
                         if (item.MenuNo == subMenuItem.MenuNo) {
                             item.active = true;
                             isActive = true;
@@ -268,22 +270,22 @@
                 });
 
             }, //点击菜单打开窗口
-            handleSwitchTab: function(item) {
+            handleSwitchTab: function (item) {
                 this.handleUnActive();
                 item.active = true;
             }, //选择窗口
-            handleCloseTab: function(item, index) {
+            handleCloseTab: function (item, index) {
                 this.openData.splice(index, 1);
                 //如果当前TAB被激活，就取所有打开窗口的最后一个被激活
                 if (item.active == true) {
                     this.openData[this.openData.length - 1].active = true;
                 }
             }, //关闭单个窗口
-            handleCloseAll: function() {
+            handleCloseAll: function () {
                 this.openData.splice(1, this.openData.length - 1);
                 this.openData[0].active = true;
             }, //关闭所有窗口
-            handleCloseOther: function() {
+            handleCloseOther: function () {
                 for (var i = 0; i < this.openData.length - 1; i++) {
                     if (this.openData[i].MenuNo != '0' && !this.openData[i].active) {
                         this.openData.splice(i--, 1);
@@ -291,17 +293,17 @@
                 }
 
             }, //关闭其它窗口
-            handleExit: function() {
+            handleExit: function () {
                 this.$confirm('是否确定退出?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
-                }).then(function() {
+                }).then(function () {
                     $.cookie('Ticket', '', {
                         expires: -1
                     });
                     window.location.href = "login.html";
-                }).catch(function() {
+                }).catch(function () {
                     return;
                 });
             }, //退出
