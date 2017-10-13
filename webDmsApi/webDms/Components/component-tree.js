@@ -1,7 +1,7 @@
 Vue.component('component-tree', {
     data: function() {
         return {
-            Attributes: {}
+            data: {}
         }
     },
     props: {
@@ -9,8 +9,7 @@ Vue.component('component-tree', {
     },
     created: function() {
         var _self = this;
-        //获取attrs
-        this.Attributes = eval('(' + this.control.Attributes + ')');
+
         this.GetData();
     },
     methods: {
@@ -19,8 +18,8 @@ Vue.component('component-tree', {
             ajaxData(_self.control.FindUrl, { async: false })
                 .then(function(result) {
                     if (result) {
-                        _self.Attributes.attrs.data = result.data.tree;
-                        _self.handleNodeClick(_self.Attributes.attrs.data[0]);
+                        _self.data = result.data.tree;
+                        _self.handleNodeClick(_self.data[0]);
                     }
                 });
         },
@@ -30,12 +29,13 @@ Vue.component('component-tree', {
     },
     render: function(_c) {
         var _self = this;
-        return _c('el-tree', {
-            attrs: JSON.parse(JSON.stringify(this.Attributes.attrs || {})),
-            ref: JSON.parse(JSON.stringify(this.Attributes.ref || 'tree')),
-            staticStyle: JSON.parse(JSON.stringify(this.Attributes.staticStyle || {})),
-            staticClass: JSON.parse(JSON.stringify(this.Attributes.staticClass || '')),
-            on: this.Attributes.on
-        });
+        return _c('el-tree',
+            {
+                ref: 'tree', attrs: {
+                    data: _self.data,
+                    props: { children: 'children', label: 'label' }, 'expand-on-click-node': false, 'default-expanded-keys': [0], 'node-key': 'MenuID', 'highlight-current': true, 'default-checked-keys': [0]
+                }, staticStyle: { height: '100%', 'overflow-y': 'auto' }, on: { 'node-click': _self.handleNodeClick }
+            }
+        );
     }
 })

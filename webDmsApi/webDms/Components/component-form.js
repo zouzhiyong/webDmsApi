@@ -1,7 +1,7 @@
 Vue.component('component-form', {
     data: function() {
         return {
-            Attributes: {},
+            //Attributes: {},
             ItemAttributes: [],
             data: {},
         }
@@ -12,9 +12,7 @@ Vue.component('component-form', {
     },
     created: function() {
         //获取attrs        
-        this.Attributes = eval('(' + this.control.Attributes + ')');
         this.ItemAttributes = eval('(' + this.control.ItemAttributes + ')');
-        //this.Attributes.attrs.model = this.data;
         this.GetData();
     },
     methods: {
@@ -40,8 +38,7 @@ Vue.component('component-form', {
         var _self = this;
         return _c('div', { staticStyle: { padding: '0' } }, [
             _c('el-form', {
-                attrs: $.extend({}, JSON.parse(JSON.stringify(_self.Attributes.attrs), { model: _self.data })),
-                ref: JSON.parse(JSON.stringify(_self.Attributes.ref || 'form'))
+                ref: 'form', attrs: { 'label-width': '80px', inline: true, model: _self.data }
             }, [
                 _self._l(JSON.parse(JSON.stringify(_self.ItemAttributes)), function(item) {
                     var filed = item.attrs.prop;

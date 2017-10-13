@@ -93,14 +93,9 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TemplateName" Type="nvarchar" MaxLength="50" />
           <Property Name="ControlName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Ref" Type="nvarchar" MaxLength="50" />
-          <Property Name="Attributes" Type="nvarchar(max)" />
           <Property Name="FindUrl" Type="nvarchar" MaxLength="50" />
           <Property Name="FormUrl" Type="nvarchar" MaxLength="50" />
           <Property Name="SaveUrl" Type="nvarchar" MaxLength="50" />
-          <Property Name="Prop" Type="nvarchar" MaxLength="50" />
-          <Property Name="Label" Type="nvarchar" MaxLength="50" />
-          <Property Name="Width" Type="nvarchar" MaxLength="50" />
           <Property Name="ItemAttributes" Type="nvarchar(max)" />
           <Property Name="ButtonIcon1" Type="nvarchar" MaxLength="50" />
           <Property Name="ButtonIcon2" Type="nvarchar" MaxLength="50" />
@@ -291,8 +286,8 @@
           <EntitySet Name="View_menu" EntityType="webDmsModel.View_menu" />
           <EntitySet Name="Sys_dictionarydata" EntityType="webDmsModel.Sys_dictionarydata" />
           <EntitySet Name="Global_Condition" EntityType="webDmsModel.Global_Condition" />
-          <EntitySet Name="Sys_Template" EntityType="webDmsModel.Sys_Template" />
           <EntitySet Name="Sys_Menu" EntityType="webDmsModel.Sys_Menu" />
+          <EntitySet Name="Sys_Template" EntityType="webDmsModel.Sys_Template" />
         </EntityContainer>
         <EntityType Name="View_menu">
           <Key>
@@ -332,27 +327,6 @@
           <Property Name="pageSize" Type="Int32" Nullable="false" />
           <Property Name="currentPage" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Sys_Template">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ControlName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Ref" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Attributes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FindUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FormUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SaveUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Prop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ItemAttributes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ButtonIcon1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ButtonIcon2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ButtonIcon3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Sys_Menu">
           <Key>
             <PropertyRef Name="MenuID" />
@@ -366,6 +340,22 @@
           <Property Name="IsValid" Type="Int32" />
           <Property Name="ApplicationNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Xh" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sys_Template">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ControlName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FindUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SaveUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemAttributes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ButtonIcon1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ButtonIcon2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ButtonIcon3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -500,28 +490,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sys_Template">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_Template">
-              <MappingFragment StoreEntitySet="Sys_Template">
-                <ScalarProperty Name="Describe" ColumnName="Describe" />
-                <ScalarProperty Name="ButtonIcon3" ColumnName="ButtonIcon3" />
-                <ScalarProperty Name="ButtonIcon2" ColumnName="ButtonIcon2" />
-                <ScalarProperty Name="ButtonIcon1" ColumnName="ButtonIcon1" />
-                <ScalarProperty Name="ItemAttributes" ColumnName="ItemAttributes" />
-                <ScalarProperty Name="Width" ColumnName="Width" />
-                <ScalarProperty Name="Label" ColumnName="Label" />
-                <ScalarProperty Name="Prop" ColumnName="Prop" />
-                <ScalarProperty Name="SaveUrl" ColumnName="SaveUrl" />
-                <ScalarProperty Name="FormUrl" ColumnName="FormUrl" />
-                <ScalarProperty Name="FindUrl" ColumnName="FindUrl" />
-                <ScalarProperty Name="Attributes" ColumnName="Attributes" />
-                <ScalarProperty Name="Ref" ColumnName="Ref" />
-                <ScalarProperty Name="ControlName" ColumnName="ControlName" />
-                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sys_Menu">
             <EntityTypeMapping TypeName="webDmsModel.Sys_Menu">
               <MappingFragment StoreEntitySet="Sys_Menu">
@@ -534,6 +502,23 @@
                 <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
                 <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
                 <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Template">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Template">
+              <MappingFragment StoreEntitySet="Sys_Template">
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="ButtonIcon3" ColumnName="ButtonIcon3" />
+                <ScalarProperty Name="ButtonIcon2" ColumnName="ButtonIcon2" />
+                <ScalarProperty Name="ButtonIcon1" ColumnName="ButtonIcon1" />
+                <ScalarProperty Name="ItemAttributes" ColumnName="ItemAttributes" />
+                <ScalarProperty Name="SaveUrl" ColumnName="SaveUrl" />
+                <ScalarProperty Name="FormUrl" ColumnName="FormUrl" />
+                <ScalarProperty Name="FindUrl" ColumnName="FindUrl" />
+                <ScalarProperty Name="ControlName" ColumnName="ControlName" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -17,14 +17,9 @@ namespace webDmsApi.Models
         public int ID { get; set; }
         public string TemplateName { get; set; }
         public string ControlName { get; set; }
-        public string Ref { get; set; }
-        public string Attributes { get; set; }
         public string FindUrl { get; set; }
         public string FormUrl { get; set; }
         public string SaveUrl { get; set; }
-        public string Prop { get; set; }
-        public string Label { get; set; }
-        public string Width { get; set; }
         public string ItemAttributes { get; set; }
         public string ButtonIcon1 { get; set; }
         public string ButtonIcon2 { get; set; }

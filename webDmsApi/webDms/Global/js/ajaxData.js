@@ -1,4 +1,5 @@
 //ajax全局事件调用
+
 var ajaxGloble = function() {
     $.ajaxSetup({ //设置全局性的Ajax选项
         type: "POST",
@@ -19,20 +20,28 @@ var ajaxGloble = function() {
         //判断返回状态是否为真
         if (xhr.responseJSON.result == true) {
             if (xhr.responseJSON.message != "" && xhr.responseJSON.message != null) {
-                parent.layer.msg(xhr.responseJSON.message, {
-                    icon: 6,
-                    offset: 't',
-                    anim: 4
+                new Vue().$message({
+                    message: xhr.responseJSON.message,
+                    type: 'success'
                 });
+                //parent.layer.msg(xhr.responseJSON.message, {
+                //    icon: 6,
+                //    offset: 't',
+                //    anim: 4
+                //});
             }
         }
         //判断返回状态是否为否
         if (xhr.responseJSON.result == false) {
-            parent.layer.msg(xhr.responseJSON.message, {
-                icon: 5,
-                offset: 't',
-                anim: 6
+            new Vue().$message({
+                message: xhr.responseJSON.message,
+                type: 'error'
             });
+            //parent.layer.msg(xhr.responseJSON.message, {
+            //    icon: 5,
+            //    offset: 't',
+            //    anim: 6
+            //});
             if (xhr.responseJSON.direct) {
                 window.location.href = xhr.responseJSON.direct;
             }
@@ -43,17 +52,25 @@ var ajaxGloble = function() {
         }
 
         if (xhr.statusText == "timeout") {
-            parent.layer.msg("访问超时！", {
-                icon: 5,
-                offset: 't',
-                anim: 6
+            new Vue().$message({
+                message: '访问超时！',
+                type: 'error'
             });
+            //parent.layer.msg("访问超时！", {
+            //    icon: 5,
+            //    offset: 't',
+            //    anim: 6
+            //});
         } else {
-            parent.layer.msg(xhr.statusText, {
-                icon: 5,
-                offset: 't',
-                anim: 6
+            new Vue().$message({
+                message: xhr.statusText,
+                type: 'error'
             });
+            //parent.layer.msg(xhr.statusText, {
+            //    icon: 5,
+            //    offset: 't',
+            //    anim: 6
+            //});
         }
         //layer.close(index);
         loadTimeOut = false;
@@ -67,9 +84,9 @@ var ajaxGloble = function() {
     });
 }
 
-
+ajaxGloble();
 var ajaxData = function(url, option) {
-    ajaxGloble();
+    
     var _defaults = {
         url: url,
         type: 'POST',
@@ -100,3 +117,4 @@ var hostUrl = 'http://localhost/webDmsApi/';
 var getUrl = function(url) {
     return hostUrl + url;
 }
+

@@ -42,6 +42,7 @@ li > a i { margin-right: 10px; }
 
 .el-dialog--full .el-dialog__footer { background-color: #f8f8f8; padding: 10px 15px; text-align: center; box-sizing: border-box; position: absolute; width: 100%; bottom: 0; }
 
+.el-input__inner{border-radius:3px}
 
 /*加载框样式*/
 

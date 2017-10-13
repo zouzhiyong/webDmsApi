@@ -34,7 +34,7 @@ namespace webDmsApi.Models
         public virtual DbSet<View_menu> View_menu { get; set; }
         public virtual DbSet<Sys_dictionarydata> Sys_dictionarydata { get; set; }
         public virtual DbSet<Global_Condition> Global_Condition { get; set; }
-        public virtual DbSet<Sys_Template> Sys_Template { get; set; }
         public virtual DbSet<Sys_Menu> Sys_Menu { get; set; }
+        public virtual DbSet<Sys_Template> Sys_Template { get; set; }
     }
 }

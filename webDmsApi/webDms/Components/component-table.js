@@ -3,7 +3,6 @@ Vue.component('component-table', {
         return {
             height: 0,
             tableData: {},
-            Attributes: {}
         }
     },
     props: {
@@ -12,8 +11,7 @@ Vue.component('component-table', {
         control: { type: Object }
     },
     created: function() {
-        //获取attrs
-        this.Attributes = eval('(' + this.control.Attributes + ')');
+
     },
     mounted: function() {
         var height = $(this.$el).height() - 60;
@@ -30,8 +28,7 @@ Vue.component('component-table', {
                 })
                 .then(function(result) {
                     if (result) {
-                        _self.tableData = result;
-                        //_self.Attributes.attrs.data = result.rows;                        
+                        _self.tableData = result;                     
                     }
                 });
         },
@@ -64,12 +61,7 @@ Vue.component('component-table', {
         var _self = this;
         
         return _c('div', { staticStyle: { height: "100%" } }, [
-            _c('el-table', {
-                ref: JSON.parse(JSON.stringify(_self.Attributes.ref || 'table')),
-                attrs: $.extend({}, JSON.parse(JSON.stringify(_self.Attributes.attrs || {})), { data: _self.tableData.rows }),//JSON.parse(JSON.stringify(_self.Attributes.attrs || {})),
-                staticStyle: JSON.parse(JSON.stringify(_self.Attributes.staticStyle || {})),
-                staticClass: JSON.parse(JSON.stringify(_self.Attributes.staticClass || '')),
-            }, [
+            _c('el-table', { attrs: { data: _self.tableData.rows,border: true, height: '100%' }, staticStyle: { width: '100%', height: 'calc(100% - 35px)' } }, [
                 _self._l(eval('(' + _self.control.ItemAttributes + ')'), function(item) {
                     return _c('el-table-column', {
                         attrs: JSON.parse(JSON.stringify(item.attrs || {})),

@@ -19,6 +19,7 @@ Vue.component('component-dialog', {
                 data: JSON.parse(JSON.stringify(_self.$refs.form.data))
             }).then(function (result) {
                 if (result.result == true) {
+                    
                     _self.$emit('input', false);
                     var obj = JSON.parse(JSON.stringify(_self.$parent.$parent.tableCondition));
                     obj.currentPage = 1;
