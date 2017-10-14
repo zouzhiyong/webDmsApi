@@ -63,7 +63,7 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                     ]),
                     _c('el-col', { staticStyle: { height: '100%', width: 'calc(100% - 200px)' } }, [
                         _c('div', { staticStyle: { height: '100%' } }, [
-                            _c('component-table', { attrs: { columns: _self.tableColumns, control: _self.table, condition: _self.tableCondition }, on: { 'edit': _self.handleRowClick } })
+                            _c('component-table', { attrs: { control: _self.table, condition: _self.tableCondition }, on: { 'edit': _self.handleRowClick } })
                         ])
                     ])
                 ]),                

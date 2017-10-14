@@ -39,9 +39,22 @@ namespace webDmsApi.Areas.Sys
                              MenuIcon = t.MenuIcon,
                              IsValid = t.IsValid,
                              ApplicationNo = t.ApplicationNo,
-                             Control = (from t2 in db.Sys_Template
-                                        where t2.TemplateName == t.MenuUrl
-                                        select t2).ToList()
+                             Controls = (from t2 in db.Sys_Templates
+                                          join t3 in db.Sys_TemplateControl
+                                          on t2.TemplateID equals t3.TemplateID
+                                          join t4 in db.Sys_Controls
+                                          on t3.ControlID equals t4.ControlID
+                                          where t2.TemplateName == t.MenuUrl
+                                          select new {
+                                              ControlName = t4.ControlName,
+                                              ControlID = t3.ControlID,
+                                              FindUrl = t3.FindUrl,
+                                              FormUrl = t3.FormUrl,
+                                              SaveUrl = t3.SaveUrl,
+                                              SubControls = (from t5 in db.Sys_SubControls
+                                                             where (t5.ControlID == t3.ControlID)
+                                                             select t5).ToList()
+                                          }).ToList()
                          }).ToList();
 
             return Json(true, "", _list);
@@ -110,7 +123,13 @@ namespace webDmsApi.Areas.Sys
             public Menu[] children { get; set; }
         }
 
-        public partial class Rows : Global_Condition
+        public partial class TableRowPage
+        {
+            public int pageSize { get; set; }
+            public int currentPage { get; set; }
+        }
+
+        public partial class Rows : TableRowPage
         {
             public string MenuNo { get; set; }
         }
@@ -195,21 +214,19 @@ namespace webDmsApi.Areas.Sys
                                     value = a.MenuNo
                                 }))
                         });
-  
-                    return Json(true, "", list);
+
+            return Json(true, "", list);
         }
 
         public HttpResponseMessage SaveSysMoudleForm(Sys_Menu menu)
         {
             webDmsEntities db = new webDmsEntities();
 
-            //Sys_Menu u = new Sys_Menu() { MenuID = menu.MenuID };
-
             db.Entry<Sys_Menu>(menu).State = EntityState.Modified;
 
             var result = db.SaveChanges();
 
-            return Json(true, result==1?"保存成功！":"保存失败");
+            return Json(true, result == 1 ? "保存成功！" : "保存失败");
         }
     }
 }

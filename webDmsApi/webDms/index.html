@@ -172,7 +172,7 @@
             </div>
             <div class="J_mainContent">
                 <div v-for="item in openData" class="J_iframe" :data-id="item.MenuNo" :style="{display:item.active?'':'none'}">
-                    <component :is="item.MenuUrl" :title="item.MenuName" :control="item.Control">
+                    <component :is="item.MenuUrl" :title="item.MenuName" :control="item.Controls">
 
                     </component>
                 </div>

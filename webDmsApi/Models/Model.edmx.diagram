@@ -13,9 +13,11 @@
         <EntityTypeShape EntityType="webDmsModel.Sys_UserRole" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="webDmsModel.View_menu" Width="1.5" PointX="6.75" PointY="0.75" />
         <EntityTypeShape EntityType="webDmsModel.Sys_dictionarydata" Width="1.5" PointX="6.75" PointY="4.75" />
-        <EntityTypeShape EntityType="webDmsModel.Global_Condition" Width="1.5" PointX="6.75" PointY="7.75" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_Menu" Width="1.5" PointX="8.875" PointY="5.125" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_Template" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_Menu" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_Controls" Width="1.5" PointX="10.625" PointY="2.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_SubControls" Width="1.5" PointX="10.625" PointY="4.625" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_Templates" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_TemplateControl" Width="1.5" PointX="0.75" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,9 +12,10 @@ namespace webDmsApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Global_Condition
+    public partial class Sys_Controls
     {
-        public int pageSize { get; set; }
-        public int currentPage { get; set; }
+        public int ControlID { get; set; }
+        public string ControlName { get; set; }
+        public string Describe { get; set; }
     }
 }

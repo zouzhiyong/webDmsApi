@@ -1,51 +1,50 @@
 Vue.component('component-table', {
-    data: function() {
+    data: function () {
         return {
             height: 0,
-            tableData: {},
-        }
+            tableData: ""
+        };
     },
     props: {
-        columns: { type: Array },
         condition: { type: Object },
         control: { type: Object }
     },
-    created: function() {
+    created: function () {
 
     },
-    mounted: function() {
+    mounted: function () {
         var height = $(this.$el).height() - 60;
         this.height = height;
         this.condition.currentPage = 1;
         this.condition.pageSize = Math.floor(this.height / 40);
     },
     methods: {
-        GetData: function(condition) {
+        GetData: function (condition) {
             var _self = this;
             ajaxData(_self.control.FindUrl, {
-                    async: false,
-                    data: condition
-                })
-                .then(function(result) {
+                async: false,
+                data: condition
+            })
+                .then(function (result) {
                     if (result) {
-                        _self.tableData = result;                     
+                        _self.tableData = result;
                     }
                 });
         },
         handleRowClick: function (row) {
             this.$emit('edit', row);
         },
-        handleSizeChange: function(size) {
+        handleSizeChange: function (size) {
 
         },
-        handleCurrentChange: function(currentPage) {
+        handleCurrentChange: function (currentPage) {
             this.condition.currentPage = currentPage;
             this.GetData(this.condition);
         }
     },
     watch: {
         condition: {
-            handler: function(newVal, oldVal) {
+            handler: function (newVal, oldVal) {
                 if (newVal.currentPage && newVal.pageSize) {
                     this.GetData(newVal);
                 } else {
@@ -57,43 +56,47 @@ Vue.component('component-table', {
             deep: true
         }
     },
-    render: function(_c) {
+    render: function (_c) {
         var _self = this;
-        
+
         return _c('div', { staticStyle: { height: "100%" } }, [
-            _c('el-table', { attrs: { data: _self.tableData.rows,border: true, height: '100%' }, staticStyle: { width: '100%', height: 'calc(100% - 35px)' } }, [
-                _self._l(eval('(' + _self.control.ItemAttributes + ')'), function(item) {
-                    return _c('el-table-column', {
-                        attrs: JSON.parse(JSON.stringify(item.attrs || {})),
-                        staticStyle: JSON.parse(JSON.stringify(item.staticStyle || {})),
-                        staticClass: JSON.parse(JSON.stringify(item.staticClass || '')),
+            _c('el-table', { attrs: { data: _self.tableData.rows, border: true, height: '100%' }, staticStyle: { width: '100%', height: 'calc(100% - 35px)' } }, [
+                _self._l(_self.control.SubControls, function (item) {
+                     return _c('el-table-column', {
+                         attrs: { type: item.Type, label: item.Label, width: item.Width, align: item.Align, prop: item.Prop, 'header-align': 'center' },
+                        staticStyle: {},
+                        staticClass: '',
                         //作用域插槽的模板，重点**************
-                        scopedSlots: (item.attrs.type == 'isTemplate' || item.attrs.type == "index") ? {
-                            default: function(scope) {
-                                if (item.attrs.type == "index") {
-                                    return _self._v((scope.$index + 1 + (_self.tableData.pageSize * (_self.tableData.currentPage - 1))))
+                        scopedSlots: (item.TempateControls !== null && (item.Type === 'template' || item.Type === "index")) ? ({
+                            default: function (scope) {
+                                var TempateControls = item.TempateControls == null ? '' : item.TempateControls.split("|");
+                                var TempateIcons = item.TempateIcons == null ? '' : item.TempateIcons.split("|");
+                                var TempateEvents = item.TempateEvents == null ? '' : item.TempateEvents.split("|");
+                                
+                                if (item.Type === "index") {
+                                    return _self._v((scope.$index + 1 + (_self.tableData.pageSize * (_self.tableData.currentPage - 1))));
                                 } else {
                                     return _c('div', [
-                                        _self._l(item.subControl, function(_item) {
-                                            return _c(_item.type, {
-                                                attrs: JSON.parse(JSON.stringify(_item.attrs || {})),
+                                        _self._l(TempateControls, function (_item, index) {                                            
+                                            return _c(_item, {
+                                                attrs: { type: 'text' },
+                                                staticStyle: { width: '30px' },
                                                 nativeOn: {
-                                                    click: function($event) {
+                                                    click: function ($event) {
                                                         $event.preventDefault();
-                                                        var event = '_self.' + _item.event;
+                                                        var event = '_self.' + TempateEvents[index];
                                                         eval('(' + event + ')');
                                                     }
-                                                },
-                                                staticStyle: JSON.parse(JSON.stringify(_item.staticStyle || {})),
+                                                }
                                             }, [
-                                                _c('i', { staticClass: _item.icon })
-                                            ])
+                                                _c('i', { staticClass: TempateIcons[index] })
+                                            ]);
                                         })
-                                    ])
+                                    ]);
                                 }
                             }
-                        } : _self._e()
-                    })
+                        }) : (_self._e())
+                    });
                 })
             ]),
             _c('el-pagination', {
@@ -109,7 +112,7 @@ Vue.component('component-table', {
             }, [
                 _c('span', '显示第 ' + (_self.tableData.pageSize * _self.tableData.currentPage - _self.tableData.pageSize + 1) + ' 到第 ' + ((_self.tableData.pageSize * _self.tableData.currentPage) > _self.tableData.total ? _self.tableData.total : (_self.tableData.pageSize * _self.tableData.currentPage)) + ' 条记录，总共 ' + _self.tableData.total + ' 条记录')
             ])
-        ])
+        ]);
 
     }
-})
+});

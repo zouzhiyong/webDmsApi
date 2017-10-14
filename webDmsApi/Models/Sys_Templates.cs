@@ -12,18 +12,10 @@ namespace webDmsApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Sys_Template
+    public partial class Sys_Templates
     {
-        public int ID { get; set; }
+        public int TemplateID { get; set; }
         public string TemplateName { get; set; }
-        public string ControlName { get; set; }
-        public string FindUrl { get; set; }
-        public string FormUrl { get; set; }
-        public string SaveUrl { get; set; }
-        public string ItemAttributes { get; set; }
-        public string ButtonIcon1 { get; set; }
-        public string ButtonIcon2 { get; set; }
-        public string ButtonIcon3 { get; set; }
         public string Describe { get; set; }
     }
 }

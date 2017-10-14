@@ -1,25 +1,24 @@
 //ajax全局事件调用
-
-var ajaxGloble = function() {
+(function () {
     $.ajaxSetup({ //设置全局性的Ajax选项
         type: "POST",
         timeout: 30000, //超时时间设置，单位毫秒
         dataType: "json"
-    })
+    });
     var index;
     var loadTimeOut = true;
-    $(document).ajaxStart(function() {
+    $(document).ajaxStart(function () {
         //超过500毫秒才会显示加载层
-        setTimeout(function() {
+        setTimeout(function () {
             if (loadTimeOut) {
                 window.top.$(".loadingBox.ajax", window.top.document).show();
             }
 
         }, 500);
-    }).ajaxSuccess(function(e, xhr, o) {
+    }).ajaxSuccess(function (e, xhr, o) {
         //判断返回状态是否为真
-        if (xhr.responseJSON.result == true) {
-            if (xhr.responseJSON.message != "" && xhr.responseJSON.message != null) {
+        if (xhr.responseJSON.result === true) {
+            if (xhr.responseJSON.message !== "" && xhr.responseJSON.message !== null) {
                 new Vue().$message({
                     message: xhr.responseJSON.message,
                     type: 'success'
@@ -32,7 +31,7 @@ var ajaxGloble = function() {
             }
         }
         //判断返回状态是否为否
-        if (xhr.responseJSON.result == false) {
+        if (xhr.responseJSON.result === false) {
             new Vue().$message({
                 message: xhr.responseJSON.message,
                 type: 'error'
@@ -46,12 +45,12 @@ var ajaxGloble = function() {
                 window.location.href = xhr.responseJSON.direct;
             }
         }
-    }).ajaxError(function(e, xhr, o) {
-        if (xhr.statusText == "abort") {
+    }).ajaxError(function (e, xhr, o) {
+        if (xhr.statusText === "abort") {
             return;
         }
 
-        if (xhr.statusText == "timeout") {
+        if (xhr.statusText === "timeout") {
             new Vue().$message({
                 message: '访问超时！',
                 type: 'error'
@@ -75,46 +74,46 @@ var ajaxGloble = function() {
         //layer.close(index);
         loadTimeOut = false;
         window.top.$(".loadingBox.ajax", window.top.document).hide();
-    }).ajaxComplete(function(e, xhr, o) {
+    }).ajaxComplete(function (e, xhr, o) {
 
-    }).ajaxStop(function() {
+    }).ajaxStop(function () {
         //layer.close(index);
         loadTimeOut = false;
         window.top.$(".loadingBox.ajax", window.top.document).hide();
     });
-}
+})();
 
-ajaxGloble();
-var ajaxData = function(url, option) {
-    
+
+var ajaxData = function (url, option) {
+
     var _defaults = {
         url: url,
         type: 'POST',
         async: true,
         global: true,
-        beforeSend: function(xhr) {
+        beforeSend: function (xhr) {
             var _ticket = $.cookie('Ticket');
             if (_ticket) {
                 xhr.setRequestHeader('Authorization', 'BasicAuth ' + _ticket);
             }
         },
-        success: function(result) {
+        success: function (result) {
             return result;
         },
-        error: function(e) {
+        error: function (e) {
             return e;
         }
-    }
+    };
 
     var opts = $.extend({}, _defaults, option);
     opts.url = getUrl(opts.url);
     return $.ajax(opts);
-}
+};
 
 
 // var hostUrl = 'http://localhost:64573/';
 var hostUrl = 'http://localhost/webDmsApi/';
-var getUrl = function(url) {
+var getUrl = function (url) {
     return hostUrl + url;
-}
+};
 

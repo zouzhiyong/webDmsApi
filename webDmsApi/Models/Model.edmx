@@ -5,14 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="webDmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Global_Condition">
-          <Key>
-            <PropertyRef Name="pageSize" />
-            <PropertyRef Name="currentPage" />
-          </Key>
-          <Property Name="pageSize" Type="int" Nullable="false" />
-          <Property Name="currentPage" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Sys_Application">
           <Key>
             <PropertyRef Name="ApplicationID" />
@@ -34,6 +26,14 @@
           <Property Name="BtnIcon" Type="nvarchar" MaxLength="50" />
           <Property Name="BtnScript" Type="nvarchar" MaxLength="50" />
           <Property Name="MenuNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sys_Controls">
+          <Key>
+            <PropertyRef Name="ControlID" />
+          </Key>
+          <Property Name="ControlID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ControlName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Describe" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Sys_dictionarydata">
           <Key>
@@ -86,20 +86,41 @@
           <Property Name="ModifyUserID" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
-        <EntityType Name="Sys_Template">
+        <EntityType Name="Sys_SubControls">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="SubControlID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TemplateName" Type="nvarchar" MaxLength="50" />
-          <Property Name="ControlName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubControlID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ControlID" Type="int" />
+          <Property Name="SubControlName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Prop" Type="nvarchar" MaxLength="50" />
+          <Property Name="Label" Type="nvarchar" MaxLength="50" />
+          <Property Name="Width" Type="nvarchar" MaxLength="50" />
+          <Property Name="Align" Type="nvarchar" MaxLength="50" />
+          <Property Name="TempateControls" Type="nvarchar(max)" />
+          <Property Name="TempateIcons" Type="nvarchar(max)" />
+          <Property Name="TempateEvents" Type="nvarchar(max)" />
+          <Property Name="Describe" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Sys_TemplateControl">
+          <Key>
+            <PropertyRef Name="TemplateID" />
+            <PropertyRef Name="ControlID" />
+          </Key>
+          <Property Name="TemplateID" Type="int" Nullable="false" />
+          <Property Name="ControlID" Type="int" Nullable="false" />
           <Property Name="FindUrl" Type="nvarchar" MaxLength="50" />
           <Property Name="FormUrl" Type="nvarchar" MaxLength="50" />
           <Property Name="SaveUrl" Type="nvarchar" MaxLength="50" />
-          <Property Name="ItemAttributes" Type="nvarchar(max)" />
-          <Property Name="ButtonIcon1" Type="nvarchar" MaxLength="50" />
-          <Property Name="ButtonIcon2" Type="nvarchar" MaxLength="50" />
-          <Property Name="ButtonIcon3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Describe" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Sys_Templates">
+          <Key>
+            <PropertyRef Name="TemplateID" />
+          </Key>
+          <Property Name="TemplateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateName" Type="nvarchar" MaxLength="50" />
           <Property Name="Describe" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Sys_User">
@@ -161,14 +182,16 @@
           <Property Name="ApplicationNo" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityContainer Name="webDmsModelStoreContainer">
-          <EntitySet Name="Global_Condition" EntityType="Self.Global_Condition" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Application" EntityType="Self.Sys_Application" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Button" EntityType="Self.Sys_Button" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Controls" EntityType="Self.Sys_Controls" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_dictionarydata" EntityType="Self.Sys_dictionarydata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Menu" EntityType="Self.Sys_Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Role" EntityType="Self.Sys_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_RoleMenu" EntityType="Self.Sys_RoleMenu" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sys_Template" EntityType="Self.Sys_Template" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_SubControls" EntityType="Self.Sys_SubControls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_TemplateControl" EntityType="Self.Sys_TemplateControl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Templates" EntityType="Self.Sys_Templates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_User" EntityType="Self.Sys_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_UserRole" EntityType="Self.Sys_UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="View_menu" EntityType="Self.View_menu" store:Type="Views" store:Schema="dbo">
@@ -285,9 +308,11 @@
           <EntitySet Name="Sys_UserRole" EntityType="Self.Sys_UserRole" />
           <EntitySet Name="View_menu" EntityType="webDmsModel.View_menu" />
           <EntitySet Name="Sys_dictionarydata" EntityType="webDmsModel.Sys_dictionarydata" />
-          <EntitySet Name="Global_Condition" EntityType="webDmsModel.Global_Condition" />
           <EntitySet Name="Sys_Menu" EntityType="webDmsModel.Sys_Menu" />
-          <EntitySet Name="Sys_Template" EntityType="webDmsModel.Sys_Template" />
+          <EntitySet Name="Sys_Controls" EntityType="webDmsModel.Sys_Controls" />
+          <EntitySet Name="Sys_SubControls" EntityType="webDmsModel.Sys_SubControls" />
+          <EntitySet Name="Sys_Templates" EntityType="webDmsModel.Sys_Templates" />
+          <EntitySet Name="Sys_TemplateControl" EntityType="webDmsModel.Sys_TemplateControl" />
         </EntityContainer>
         <EntityType Name="View_menu">
           <Key>
@@ -319,14 +344,6 @@
           <Property Name="dictdata_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="dictdata_Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Global_Condition">
-          <Key>
-            <PropertyRef Name="pageSize" />
-            <PropertyRef Name="currentPage" />
-          </Key>
-          <Property Name="pageSize" Type="Int32" Nullable="false" />
-          <Property Name="currentPage" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="Sys_Menu">
           <Key>
             <PropertyRef Name="MenuID" />
@@ -341,20 +358,49 @@
           <Property Name="ApplicationNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Xh" Type="Int32" />
         </EntityType>
-        <EntityType Name="Sys_Template">
+        <EntityType Name="Sys_Controls">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="ControlID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ControlName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_SubControls">
+          <Key>
+            <PropertyRef Name="SubControlID" />
+          </Key>
+          <Property Name="SubControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubControlName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Align" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TempateControls" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TempateIcons" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TempateEvents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ControlID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sys_Templates">
+          <Key>
+            <PropertyRef Name="TemplateID" />
+          </Key>
+          <Property Name="TemplateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_TemplateControl">
+          <Key>
+            <PropertyRef Name="TemplateID" />
+            <PropertyRef Name="ControlID" />
+          </Key>
+          <Property Name="TemplateID" Type="Int32" Nullable="false" />
+          <Property Name="ControlID" Type="Int32" Nullable="false" />
           <Property Name="FindUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FormUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SaveUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ItemAttributes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ButtonIcon1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ButtonIcon2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ButtonIcon3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
@@ -482,14 +528,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Global_Condition">
-            <EntityTypeMapping TypeName="webDmsModel.Global_Condition">
-              <MappingFragment StoreEntitySet="Global_Condition">
-                <ScalarProperty Name="currentPage" ColumnName="currentPage" />
-                <ScalarProperty Name="pageSize" ColumnName="pageSize" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sys_Menu">
             <EntityTypeMapping TypeName="webDmsModel.Sys_Menu">
               <MappingFragment StoreEntitySet="Sys_Menu">
@@ -505,20 +543,51 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sys_Template">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_Template">
-              <MappingFragment StoreEntitySet="Sys_Template">
+          <EntitySetMapping Name="Sys_Controls">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Controls">
+              <MappingFragment StoreEntitySet="Sys_Controls">
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
-                <ScalarProperty Name="ButtonIcon3" ColumnName="ButtonIcon3" />
-                <ScalarProperty Name="ButtonIcon2" ColumnName="ButtonIcon2" />
-                <ScalarProperty Name="ButtonIcon1" ColumnName="ButtonIcon1" />
-                <ScalarProperty Name="ItemAttributes" ColumnName="ItemAttributes" />
+                <ScalarProperty Name="ControlName" ColumnName="ControlName" />
+                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_SubControls">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_SubControls">
+              <MappingFragment StoreEntitySet="Sys_SubControls">
+                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="TempateEvents" ColumnName="TempateEvents" />
+                <ScalarProperty Name="TempateIcons" ColumnName="TempateIcons" />
+                <ScalarProperty Name="TempateControls" ColumnName="TempateControls" />
+                <ScalarProperty Name="Align" ColumnName="Align" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Prop" ColumnName="Prop" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="SubControlName" ColumnName="SubControlName" />
+                <ScalarProperty Name="SubControlID" ColumnName="SubControlID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Templates">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Templates">
+              <MappingFragment StoreEntitySet="Sys_Templates">
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_TemplateControl">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_TemplateControl">
+              <MappingFragment StoreEntitySet="Sys_TemplateControl">
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
                 <ScalarProperty Name="SaveUrl" ColumnName="SaveUrl" />
                 <ScalarProperty Name="FormUrl" ColumnName="FormUrl" />
                 <ScalarProperty Name="FindUrl" ColumnName="FindUrl" />
-                <ScalarProperty Name="ControlName" ColumnName="ControlName" />
-                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
+                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
