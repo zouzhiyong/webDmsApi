@@ -22,15 +22,15 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
             iniData: function() {
                 var _self = this;
                 this.control.map(function(item) {
-                    if (item.ControlName == 'component-tree') {
+                    if (item.ControlName === 'component-tree') {
                         _self.tree = item;
                     }
 
-                    if (item.ControlName == 'component-table') {
+                    if (item.ControlName === 'component-table') {
                         _self.table = item;
                     }
 
-                    if (item.ControlName == 'component-form') {
+                    if (item.ControlName === 'component-form') {
                         _self.form = item;
                     }
                 })

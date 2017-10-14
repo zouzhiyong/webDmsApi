@@ -20,7 +20,7 @@ Vue.component('component-form', {
             var _self = this;
             ajaxData(_self.control.FormUrl, {
                 async: false,
-                data: _self.condition
+                data: { MenuID: _self.condition.MenuID }
             })
                 .then(function (result) {
                     if (result) {
@@ -42,9 +42,9 @@ Vue.component('component-form', {
                 attrs: { 'label-width': '80px', inline: true, model: _self.data }
             }, [
                 _self._l(_self.control.SubControls, function (item) {
-                    var TempateControls = item.TempateControls==null?'':item.TempateControls.split("|");
-                    var TempateIcons = item.TempateIcons == null ? '' : item.TempateIcons.split("|");
-                    var TempateEvents = item.TempateEvents == null ? '' : item.TempateEvents.split("|");
+                    var TempateControls = item.TempateControls===null?'':item.TempateControls.split("|");
+                    var TempateIcons = item.TempateIcons === null ? '' : item.TempateIcons.split("|");
+                    var TempateEvents = item.TempateEvents === null ? '' : item.TempateEvents.split("|");
                     return _c('el-form-item', { attrs: { label: item.Label, prop: item.Prop } }, [
                         _self._l(TempateControls, function (_item,index) {
                             if (_item === 'el-select') {

@@ -123,31 +123,25 @@ namespace webDmsApi.Areas.Sys
             public Menu[] children { get; set; }
         }
 
-        public partial class TableRowPage
-        {
-            public int pageSize { get; set; }
-            public int currentPage { get; set; }
-        }
-
-        public partial class Rows : TableRowPage
-        {
-            public string MenuNo { get; set; }
-        }
+       
         /// <summary>
         /// 获取菜单编辑窗口右边表格
         /// </summary>
         /// <returns></returns>
-        public HttpResponseMessage FindSysMoudleRow(Rows parentNo)
+        public HttpResponseMessage FindSysMoudleRow(dynamic obj)
         {
             webDmsEntities db = new webDmsEntities();
 
+            string MenuNo = obj.MenuNo;
+            int pageSize = obj.pageSize;
+            int currentPage = obj.currentPage;
 
             //var list = db.Sys_Menu.Where<Sys_Menu>(p => p.MenuParentNo == parentNo);
 
             var data = (from t1 in db.Sys_Menu
                         join t2 in db.Sys_dictionarydata
                         on t1.ApplicationNo equals t2.dictdata_Value
-                        where (t2.dictdata_Table == "Sys_Menu" && t2.dictdata_Field == "ApplicationNo" && t1.MenuParentNo == parentNo.MenuNo)
+                        where (t2.dictdata_Table == "Sys_Menu" && t2.dictdata_Field == "ApplicationNo" && t1.MenuParentNo == MenuNo)
                         select new
                         {
                             MenuID = t1.MenuID,
@@ -159,8 +153,8 @@ namespace webDmsApi.Areas.Sys
                         }).ToList();
             var rows = data
                 .OrderBy(a => a.MenuID)
-                .Skip(parentNo.pageSize * (parentNo.currentPage - 1))
-                .Take(parentNo.pageSize);
+                .Skip(pageSize * (currentPage - 1))
+                .Take(pageSize);
 
 
             //object[] arr = new object[]
@@ -174,14 +168,16 @@ namespace webDmsApi.Areas.Sys
             //    };
 
 
-            return Json(rows, parentNo.currentPage, parentNo.pageSize, data.Count);
+            return Json(rows, currentPage, pageSize, data.Count);
         }
 
-        public HttpResponseMessage FindSysMoudleForm(Menu menu)
+        public HttpResponseMessage FindSysMoudleForm(dynamic obj)
         {
-            webDmsEntities db = new webDmsEntities();
 
-            var _list = db.Sys_Menu.Where<Sys_Menu>(p => p.MenuID == menu.MenuID);
+            webDmsEntities db = new webDmsEntities();
+            int MenuID = obj.MenuID;
+
+            var _list = db.Sys_Menu.Where<Sys_Menu>(p => p.MenuID == MenuID);
 
             var list = (from t1 in _list
                         select new

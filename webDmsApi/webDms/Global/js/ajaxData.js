@@ -3,7 +3,8 @@
     $.ajaxSetup({ //设置全局性的Ajax选项
         type: "POST",
         timeout: 30000, //超时时间设置，单位毫秒
-        dataType: "json"
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8"
     });
     var index;
     var loadTimeOut = true;
@@ -107,6 +108,7 @@ var ajaxData = function (url, option) {
 
     var opts = $.extend({}, _defaults, option);
     opts.url = getUrl(opts.url);
+    opts.data = JSON.stringify(opts.data);
     return $.ajax(opts);
 };
 
