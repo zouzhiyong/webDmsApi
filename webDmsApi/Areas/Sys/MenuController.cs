@@ -131,7 +131,7 @@ namespace webDmsApi.Areas.Sys
         public HttpResponseMessage FindSysMoudleRow(dynamic obj)
         {
             webDmsEntities db = new webDmsEntities();
-
+            
             string MenuNo = obj.MenuNo;
             int pageSize = obj.pageSize;
             int currentPage = obj.currentPage;

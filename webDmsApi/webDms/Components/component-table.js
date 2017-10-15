@@ -67,12 +67,11 @@ Vue.component('component-table', {
                         staticStyle: {},
                         staticClass: '',
                         //作用域插槽的模板，重点**************
-                        scopedSlots: (item.TempateControls !== null && (item.Type === 'template' || item.Type === "index")) ? ({
+                        scopedSlots: (item.Type === 'template' || item.Type === "index") ? ({
                             default: function (scope) {
                                 var TempateControls = item.TempateControls === null ? '' : item.TempateControls.split("|");
                                 var TempateIcons = item.TempateIcons === null ? '' : item.TempateIcons.split("|");
                                 var TempateEvents = item.TempateEvents === null ? '' : item.TempateEvents.split("|");
-                                
                                 if (item.Type === "index") {
                                     return _self._v((scope.$index + 1 + (_self.tableData.pageSize * (_self.tableData.currentPage - 1))));
                                 } else {

@@ -33,10 +33,10 @@ namespace webDmsApi.Models
         public virtual DbSet<Sys_UserRole> Sys_UserRole { get; set; }
         public virtual DbSet<View_menu> View_menu { get; set; }
         public virtual DbSet<Sys_dictionarydata> Sys_dictionarydata { get; set; }
-        public virtual DbSet<Sys_Menu> Sys_Menu { get; set; }
         public virtual DbSet<Sys_Controls> Sys_Controls { get; set; }
         public virtual DbSet<Sys_SubControls> Sys_SubControls { get; set; }
         public virtual DbSet<Sys_Templates> Sys_Templates { get; set; }
         public virtual DbSet<Sys_TemplateControl> Sys_TemplateControl { get; set; }
+        public virtual DbSet<Sys_Menu> Sys_Menu { get; set; }
     }
 }
