@@ -52,7 +52,7 @@ namespace webDmsApi.Areas.Sys
                                               FormUrl = t3.FormUrl,
                                               SaveUrl = t3.SaveUrl,
                                               SubControls = (from t5 in db.Sys_SubControls
-                                                             where (t5.ControlID == t3.ControlID)
+                                                             where (t5.ControlID == t3.ControlID && t5.TemplateID==t3.TemplateID)
                                                              select t5).ToList()
                                           }).ToList()
                          }).ToList();
