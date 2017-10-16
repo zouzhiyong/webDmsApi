@@ -1,9 +1,8 @@
-define(['Components/component-tree.js', 'Components/component-table.js', 'Components/component-form.js', 'Components/component-dialog.js'], function(tree, table, form) {
+define(['Components/component-table.js', 'Components/component-form.js', 'Components/component-dialog.js'], function (tree, table, form) {
     Vue.component('sys-moudle', {
-        data: function() {
+        data: function () {
             return {
                 tableCondition: {},
-                tree: {},
                 table: {},
                 form: {},
                 formCondition: {},
@@ -14,18 +13,14 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
             title: { type: String },
             control: { type: Array }
         },
-        created: function() {
+        created: function () {
             this.iniData();
         },
-        mounted: function() {},
+        mounted: function () { },
         methods: {
-            iniData: function() {
+            iniData: function () {
                 var _self = this;
-                this.control.map(function(item) {
-                    if (item.ControlName === 'component-tree') {
-                        _self.tree = item;
-                    }
-
+                this.control.map(function (item) {
                     if (item.ControlName === 'component-table') {
                         _self.table = item;
                     }
@@ -35,7 +30,7 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                     }
                 })
             },
-            handleNodeClick: function(data) {
+            handleNodeClick: function (data) {
                 var _self = this;
                 this.tableCondition = data;
             },
@@ -44,7 +39,7 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                 this.dialogFormVisible = true;
             }
         },
-        render: function(_c) {
+        render: function (_c) {
             var _self = this;
 
             return _c('el-row', { staticStyle: { height: '100%' } }, [
@@ -56,18 +51,13 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                     ])
                 ]),
                 _c('el-row', { attrs: { gutter: 10 }, staticStyle: { height: 'calc(100% - 40px)' } }, [
-                    _c('el-col', { staticStyle: { height: '100%', width: '200px' } }, [
-                        _c('div', { staticStyle: { height: '100%' } }, [
-                            _c('component-tree', { attrs: { control: _self.tree }, on: { 'node-click': _self.handleNodeClick } })
-                        ])
-                    ]),
-                    _c('el-col', { staticStyle: { height: '100%', width: 'calc(100% - 200px)' } }, [
+                    _c('el-col', { staticStyle: { height: '100%', width: '100%' } }, [
                         _c('div', { staticStyle: { height: '100%' } }, [
                             _c('component-table', { attrs: { control: _self.table, condition: _self.tableCondition }, on: { 'edit': _self.handleRowClick } })
                         ])
                     ])
-                ]),                
-                _c('component-dialog', { attrs: { control: _self.form, condition: _self.formCondition,"title": _self.title }, model: { value: (_self.dialogFormVisible), callback: function ($$v) { _self.dialogFormVisible = $$v}, expression: '_self.dialogFormVisible' } })
+                ]),
+                _c('component-dialog', { attrs: { control: _self.form, condition: _self.formCondition, "title": _self.title }, model: { value: (_self.dialogFormVisible), callback: function ($$v) { _self.dialogFormVisible = $$v }, expression: '_self.dialogFormVisible' } })
             ])
         }
     })

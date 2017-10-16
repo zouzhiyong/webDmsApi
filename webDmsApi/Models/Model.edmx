@@ -4,7 +4,45 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="webDmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="webDmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bas_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="60" />
+          <Property Name="LinkMan" Type="nvarchar" MaxLength="20" />
+          <Property Name="LinkManPhone" Type="nvarchar" MaxLength="30" />
+          <Property Name="Region" Type="nvarchar" MaxLength="30" />
+          <Property Name="QQ" Type="nvarchar" MaxLength="20" />
+          <Property Name="Wechat" Type="nvarchar" MaxLength="20" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone1" Type="nvarchar" MaxLength="30" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="30" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepositAmount" Type="money" />
+          <Property Name="IsValid" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Bas_Supplier">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupplierName" Type="nvarchar" MaxLength="60" />
+          <Property Name="LinkMan" Type="nvarchar" MaxLength="20" />
+          <Property Name="LinkManPhone" Type="nvarchar" MaxLength="30" />
+          <Property Name="QQ" Type="nvarchar" MaxLength="20" />
+          <Property Name="Wechat" Type="nvarchar" MaxLength="20" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone1" Type="nvarchar" MaxLength="30" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="30" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsValid" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="Sys_Application">
           <Key>
             <PropertyRef Name="ApplicationID" />
@@ -58,6 +96,16 @@
           <Property Name="IsValid" Type="int" />
           <Property Name="ApplicationNo" Type="nvarchar" MaxLength="10" />
           <Property Name="Xh" Type="int" />
+        </EntityType>
+        <EntityType Name="Sys_OperateLog">
+          <Key>
+            <PropertyRef Name="OperateID" />
+          </Key>
+          <Property Name="OperateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="DateTime" Type="datetime" />
+          <Property Name="Action" Type="nvarchar(max)" />
+          <Property Name="TableName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Sys_Role">
           <Key>
@@ -166,15 +214,13 @@
             <PropertyRef Name="LoginName" />
             <PropertyRef Name="UserID" />
             <PropertyRef Name="MenuID" />
-            <PropertyRef Name="MenuNo" />
-            <PropertyRef Name="MenuName" />
           </Key>
           <Property Name="LoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="MenuID" Type="int" Nullable="false" />
-          <Property Name="MenuNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MenuNo" Type="nvarchar" MaxLength="10" />
           <Property Name="MenuParentNo" Type="nvarchar" MaxLength="10" />
-          <Property Name="MenuName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="64" />
           <Property Name="MenuUrl" Type="nvarchar" MaxLength="200" />
           <Property Name="MenuIcon" Type="nvarchar" MaxLength="200" />
           <Property Name="IsValid" Type="int" />
@@ -182,11 +228,14 @@
           <Property Name="ApplicationNo" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityContainer Name="webDmsModelStoreContainer">
+          <EntitySet Name="Bas_Customer" EntityType="Self.Bas_Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bas_Supplier" EntityType="Self.Bas_Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Application" EntityType="Self.Sys_Application" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Button" EntityType="Self.Sys_Button" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Controls" EntityType="Self.Sys_Controls" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_dictionarydata" EntityType="Self.Sys_dictionarydata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Menu" EntityType="Self.Sys_Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_OperateLog" EntityType="Self.Sys_OperateLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Role" EntityType="Self.Sys_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_RoleMenu" EntityType="Self.Sys_RoleMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_SubControls" EntityType="Self.Sys_SubControls" Schema="dbo" store:Type="Tables" />
@@ -210,10 +259,49 @@
     FROM [dbo].[View_menu] AS [View_menu]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="webDmsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bas_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="LinkMan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LinkManPhone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Region" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="QQ" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Wechat" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Phone2" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DepositAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Bas_Supplier">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplierName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="LinkMan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LinkManPhone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="QQ" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Wechat" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Phone2" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Sys_Application">
           <Key>
             <PropertyRef Name="ApplicationID" />
@@ -235,6 +323,48 @@
           <Property Name="BtnIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BtnScript" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MenuNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sys_Controls">
+          <Key>
+            <PropertyRef Name="ControlID" />
+          </Key>
+          <Property Name="ControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ControlName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_dictionarydata">
+          <Key>
+            <PropertyRef Name="dictdata_Id" />
+          </Key>
+          <Property Name="dictdata_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dictdata_Table" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dictdata_Field" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dictdata_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dictdata_Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MenuName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="ApplicationNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Xh" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sys_OperateLog">
+          <Key>
+            <PropertyRef Name="OperateID" />
+          </Key>
+          <Property Name="OperateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <Property Name="Action" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TableName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sys_Role">
           <Key>
@@ -262,6 +392,43 @@
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="ModifyUserID" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Sys_SubControls">
+          <Key>
+            <PropertyRef Name="SubControlID" />
+          </Key>
+          <Property Name="SubControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ControlID" Type="Int32" />
+          <Property Name="SubControlName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Align" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TempateControls" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TempateIcons" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TempateEvents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_TemplateControl">
+          <Key>
+            <PropertyRef Name="TemplateID" />
+            <PropertyRef Name="ControlID" />
+          </Key>
+          <Property Name="TemplateID" Type="Int32" Nullable="false" />
+          <Property Name="ControlID" Type="Int32" Nullable="false" />
+          <Property Name="FindUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SaveUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_Templates">
+          <Key>
+            <PropertyRef Name="TemplateID" />
+          </Key>
+          <Property Name="TemplateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sys_User">
           <Key>
@@ -299,116 +466,88 @@
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityContainer Name="webDmsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Sys_Application" EntityType="Self.Sys_Application" />
-          <EntitySet Name="Sys_Button" EntityType="Self.Sys_Button" />
-          <EntitySet Name="Sys_Role" EntityType="Self.Sys_Role" />
-          <EntitySet Name="Sys_RoleMenu" EntityType="Self.Sys_RoleMenu" />
-          <EntitySet Name="Sys_User" EntityType="Self.Sys_User" />
-          <EntitySet Name="Sys_UserRole" EntityType="Self.Sys_UserRole" />
-          <EntitySet Name="View_menu" EntityType="webDmsModel.View_menu" />
-          <EntitySet Name="Sys_dictionarydata" EntityType="webDmsModel.Sys_dictionarydata" />
-          <EntitySet Name="Sys_Controls" EntityType="webDmsModel.Sys_Controls" />
-          <EntitySet Name="Sys_SubControls" EntityType="webDmsModel.Sys_SubControls" />
-          <EntitySet Name="Sys_Templates" EntityType="webDmsModel.Sys_Templates" />
-          <EntitySet Name="Sys_TemplateControl" EntityType="webDmsModel.Sys_TemplateControl" />
-          <EntitySet Name="Sys_Menu" EntityType="webDmsModel.Sys_Menu" />
-        </EntityContainer>
         <EntityType Name="View_menu">
           <Key>
             <PropertyRef Name="LoginName" />
             <PropertyRef Name="UserID" />
             <PropertyRef Name="MenuID" />
-            <PropertyRef Name="MenuNo" />
-            <PropertyRef Name="MenuName" />
           </Key>
-          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="MenuID" Type="Int32" Nullable="false" />
-          <Property Name="MenuNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MenuName" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsValid" Type="Int32" />
-          <Property Name="Xh" Type="Int32" />
-          <Property Name="ApplicationNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Sys_dictionarydata">
-          <Key>
-            <PropertyRef Name="dictdata_Id" />
-          </Key>
-          <Property Name="dictdata_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="dictdata_Table" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="dictdata_Field" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="dictdata_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="dictdata_Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Sys_Controls">
-          <Key>
-            <PropertyRef Name="ControlID" />
-          </Key>
-          <Property Name="ControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ControlName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Sys_SubControls">
-          <Key>
-            <PropertyRef Name="SubControlID" />
-          </Key>
-          <Property Name="SubControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SubControlName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Prop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Align" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TempateControls" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TempateIcons" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TempateEvents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ControlID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Sys_Templates">
-          <Key>
-            <PropertyRef Name="TemplateID" />
-          </Key>
-          <Property Name="TemplateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Sys_TemplateControl">
-          <Key>
-            <PropertyRef Name="TemplateID" />
-            <PropertyRef Name="ControlID" />
-          </Key>
-          <Property Name="TemplateID" Type="Int32" Nullable="false" />
-          <Property Name="ControlID" Type="Int32" Nullable="false" />
-          <Property Name="FindUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FormUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SaveUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Sys_Menu">
-          <Key>
-            <PropertyRef Name="MenuID" />
-          </Key>
-          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MenuNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="MenuParentNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="MenuName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsValid" Type="Int32" />
-          <Property Name="ApplicationNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Xh" Type="Int32" />
+          <Property Name="ApplicationNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityContainer Name="webDmsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bas_Customer" EntityType="Self.Bas_Customer" />
+          <EntitySet Name="Bas_Supplier" EntityType="Self.Bas_Supplier" />
+          <EntitySet Name="Sys_Application" EntityType="Self.Sys_Application" />
+          <EntitySet Name="Sys_Button" EntityType="Self.Sys_Button" />
+          <EntitySet Name="Sys_Controls" EntityType="Self.Sys_Controls" />
+          <EntitySet Name="Sys_dictionarydata" EntityType="Self.Sys_dictionarydata" />
+          <EntitySet Name="Sys_Menu" EntityType="Self.Sys_Menu" />
+          <EntitySet Name="Sys_OperateLog" EntityType="Self.Sys_OperateLog" />
+          <EntitySet Name="Sys_Role" EntityType="Self.Sys_Role" />
+          <EntitySet Name="Sys_RoleMenu" EntityType="Self.Sys_RoleMenu" />
+          <EntitySet Name="Sys_SubControls" EntityType="Self.Sys_SubControls" />
+          <EntitySet Name="Sys_TemplateControl" EntityType="Self.Sys_TemplateControl" />
+          <EntitySet Name="Sys_Templates" EntityType="Self.Sys_Templates" />
+          <EntitySet Name="Sys_User" EntityType="Self.Sys_User" />
+          <EntitySet Name="Sys_UserRole" EntityType="Self.Sys_UserRole" />
+          <EntitySet Name="View_menu" EntityType="Self.View_menu" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="webDmsModelStoreContainer" CdmEntityContainer="webDmsEntities">
+          <EntitySetMapping Name="Bas_Customer">
+            <EntityTypeMapping TypeName="webDmsModel.Bas_Customer">
+              <MappingFragment StoreEntitySet="Bas_Customer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="LinkMan" ColumnName="LinkMan" />
+                <ScalarProperty Name="LinkManPhone" ColumnName="LinkManPhone" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="QQ" ColumnName="QQ" />
+                <ScalarProperty Name="Wechat" ColumnName="Wechat" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="DepositAmount" ColumnName="DepositAmount" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bas_Supplier">
+            <EntityTypeMapping TypeName="webDmsModel.Bas_Supplier">
+              <MappingFragment StoreEntitySet="Bas_Supplier">
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="LinkMan" ColumnName="LinkMan" />
+                <ScalarProperty Name="LinkManPhone" ColumnName="LinkManPhone" />
+                <ScalarProperty Name="QQ" ColumnName="QQ" />
+                <ScalarProperty Name="Wechat" ColumnName="Wechat" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sys_Application">
             <EntityTypeMapping TypeName="webDmsModel.Sys_Application">
               <MappingFragment StoreEntitySet="Sys_Application">
@@ -430,6 +569,52 @@
                 <ScalarProperty Name="BtnIcon" ColumnName="BtnIcon" />
                 <ScalarProperty Name="BtnScript" ColumnName="BtnScript" />
                 <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Controls">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Controls">
+              <MappingFragment StoreEntitySet="Sys_Controls">
+                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
+                <ScalarProperty Name="ControlName" ColumnName="ControlName" />
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_dictionarydata">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_dictionarydata">
+              <MappingFragment StoreEntitySet="Sys_dictionarydata">
+                <ScalarProperty Name="dictdata_Id" ColumnName="dictdata_Id" />
+                <ScalarProperty Name="dictdata_Table" ColumnName="dictdata_Table" />
+                <ScalarProperty Name="dictdata_Field" ColumnName="dictdata_Field" />
+                <ScalarProperty Name="dictdata_Name" ColumnName="dictdata_Name" />
+                <ScalarProperty Name="dictdata_Value" ColumnName="dictdata_Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Menu">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Menu">
+              <MappingFragment StoreEntitySet="Sys_Menu">
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
+                <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
+                <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
+                <ScalarProperty Name="Xh" ColumnName="Xh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_OperateLog">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_OperateLog">
+              <MappingFragment StoreEntitySet="Sys_OperateLog">
+                <ScalarProperty Name="OperateID" ColumnName="OperateID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -459,6 +644,45 @@
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_SubControls">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_SubControls">
+              <MappingFragment StoreEntitySet="Sys_SubControls">
+                <ScalarProperty Name="SubControlID" ColumnName="SubControlID" />
+                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
+                <ScalarProperty Name="SubControlName" ColumnName="SubControlName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Prop" ColumnName="Prop" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Align" ColumnName="Align" />
+                <ScalarProperty Name="TempateControls" ColumnName="TempateControls" />
+                <ScalarProperty Name="TempateIcons" ColumnName="TempateIcons" />
+                <ScalarProperty Name="TempateEvents" ColumnName="TempateEvents" />
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_TemplateControl">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_TemplateControl">
+              <MappingFragment StoreEntitySet="Sys_TemplateControl">
+                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
+                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
+                <ScalarProperty Name="FindUrl" ColumnName="FindUrl" />
+                <ScalarProperty Name="FormUrl" ColumnName="FormUrl" />
+                <ScalarProperty Name="SaveUrl" ColumnName="SaveUrl" />
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Templates">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Templates">
+              <MappingFragment StoreEntitySet="Sys_Templates">
+                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -503,95 +727,21 @@
           <EntitySetMapping Name="View_menu">
             <EntityTypeMapping TypeName="webDmsModel.View_menu">
               <MappingFragment StoreEntitySet="View_menu">
-                <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
-                <ScalarProperty Name="Xh" ColumnName="Xh" />
-                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
-                <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
-                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
-                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
-                <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
-                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
-                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="LoginName" ColumnName="LoginName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sys_dictionarydata">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_dictionarydata">
-              <MappingFragment StoreEntitySet="Sys_dictionarydata">
-                <ScalarProperty Name="dictdata_Value" ColumnName="dictdata_Value" />
-                <ScalarProperty Name="dictdata_Name" ColumnName="dictdata_Name" />
-                <ScalarProperty Name="dictdata_Field" ColumnName="dictdata_Field" />
-                <ScalarProperty Name="dictdata_Table" ColumnName="dictdata_Table" />
-                <ScalarProperty Name="dictdata_Id" ColumnName="dictdata_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sys_Controls">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_Controls">
-              <MappingFragment StoreEntitySet="Sys_Controls">
-                <ScalarProperty Name="Describe" ColumnName="Describe" />
-                <ScalarProperty Name="ControlName" ColumnName="ControlName" />
-                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sys_SubControls">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_SubControls">
-              <MappingFragment StoreEntitySet="Sys_SubControls">
-                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
-                <ScalarProperty Name="Describe" ColumnName="Describe" />
-                <ScalarProperty Name="TempateEvents" ColumnName="TempateEvents" />
-                <ScalarProperty Name="TempateIcons" ColumnName="TempateIcons" />
-                <ScalarProperty Name="TempateControls" ColumnName="TempateControls" />
-                <ScalarProperty Name="Align" ColumnName="Align" />
-                <ScalarProperty Name="Width" ColumnName="Width" />
-                <ScalarProperty Name="Label" ColumnName="Label" />
-                <ScalarProperty Name="Prop" ColumnName="Prop" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="SubControlName" ColumnName="SubControlName" />
-                <ScalarProperty Name="SubControlID" ColumnName="SubControlID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sys_Templates">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_Templates">
-              <MappingFragment StoreEntitySet="Sys_Templates">
-                <ScalarProperty Name="Describe" ColumnName="Describe" />
-                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
-                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sys_TemplateControl">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_TemplateControl">
-              <MappingFragment StoreEntitySet="Sys_TemplateControl">
-                <ScalarProperty Name="Describe" ColumnName="Describe" />
-                <ScalarProperty Name="SaveUrl" ColumnName="SaveUrl" />
-                <ScalarProperty Name="FormUrl" ColumnName="FormUrl" />
-                <ScalarProperty Name="FindUrl" ColumnName="FindUrl" />
-                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
-                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sys_Menu">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_Menu">
-              <MappingFragment StoreEntitySet="Sys_Menu">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
+                <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
+                <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="Xh" ColumnName="Xh" />
                 <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
-                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
-                <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
-                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
-                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
-                <ScalarProperty Name="MenuParentNo" ColumnName="MenuParentNo" />
-                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
-                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

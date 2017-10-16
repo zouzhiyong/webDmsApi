@@ -187,16 +187,15 @@
     </Content>
     <Content Include="Models\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model.cs</LastGenOutput>
       <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="webDms\Areas\cust-page.js" />
-    <Content Include="webDms\Areas\cust-pages.js" />
-    <Content Include="webDms\Areas\sys-moudle.js" />
+    <Content Include="webDms\Areas\cust-table.js" />
+    <Content Include="webDms\Areas\cust-tree-table.js" />
     <Content Include="webDms\Components\component-dialog.js" />
     <Content Include="webDms\Components\component-form.js" />
     <Content Include="webDms\Components\component-table.js" />
@@ -273,6 +272,7 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiExceptionFilterAttribute.cs" />
+    <Compile Include="Areas\Bas\CustomerController.cs" />
     <Compile Include="Areas\Login\LoginController.cs" />
     <Compile Include="Areas\Sys\MenuController.cs" />
     <Compile Include="Common\Exception\DomainException.cs" />
@@ -286,6 +286,12 @@
     <Compile Include="Controllers\SQLHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bas_Customer.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bas_Supplier.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model.Context.cs">
       <AutoGen>True</AutoGen>
@@ -317,6 +323,9 @@
     <Compile Include="Models\Sys_Menu.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Sys_OperateLog.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Sys_Role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -346,7 +355,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Bas\" />
     <Folder Include="Areas\Home\" />
     <Folder Include="webDms\Build\" />
   </ItemGroup>
