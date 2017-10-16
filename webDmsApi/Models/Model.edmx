@@ -107,6 +107,15 @@
           <Property Name="Action" Type="nvarchar(max)" />
           <Property Name="TableName" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Sys_Region">
+          <Key>
+            <PropertyRef Name="RegionNo" />
+          </Key>
+          <Property Name="RegionNo" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegionParentNo" Type="nvarchar" MaxLength="6" />
+          <Property Name="IsValid" Type="int" />
+        </EntityType>
         <EntityType Name="Sys_Role">
           <Key>
             <PropertyRef Name="RoleID" />
@@ -228,6 +237,18 @@
           <Property Name="Xh" Type="int" />
           <Property Name="ApplicationNo" Type="nvarchar" MaxLength="10" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“webDms.dbo.View_Region”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="View_Region">
+          <Key>
+            <PropertyRef Name="RegionNo" />
+          </Key>
+          <Property Name="RegionNo" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegionParentNo" Type="nvarchar" MaxLength="6" />
+          <Property Name="RegionValue" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" MaxLength="152" />
+        </EntityType>
         <EntityContainer Name="webDmsModelStoreContainer">
           <EntitySet Name="Bas_Customer" EntityType="Self.Bas_Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bas_Supplier" EntityType="Self.Bas_Supplier" Schema="dbo" store:Type="Tables" />
@@ -237,6 +258,7 @@
           <EntitySet Name="Sys_dictionarydata" EntityType="Self.Sys_dictionarydata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Menu" EntityType="Self.Sys_Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_OperateLog" EntityType="Self.Sys_OperateLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Region" EntityType="Self.Sys_Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Role" EntityType="Self.Sys_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_RoleMenu" EntityType="Self.Sys_RoleMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_SubControls" EntityType="Self.Sys_SubControls" Schema="dbo" store:Type="Tables" />
@@ -258,6 +280,15 @@
     [View_menu].[Xh] AS [Xh], 
     [View_menu].[ApplicationNo] AS [ApplicationNo]
     FROM [dbo].[View_menu] AS [View_menu]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_Region" EntityType="Self.View_Region" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Region].[RegionNo] AS [RegionNo], 
+    [View_Region].[RegionName] AS [RegionName], 
+    [View_Region].[RegionParentNo] AS [RegionParentNo], 
+    [View_Region].[RegionValue] AS [RegionValue], 
+    [View_Region].[Name] AS [Name]
+    FROM [dbo].[View_Region] AS [View_Region]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -502,7 +533,28 @@
           <EntitySet Name="Sys_User" EntityType="Self.Sys_User" />
           <EntitySet Name="Sys_UserRole" EntityType="Self.Sys_UserRole" />
           <EntitySet Name="View_menu" EntityType="Self.View_menu" />
+          <EntitySet Name="View_Region" EntityType="webDmsModel.View_Region" />
+          <EntitySet Name="Sys_Region" EntityType="webDmsModel.Sys_Region" />
         </EntityContainer>
+        <EntityType Name="View_Region">
+          <Key>
+            <PropertyRef Name="RegionNo" />
+          </Key>
+          <Property Name="RegionNo" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="RegionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RegionParentNo" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="RegionValue" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="152" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_Region">
+          <Key>
+            <PropertyRef Name="RegionNo" />
+          </Key>
+          <Property Name="RegionNo" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="RegionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RegionParentNo" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="IsValid" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -740,6 +792,27 @@
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="Xh" ColumnName="Xh" />
                 <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Region">
+            <EntityTypeMapping TypeName="webDmsModel.View_Region">
+              <MappingFragment StoreEntitySet="View_Region">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegionValue" ColumnName="RegionValue" />
+                <ScalarProperty Name="RegionParentNo" ColumnName="RegionParentNo" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="RegionNo" ColumnName="RegionNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Region">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_Region">
+              <MappingFragment StoreEntitySet="Sys_Region">
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="RegionParentNo" ColumnName="RegionParentNo" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="RegionNo" ColumnName="RegionNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

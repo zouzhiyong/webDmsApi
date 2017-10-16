@@ -82,10 +82,12 @@ namespace webDmsApi.Areas.Sys
                 children = new Menu[] { }
             };
 
-            object[] arr = new object[] { item };
-
             BindTreeView(item, list, "0");
-            return Json(true, "", new { rows = list, tree = arr });
+
+            List<Object> a = new List<Object>();
+            a.Add(item);
+
+            return Json(true, "", new { rows = list, tree =a  });
         }
 
         private void BindTreeView(Menu item, IQueryable<View_menu> list, string parent)

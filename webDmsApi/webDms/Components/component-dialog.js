@@ -14,12 +14,22 @@ Vue.component('component-dialog', {
         handleSaveForm: function () {           
             var _self = this;
 
+            var data = JSON.parse(JSON.stringify(_self.$refs.form.data));
+            for (var field in data) {
+                //if (field.length - field.indexOf("List") == 4) {
+                //    delete data[field]
+                //}
+
+                if (field.length - field.indexOf("Arr") == 3) {
+                    data[field.replace("Arr", '')] = data[field].toString();
+                }
+            }
+
             ajaxData(_self.control.SaveUrl, {
                 async: false,
-                data: JSON.parse(JSON.stringify(_self.$refs.form.data))
+                data: data
             }).then(function (result) {
-                if (result.result == true) {
-                    
+                if (result.result == true) {                    
                     _self.$emit('input', false);
                     var obj = JSON.parse(JSON.stringify(_self.$parent.$parent.tableCondition));
                     obj.currentPage = 1;
