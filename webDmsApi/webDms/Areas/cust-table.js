@@ -1,5 +1,5 @@
 define(['Components/component-table.js', 'Components/component-form.js', 'Components/component-dialog.js'], function (tree, table, form) {
-    Vue.component('sys-moudle', {
+    Vue.component('cust-table', {
         data: function () {
             return {
                 tableCondition: {},
@@ -15,8 +15,11 @@ define(['Components/component-table.js', 'Components/component-form.js', 'Compon
         },
         created: function () {
             this.iniData();
+            
         },
-        mounted: function () { },
+        mounted: function () {
+            this.handleNodeClick({});
+        },
         methods: {
             iniData: function () {
                 var _self = this;

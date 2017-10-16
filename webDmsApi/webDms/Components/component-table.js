@@ -10,7 +10,7 @@ Vue.component('component-table', {
         control: { type: Object }
     },
     created: function () {
-
+        
     },
     mounted: function () {
         var height = $(this.$el).height() - 60;
@@ -19,7 +19,7 @@ Vue.component('component-table', {
         this.condition.pageSize = Math.floor(this.height / 40);
     },
     methods: {
-        GetData: function (condition) {
+        GetData: function (condition) {            
             var _self = this;
             ajaxData(_self.control.FindUrl, {
                 async: false,
