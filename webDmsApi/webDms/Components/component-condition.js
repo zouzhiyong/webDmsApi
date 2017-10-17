@@ -1,61 +1,52 @@
-Vue.component('component-form', {
+Vue.component('component-condition', {
     data: function () {
         return {
             data: {}
         }
     },
     props: {
-        condition: { type: Object },
         control: { type: Object }
     },
     created: function () {
-        this.GetData();
-    },
-    methods: {
-        GetData: function () {
-            var _self = this;
-            ajaxData(_self.control.FormUrl, {
-                async: false,
-                data: _self.condition
-            })
+        var _self = this;
+        _self.control.SubControls.map(function (item) {
+            if (item.ListUrl != null && item.ListUrl != "") {
+                ajaxData(item.ListUrl, {
+                    async: false
+                })
                 .then(function (result) {
                     if (result.result) {
-                        _self.data = result.data[0];
-                        for (var field in _self.data) {
-                            if (field.length - field.indexOf("Arr") == 3) {
-                                _self.data[field] = _self.data[field].toString().split(",");
-                            }
-                        }
+                        _self.data[item.Prop + 'List'] = result.data;
                     }
-                });
-        }
+                });                
+            }
+            _self.data[item.Prop] = "";
+        })
     },
-    watch: {
-        condition: function (newVal, oldVal) {
-            this.GetData();
+    methods: {
+        handleClick: function () {
+            var _self = this;
+            for (var field in _self.data) {
+                if (field.length - field.indexOf("Arr") == 3) {
+                    _self.data[field.replace("Arr", '')] = _self.data[field].toString();
+                }
+            }
+            this.$emit('click',this.data)
         }
     },
     render: function (_c) {
         var _self = this;
         return _c('div', { staticStyle: { padding: '0' } }, [
             _c('el-form', {
-                ref: 'form',
+                ref: 'condition',
                 attrs: { 'label-width': '80px', inline: true, model: _self.data }
             }, [
                 _self._l(_self.control.SubControls, function (item) {
                     var TempateControls = item.TempateControls === null ? '' : item.TempateControls.split("|");
                     var TempateIcons = item.TempateIcons === null ? '' : item.TempateIcons.split("|");
                     var TempateEvents = item.TempateEvents === null ? '' : item.TempateEvents.split("|");
-                    var Rules = [];
-                    if (item.IsMust == 1) {
-                        Rules.push({ required: true, message: '请输入' + item.Label, trigger: 'blur' });
-                    }
-                    
-                    if (item.Rules != null && item.Rules != "") {
-                        Rules.push(JSON.parse(item.Rules));
-                    }
 
-                    return _c('el-form-item', { attrs: { label: item.Label, prop: item.Prop, rules: Rules } }, [
+                    return _c('el-form-item', { attrs: { label: item.Label, prop: item.Prop } }, [
                         _self._l(TempateControls, function (_item, index) {
                             if (_item === 'el-select') {
                                 return _c(_item, { attrs: { placeholder: "请选择" }, model: { value: (_self.data[item.Prop]), callback: function ($$v) { _self.data[item.Prop] = $$v }, expression: item.Prop } },
@@ -64,15 +55,19 @@ Vue.component('component-form', {
                                     }))
                             }
                             if (_item === 'el-cascader') {
-                                return _c(_item, { attrs: { placeholder: "请选择", options: _self.data[item.Prop + 'List'], props: { value: 'RegionNo', children: 'children' } }, model: { value: (_self.data[item.Prop]), callback: function ($$v) { _self.data[item.Prop] = $$v }, expression: item.Prop }, on: { 'active-item-change': _self.handleItemChange } })
+                                return _c(_item, { attrs: { clearable:true,placeholder: "请选择", options: _self.data[item.Prop + 'List'], props: { value: 'RegionNo', children: 'children' } }, model: { value: (_self.data[item.Prop]), callback: function ($$v) { _self.data[item.Prop] = $$v }, expression: item.Prop }, on: { 'active-item-change': _self.handleItemChange } })
                             }
                             else {
                                 return _c(_item, { model: { value: (_self.data[item.Prop]), callback: function ($$v) { _self.data[item.Prop] = $$v }, expression: item.Prop } })
                             }
                         })
                     ])
-                })
-            ])
+                }),
+                _c('el-button', { attrs: { type: 'primary' }, on: {'click':_self.handleClick} }, [
+                    _c('i', { staticClass: "el-icon-search" })
+                ])
+            ]),
+            
         ])
     }
 })

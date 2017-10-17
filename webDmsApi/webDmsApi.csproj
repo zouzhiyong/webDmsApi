@@ -197,6 +197,7 @@
     <Content Include="webDms\Areas\cust-table.js" />
     <Content Include="webDms\Areas\cust-tree-table.js" />
     <Content Include="webDms\Components\component-dialog.js" />
+    <Content Include="webDms\Components\component-condition.js" />
     <Content Include="webDms\Components\component-form.js" />
     <Content Include="webDms\Components\component-table.js" />
     <Content Include="webDms\Components\component-tree.js" />

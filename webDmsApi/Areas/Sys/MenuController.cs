@@ -47,7 +47,7 @@ namespace webDmsApi.Areas.Sys
                                           where t2.TemplateName == t.MenuUrl
                                           select new {
                                               ControlName = t4.ControlName,
-                                              ControlID = t3.ControlID,
+                                              ControlID = t3.ControlID,                                              
                                               FindUrl = t3.FindUrl,
                                               FormUrl = t3.FormUrl,
                                               SaveUrl = t3.SaveUrl,

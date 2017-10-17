@@ -27,5 +27,8 @@ namespace webDmsApi.Models
         public string TempateEvents { get; set; }
         public string Describe { get; set; }
         public Nullable<int> TemplateID { get; set; }
+        public string Rules { get; set; }
+        public Nullable<int> IsMust { get; set; }
+        public string ListUrl { get; set; }
     }
 }

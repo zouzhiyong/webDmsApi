@@ -18,14 +18,16 @@ namespace webDmsApi.Areas.Bas
 
             int pageSize = obj.pageSize;
             int currentPage = obj.currentPage;
+            string CustomerName = obj.CustomerName;
+            string Region = obj.Region;
 
-            var data = db.Bas_Customer.Where<Bas_Customer>(p => 1 == 1).Select(u => new
+            var data = db.Bas_Customer.Where<Bas_Customer>(p => (p.CustomerName.Contains(CustomerName) && p.Region.Contains(Region))).Select(u => new
             {
                 CustomerID = u.CustomerID,
                 CustomerName = u.CustomerName,
                 LinkMan = u.LinkMan,
                 LinkManPhone = u.LinkManPhone,
-                RegionArr =db.View_Region.Where<View_Region>(t=>t.RegionValue==u.Region).Select(v=>v.Name).FirstOrDefault(),
+                RegionArr = db.View_Region.Where<View_Region>(t => t.RegionValue == u.Region).Select(v => v.Name).FirstOrDefault(),
                 IsValid = (u.IsValid == null || u.IsValid == 1 ? "正常" : "关门")
             }).ToList();
 
@@ -61,11 +63,13 @@ namespace webDmsApi.Areas.Bas
                     RegionNo = v.RegionNo,
                     label = v.RegionName,
                     RegionParentNo = v.RegionParentNo,
-                    children = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == v.RegionNo).Select(v1=>new {
+                    children = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == v.RegionNo).Select(v1 => new
+                    {
                         RegionNo = v1.RegionNo,
                         label = v1.RegionName,
                         RegionParentNo = v1.RegionParentNo,
-                        children = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == v1.RegionNo).Select(v2 => new {
+                        children = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == v1.RegionNo).Select(v2 => new
+                        {
                             RegionNo = v2.RegionNo,
                             label = v2.RegionName,
                             RegionParentNo = v2.RegionParentNo
@@ -83,7 +87,8 @@ namespace webDmsApi.Areas.Bas
             webDmsEntities db = new webDmsEntities();
             string regionNo = obj.RegionNo;
 
-            var list = db.Sys_Region.Where(p => p.RegionParentNo == regionNo).Select(v=>new {
+            var list = db.Sys_Region.Where(p => p.RegionParentNo == regionNo).Select(v => new
+            {
                 RegionNo = v.RegionNo,
                 label = v.RegionName,
                 children = db.Sys_Region.Where<Sys_Region>(p => 1 == 0).ToList(),
@@ -102,6 +107,32 @@ namespace webDmsApi.Areas.Bas
             var result = db.SaveChanges();
 
             return Json(true, result == 1 ? "保存成功！" : "保存失败");
+        }
+
+        public HttpResponseMessage FindMoudleRegionList()
+        {
+            webDmsEntities db = new webDmsEntities();
+
+            var list = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == "0").Select(v => new
+            {
+                RegionNo = v.RegionNo,
+                label = v.RegionName,
+                RegionParentNo = v.RegionParentNo,
+                children = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == v.RegionNo).Select(v1 => new
+                {
+                    RegionNo = v1.RegionNo,
+                    label = v1.RegionName,
+                    RegionParentNo = v1.RegionParentNo,
+                    children = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == v1.RegionNo).Select(v2 => new
+                    {
+                        RegionNo = v2.RegionNo,
+                        label = v2.RegionName,
+                        RegionParentNo = v2.RegionParentNo
+                    }).ToList()
+                }).ToList()
+            }).ToList();
+
+            return Json(true, "", list);
         }
 
     }

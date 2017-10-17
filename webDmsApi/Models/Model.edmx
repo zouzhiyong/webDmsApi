@@ -153,9 +153,12 @@
           <Property Name="SubControlName" Type="nvarchar" MaxLength="50" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
           <Property Name="Prop" Type="nvarchar" MaxLength="50" />
+          <Property Name="ListUrl" Type="nvarchar" MaxLength="50" />
+          <Property Name="Rules" Type="nvarchar(max)" />
           <Property Name="Label" Type="nvarchar" MaxLength="50" />
           <Property Name="Width" Type="nvarchar" MaxLength="50" />
           <Property Name="Align" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsMust" Type="int" />
           <Property Name="TempateControls" Type="nvarchar(max)" />
           <Property Name="TempateIcons" Type="nvarchar(max)" />
           <Property Name="TempateEvents" Type="nvarchar(max)" />
@@ -441,6 +444,9 @@
           <Property Name="TempateEvents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TemplateID" Type="Int32" />
+          <Property Name="Rules" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsMust" Type="Int32" />
+          <Property Name="ListUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sys_TemplateControl">
           <Key>
@@ -703,6 +709,9 @@
           <EntitySetMapping Name="Sys_SubControls">
             <EntityTypeMapping TypeName="webDmsModel.Sys_SubControls">
               <MappingFragment StoreEntitySet="Sys_SubControls">
+                <ScalarProperty Name="ListUrl" ColumnName="ListUrl" />
+                <ScalarProperty Name="IsMust" ColumnName="IsMust" />
+                <ScalarProperty Name="Rules" ColumnName="Rules" />
                 <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
                 <ScalarProperty Name="SubControlID" ColumnName="SubControlID" />
                 <ScalarProperty Name="ControlID" ColumnName="ControlID" />

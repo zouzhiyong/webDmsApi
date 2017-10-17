@@ -1,7 +1,7 @@
 Vue.component('component-dialog', {
     data: function () {
         return {
-            size: 'small',
+            size: 'cust',
         }
     },
     props: {
@@ -14,28 +14,38 @@ Vue.component('component-dialog', {
         handleSaveForm: function () {           
             var _self = this;
 
-            var data = JSON.parse(JSON.stringify(_self.$refs.form.data));
-            for (var field in data) {
-                //if (field.length - field.indexOf("List") == 4) {
-                //    delete data[field]
-                //}
+            _self.$refs.form.$refs.form.validate(function (valid) {
+                if (valid) {
+                    var data = JSON.parse(JSON.stringify(_self.$refs.form.data));
+                    for (var field in data) {
+                        //if (field.length - field.indexOf("List") == 4) {
+                        //    delete data[field]
+                        //}
 
-                if (field.length - field.indexOf("Arr") == 3) {
-                    data[field.replace("Arr", '')] = data[field].toString();
-                }
-            }
+                        if (field.length - field.indexOf("Arr") == 3) {
+                            data[field.replace("Arr", '')] = data[field].toString();
+                        }
+                    }
 
-            ajaxData(_self.control.SaveUrl, {
-                async: false,
-                data: data
-            }).then(function (result) {
-                if (result.result == true) {                    
-                    _self.$emit('input', false);
-                    var obj = JSON.parse(JSON.stringify(_self.$parent.$parent.tableCondition));
-                    obj.currentPage = 1;
-                    _self.$parent.$parent.tableCondition = obj;
+                    ajaxData(_self.control.SaveUrl, {
+                        async: false,
+                        data: data
+                    }).then(function (result) {
+                        if (result.result == true) {
+                            _self.$emit('input', false);
+                            var obj = JSON.parse(JSON.stringify(_self.$parent.$parent.tableCondition));
+                            obj.currentPage = 1;
+                            _self.$parent.$parent.tableCondition = obj;
+                        }
+                    });
+                } else {
+
+                    return false;
                 }
             });
+
+
+            
         },
         handleCancleForm: function () {
             this.$emit('input', false);
@@ -46,14 +56,14 @@ Vue.component('component-dialog', {
     },
     render: function (_c) {
         var _self = this;
-        return _c('el-dialog', { ref: 'dialog', attrs: { 'custom-class':'dialog-class',"title": _self.title, size: _self.size, "visible": _self.value, 'close-on-click-modal': false, 'close-on-press-escape': false, 'show-close': false }, on: { close: _self.handleCloseForm, "update:visible": function ($event) { _self.value = $event } } }, [
+        return _c('el-dialog', { ref: 'dialog', attrs: { "title": _self.title, size: _self.size, "visible": _self.value, 'close-on-click-modal': false, 'close-on-press-escape': false, 'show-close': false }, on: { close: _self.handleCloseForm, "update:visible": function ($event) { _self.value = $event } } }, [
             _c('el-row', { slot: "title", staticStyle: { margin: '10px' } }, [
                 _c('el-col', { attrs: { span: '12' }, staticStyle: { 'text-align': 'left', 'font-weight': 'bold' } }, [_self._v(_self.title)]),
                 _c('el-col', { attrs: { span: '12' }, staticStyle: { 'text-align': 'right' } }, [
                     _c('button', { attrs: { type: 'button' }, staticClass: 'el-dialog__headerbtn', staticStyle: { margin: 'auto 10px' }, on: { "click": _self.handleCloseForm } }, [
                         _c('i', { staticClass: 'el-dialog__close el-icon-close' })
                     ]),
-                    _c('button', { attrs: { type: 'button' }, staticClass: 'el-dialog__headerbtn', staticStyle: { margin: 'auto 10px' }, on: { "click": function ($event) { if (_self.size != 'full') { _self.size = 'full' } else { _self.size = 'small' } } } }, [
+                    _c('button', { attrs: { type: 'button' }, staticClass: 'el-dialog__headerbtn', staticStyle: { margin: 'auto 10px' }, on: { "click": function ($event) { if (_self.size != 'full') { _self.size = 'full' } else { _self.size = 'cust' } } } }, [
                         _c('i', { staticClass: 'el-dialog__close ' + (_self.size == 'full' ? 'fa fa-window-restore' : 'fa fa-window-maximize') })
                     ])
                 ])

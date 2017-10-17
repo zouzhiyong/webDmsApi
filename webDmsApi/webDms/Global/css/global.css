@@ -16,7 +16,7 @@ a:focus, a:hover { outline: 0 none; text-decoration: none; }
 
 li > a i { margin-right: 10px; }
 
-.dialog-class{width:580px;}
+.el-dialog.el-dialog--cust{width:580px;}
 
 .dialog-footer .el-button+.el-button{margin-left:25px;}
 

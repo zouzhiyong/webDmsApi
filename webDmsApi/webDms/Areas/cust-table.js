@@ -1,10 +1,11 @@
-define(['Components/component-table.js', 'Components/component-form.js', 'Components/component-dialog.js'], function (tree, table, form) {
+define(['Components/component-table.js', 'Components/component-form.js', 'Components/component-condition.js', 'Components/component-dialog.js'], function (tree, table, form) {
     Vue.component('cust-table', {
         data: function () {
             return {
                 tableCondition: {},
                 table: {},
                 form: {},
+                condition:{},
                 formCondition: {},
                 dialogFormVisible: false
             }
@@ -18,7 +19,7 @@ define(['Components/component-table.js', 'Components/component-form.js', 'Compon
 
         },
         mounted: function () {
-            this.handleNodeClick({});
+            this.$refs.condition.handleClick();
         },
         methods: {
             iniData: function () {
@@ -31,15 +32,18 @@ define(['Components/component-table.js', 'Components/component-form.js', 'Compon
                     if (item.ControlName === 'component-form') {
                         _self.form = item;
                     }
+
+                    if (item.ControlName === 'component-condition') {
+                        _self.condition = item;
+                    }
                 })
-            },
-            handleNodeClick: function (data) {
-                var _self = this;
-                this.tableCondition = data;
             },
             handleRowClick: function (row) {
                 this.formCondition = row;
                 this.dialogFormVisible = true;
+            },
+            handleSearch: function (data) {
+                this.tableCondition = JSON.parse(JSON.stringify(data));
             }
         },
         render: function (_c) {
@@ -56,7 +60,7 @@ define(['Components/component-table.js', 'Components/component-form.js', 'Compon
                 _c('el-row', { staticClass: 'content-outbox' }, [
                     _c('el-col', { staticStyle: { height: '100%', width: '100%' } }, [
                         _c('div', { staticClass: 'content-condition' }, [
-
+                            _c('component-condition', { attrs: { control: _self.condition }, ref: 'condition', on: { 'click': _self.handleSearch} }),
                         ]),
                         _c('div', { staticStyle: { height: 'calc(100% - 50px)' } }, [
                             _c('component-table', { attrs: { control: _self.table, condition: _self.tableCondition }, on: { 'edit': _self.handleRowClick } })
