@@ -16,6 +16,10 @@ a:focus, a:hover { outline: 0 none; text-decoration: none; }
 
 li > a i { margin-right: 10px; }
 
+.dialog-class{width:580px;}
+
+.dialog-footer .el-button+.el-button{margin-left:25px;}
+
 .el-form--inline .el-input { width: 180px; }
 
 .table { margin-top: 15px; }

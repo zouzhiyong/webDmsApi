@@ -15,7 +15,7 @@ define(['Components/component-table.js', 'Components/component-form.js', 'Compon
         },
         created: function () {
             this.iniData();
-            
+
         },
         mounted: function () {
             this.handleNodeClick({});
@@ -46,16 +46,19 @@ define(['Components/component-table.js', 'Components/component-form.js', 'Compon
             var _self = this;
 
             return _c('el-row', { staticStyle: { height: '100%' } }, [
-                _c('el-row', [
+                _c('el-row', { staticClass: 'content-title' }, [
                     _c('el-col', [
                         _c('div', [
                             _c('span', _self.title)
                         ])
                     ])
-                ]),
-                _c('el-row', { attrs: { gutter: 10 }, staticStyle: { height: 'calc(100% - 40px)' } }, [
+                ]),                
+                _c('el-row', { staticClass: 'content-outbox' }, [
                     _c('el-col', { staticStyle: { height: '100%', width: '100%' } }, [
-                        _c('div', { staticStyle: { height: '100%' } }, [
+                        _c('div', { staticClass: 'content-condition' }, [
+
+                        ]),
+                        _c('div', { staticStyle: { height: 'calc(100% - 50px)' } }, [
                             _c('component-table', { attrs: { control: _self.table, condition: _self.tableCondition }, on: { 'edit': _self.handleRowClick } })
                         ])
                     ])

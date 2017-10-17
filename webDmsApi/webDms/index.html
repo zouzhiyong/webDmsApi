@@ -171,7 +171,7 @@
                 <a href="javascript:;" class="roll-nav roll-right J_tabExit logoff-link" v-on:click="handleExit"><i class="fa fa fa-sign-out"></i>退出</a>
             </div>
             <div class="J_mainContent">
-                <div v-for="item in openData" class="J_iframe" :data-id="item.MenuNo" :style="{display:item.active?'':'none'}">
+                <div v-for="item in openData" class="J_iframe iframe_content" :data-id="item.MenuNo" :style="{display:item.active?'':'none'}">
                     <component :is="item.MenuUrl" :title="item.MenuName" :control="item.Controls">
 
                     </component>

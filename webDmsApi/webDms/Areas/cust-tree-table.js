@@ -48,14 +48,14 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
             var _self = this;
 
             return _c('el-row', { staticStyle: { height: '100%' } }, [
-                _c('el-row', [
+                _c('el-row', { staticClass: 'content-title' },[
                     _c('el-col', [
                         _c('div', [
                             _c('span', _self.title)
                         ])
                     ])
                 ]),
-                _c('el-row', { attrs: { gutter: 10 }, staticStyle: { height: 'calc(100% - 40px)' } }, [
+                _c('el-row', { staticClass: 'content-outbox' }, [
                     _c('el-col', { staticStyle: { height: '100%', width: '200px' } }, [
                         _c('div', { staticStyle: { height: '100%' } }, [
                             _c('component-tree', { attrs: { control: _self.tree }, on: { 'node-click': _self.handleNodeClick } })
