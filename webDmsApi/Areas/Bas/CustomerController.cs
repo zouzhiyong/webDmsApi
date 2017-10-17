@@ -45,19 +45,19 @@ namespace webDmsApi.Areas.Bas
             webDmsEntities db = new webDmsEntities();
 
             int CustomerID = obj.CustomerID;
-            var list = db.Bas_Customer.Where<Bas_Customer>(p => p.CustomerID == CustomerID).Select(u => new
+            var list = db.Bas_Customer.Where<Bas_Customer>(p => (CustomerID == 0 ? 1 == 1 : p.CustomerID == CustomerID)).Select(u => new
             {
-                CustomerID = u.CustomerID,
-                CustomerName = u.CustomerName,
-                LinkMan = u.LinkMan,
-                LinkManPhone = u.LinkManPhone,
-                RegionArr = u.Region,
+                CustomerID = CustomerID == 0 ? 0 : u.CustomerID,
+                CustomerName = CustomerID == 0 ? "" : u.CustomerName,
+                LinkMan = CustomerID == 0 ? "" : u.LinkMan,
+                LinkManPhone = CustomerID == 0 ? "" : u.LinkManPhone,
+                RegionArr = CustomerID == 0 ? "" : u.Region,
                 IsValid = (u.IsValid == null ? 1 : u.IsValid),
                 IsValidList = (
-                                new object[] {
+                                        new object[] {
                                     new {label = "有效", value = 1 },
                                     new {label="无效",value=0 }
-                                }).ToList(),
+                                        }).ToList(),
                 RegionArrList = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == "0").Select(v => new
                 {
                     RegionNo = v.RegionNo,
