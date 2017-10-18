@@ -12,7 +12,7 @@ namespace webDmsApi.Areas.Bas
 {
     public class CustomerController : ApiBaseController
     {
-        public HttpResponseMessage FindMoudleRow(dynamic obj)
+        public HttpResponseMessage FindMoudleRows(dynamic obj)
         {
             webDmsEntities db = new webDmsEntities();
 
@@ -44,14 +44,48 @@ namespace webDmsApi.Areas.Bas
         {
             webDmsEntities db = new webDmsEntities();
 
-            int CustomerID = obj.CustomerID;
-            var list = db.Bas_Customer.Where<Bas_Customer>(p => (CustomerID == 0 ? 1 == 1 : p.CustomerID == CustomerID)).Select(u => new
+            int CustomerID = obj == null ? 0 : obj.CustomerID;
+
+            var newData = new
             {
-                CustomerID = CustomerID == 0 ? 0 : u.CustomerID,
-                CustomerName = CustomerID == 0 ? "" : u.CustomerName,
-                LinkMan = CustomerID == 0 ? "" : u.LinkMan,
-                LinkManPhone = CustomerID == 0 ? "" : u.LinkManPhone,
-                RegionArr = CustomerID == 0 ? "" : u.Region,
+                CustomerID = 0,
+                CustomerName = "",
+                LinkMan = "",
+                LinkManPhone = "",
+                RegionArr = "",
+                IsValid = 1,
+                IsValidList = (
+                                        new object[] {
+                                    new {label = "有效", value = 1 },
+                                    new {label="无效",value=0 }
+                                        }).ToList(),
+                RegionArrList = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == "0").Select(v => new
+                {
+                    RegionNo = v.RegionNo,
+                    label = v.RegionName,
+                    RegionParentNo = v.RegionParentNo,
+                    children = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == v.RegionNo).Select(v1 => new
+                    {
+                        RegionNo = v1.RegionNo,
+                        label = v1.RegionName,
+                        RegionParentNo = v1.RegionParentNo,
+                        children = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == v1.RegionNo).Select(v2 => new
+                        {
+                            RegionNo = v2.RegionNo,
+                            label = v2.RegionName,
+                            RegionParentNo = v2.RegionParentNo
+                        }).ToList()
+                    }).ToList()
+                })
+            };
+
+            var list = db.Bas_Customer.Where<Bas_Customer>(p => p.CustomerID == CustomerID).Select(u => new
+            {
+                CustomerID =  u.CustomerID,
+                CustomerName = u.CustomerName,
+                LinkMan =  u.LinkMan,
+                LinkManPhone = u.LinkManPhone,
+                RegionArr =u.Region,
                 IsValid = (u.IsValid == null ? 1 : u.IsValid),
                 IsValidList = (
                                         new object[] {
@@ -76,10 +110,16 @@ namespace webDmsApi.Areas.Bas
                         }).ToList()
                     }).ToList()
                 })
-            });
+            }).FirstOrDefault();
 
-
-            return Json(true, "", list);
+            if (CustomerID == 0)
+            {
+                return Json(true, "", newData);
+            }else
+            {
+                return Json(true, "", list);
+            }
+            
         }
 
         public HttpResponseMessage FindMoudleRegion(dynamic obj)
@@ -102,7 +142,7 @@ namespace webDmsApi.Areas.Bas
         {
             webDmsEntities db = new webDmsEntities();
 
-            db.Entry<Bas_Customer>(obj).State = EntityState.Modified;
+            db.Entry<Bas_Customer>(obj).State = obj.CustomerID==0? EntityState.Added: EntityState.Modified;
 
             var result = db.SaveChanges();
 
@@ -133,6 +173,20 @@ namespace webDmsApi.Areas.Bas
             }).ToList();
 
             return Json(true, "", list);
+        }
+
+        [HttpPost]
+        public HttpResponseMessage DeleteMoudleRow(Bas_Customer obj)
+        {
+            webDmsEntities db = new webDmsEntities();
+
+            db.Bas_Customer.Attach(obj);
+
+            db.Bas_Customer.Remove(obj);
+
+            var result = db.SaveChanges();
+
+            return Json(true, result == 1 ? "删除成功！" : "删除失败");
         }
 
     }

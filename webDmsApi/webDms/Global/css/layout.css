@@ -115,7 +115,7 @@ input.input_color { width: 100%; height: 36px; border-radius: 4px; -moz-appearan
 .iframe_content { background: #f0f0f0; }
 
 .content-title{background:#fff;padding:10px;border-bottom: 1px solid #eee;}
-.content-title span{font-weight:bold}
+.content-title .el-button.el-button--text{padding:0}
 .content-condition{height:50px;}
 .content-outbox { background: #fff; margin: 20px; padding: 5px; border: 1px solid #eaeaea;height:calc(100% - 78px); }
 

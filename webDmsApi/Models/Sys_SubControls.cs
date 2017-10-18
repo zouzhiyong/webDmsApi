@@ -15,20 +15,19 @@ namespace webDmsApi.Models
     public partial class Sys_SubControls
     {
         public int SubControlID { get; set; }
+        public Nullable<int> TemplateID { get; set; }
         public Nullable<int> ControlID { get; set; }
-        public string SubControlName { get; set; }
         public string Type { get; set; }
         public string Prop { get; set; }
+        public string ListUrl { get; set; }
+        public string Rules { get; set; }
         public string Label { get; set; }
         public string Width { get; set; }
         public string Align { get; set; }
+        public Nullable<int> IsMust { get; set; }
         public string TempateControls { get; set; }
         public string TempateIcons { get; set; }
         public string TempateEvents { get; set; }
         public string Describe { get; set; }
-        public Nullable<int> TemplateID { get; set; }
-        public string Rules { get; set; }
-        public Nullable<int> IsMust { get; set; }
-        public string ListUrl { get; set; }
     }
 }

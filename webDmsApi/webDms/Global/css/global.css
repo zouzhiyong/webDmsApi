@@ -1,4 +1,4 @@
-* { font-size: 14px; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; box-sizing: border-box; }
+* { font-size: 14px; font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif; box-sizing: border-box; }
 
 label { font-weight: normal; }
 
@@ -16,9 +16,9 @@ a:focus, a:hover { outline: 0 none; text-decoration: none; }
 
 li > a i { margin-right: 10px; }
 
-.el-dialog.el-dialog--cust{width:580px;}
+.el-dialog.el-dialog--cust { width: 580px; }
 
-.dialog-footer .el-button+.el-button{margin-left:25px;}
+.dialog-footer .el-button + .el-button { margin-left: 25px; }
 
 .el-form--inline .el-input { width: 180px; }
 

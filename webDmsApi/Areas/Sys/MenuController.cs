@@ -32,29 +32,30 @@ namespace webDmsApi.Areas.Sys
                          select new
                          {
                              MenuID = t.MenuID,
-                             MenuNo = t.MenuNo,
-                             MenuParentNo = t.MenuParentNo,
+                             MenuParentID = t.MenuParentID,
                              MenuName = t.MenuName,
                              MenuUrl = t.MenuUrl,
                              MenuIcon = t.MenuIcon,
                              IsValid = t.IsValid,
                              ApplicationNo = t.ApplicationNo,
                              Controls = (from t2 in db.Sys_Templates
-                                          join t3 in db.Sys_TemplateControl
-                                          on t2.TemplateID equals t3.TemplateID
-                                          join t4 in db.Sys_Controls
-                                          on t3.ControlID equals t4.ControlID
-                                          where t2.TemplateName == t.MenuUrl
-                                          select new {
-                                              ControlName = t4.ControlName,
-                                              ControlID = t3.ControlID,                                              
-                                              FindUrl = t3.FindUrl,
-                                              FormUrl = t3.FormUrl,
-                                              SaveUrl = t3.SaveUrl,
-                                              SubControls = (from t5 in db.Sys_SubControls
-                                                             where (t5.ControlID == t3.ControlID && t5.TemplateID==t3.TemplateID)
-                                                             select t5).ToList()
-                                          }).ToList()
+                                         join t3 in db.Sys_TemplateControl
+                                         on t2.TemplateID equals t3.TemplateID
+                                         join t4 in db.Sys_Controls
+                                         on t3.ControlID equals t4.ControlID
+                                         where t2.TemplateName == t.MenuUrl
+                                         select new
+                                         {
+                                             ControlName = t4.ControlName,
+                                             ControlID = t3.ControlID,
+                                             FindUrl = t3.FindUrl,
+                                             DeleteUrl=t3.DeleteUrl,
+                                             FormUrl = t3.FormUrl,
+                                             SaveUrl = t3.SaveUrl,
+                                             SubControls = (from t5 in db.Sys_SubControls
+                                                            where (t5.ControlID == t3.ControlID && t5.TemplateID == t3.TemplateID)
+                                                            select t5).ToList()
+                                         }).ToList()
                          }).ToList();
 
             return Json(true, "", _list);
@@ -72,60 +73,32 @@ namespace webDmsApi.Areas.Sys
 
             var list = db.View_menu.Where<View_menu>(p => p.UserID.ToString() == userId);
 
-            Menu item = new Menu
-            {
-                MenuID = 0,
-                MenuNo = "0",
-                label = "所有模块",
-                MenuName = "所有模块",
-                MenuParentNo = "",
-                children = new Menu[] { }
+            var treeList = new object[]{
+                new
+                {
+                    MenuID = 0,
+                    label = "所有模块",
+                    MenuName = "所有模块",
+                    MenuParentID = 0,
+                    children = list.Where<View_menu>(p => p.MenuParentID == 0).Select(t1 => new {
+                        MenuID = t1.MenuID,
+                        label = t1.MenuName,
+                        MenuName = t1.MenuName,
+                        MenuParentID = t1.MenuParentID,
+                        children = list.Where<View_menu>(p => p.MenuParentID == t1.MenuID).Select(t2 => new {
+                            MenuID = t2.MenuID,
+                            label = t2.MenuName,
+                            MenuName = t2.MenuName,
+                            MenuParentID = t2.MenuParentID
+                        }).ToList()
+                    }).ToList()
+                }
             };
-
-            BindTreeView(item, list, "0");
-
-            List<Object> a = new List<Object>();
-            a.Add(item);
-
-            return Json(true, "", new { rows = list, tree =a  });
+            
+            return Json(true, "", new { rows = list, tree = treeList });
         }
 
-        private void BindTreeView(Menu item, IQueryable<View_menu> list, string parent)
-        {
-            List<Menu> _list = item.children.ToList();
 
-            var childs = list.Where(p => p.MenuParentNo == parent);
-
-            foreach (View_menu cc in childs)
-            {
-                Menu replyNode = new Menu();
-                replyNode.MenuID = cc.MenuID;
-                replyNode.MenuNo = cc.MenuNo;
-                replyNode.label = cc.MenuName;
-                replyNode.MenuName = cc.MenuName;
-                replyNode.MenuParentNo = cc.MenuParentNo;
-                replyNode.children = new Menu[] { };
-
-                _list.Add(replyNode);
-                item.children = _list.ToArray();
-
-                BindTreeView(replyNode, list, cc.MenuNo);
-
-            }
-
-        }
-
-        public partial class Menu
-        {
-            public int MenuID { get; set; }
-            public string MenuNo { get; set; }
-            public string label { get; set; }
-            public string MenuParentNo { get; set; }
-            public string MenuName { get; set; }
-            public Menu[] children { get; set; }
-        }
-
-       
         /// <summary>
         /// 获取菜单编辑窗口右边表格
         /// </summary>
@@ -133,17 +106,15 @@ namespace webDmsApi.Areas.Sys
         public HttpResponseMessage FindSysMoudleRow(dynamic obj)
         {
             webDmsEntities db = new webDmsEntities();
-            
-            string MenuNo = obj.MenuNo;
+
+            int MenuID = obj.MenuID;
             int pageSize = obj.pageSize;
             int currentPage = obj.currentPage;
 
-            //var list = db.Sys_Menu.Where<Sys_Menu>(p => p.MenuParentNo == parentNo);
-
             var data = (from t1 in db.Sys_Menu
-                        join t2 in db.Sys_dictionarydata
-                        on t1.ApplicationNo equals t2.dictdata_Value
-                        where (t2.dictdata_Table == "Sys_Menu" && t2.dictdata_Field == "ApplicationNo" && t1.MenuParentNo == MenuNo)
+                        join t2 in db.Sys_DictionaryData
+                        on t1.ApplicationNo equals t2.DictdataValue
+                        where (t2.DictdataTable == "Sys_Menu" && t2.DictdataField == "ApplicationNo" && t1.MenuParentID == MenuID)
                         select new
                         {
                             MenuID = t1.MenuID,
@@ -151,43 +122,59 @@ namespace webDmsApi.Areas.Sys
                             MenuUrl = t1.MenuUrl,
                             MenuIcon = t1.MenuIcon,
                             IsValid = t1.IsValid == null || t1.IsValid == 1 ? "有效" : "无效",
-                            ApplicationNo = t2.dictdata_Name
+                            ApplicationNo = t2.DictdataName
                         }).ToList();
             var rows = data
                 .OrderBy(a => a.MenuID)
                 .Skip(pageSize * (currentPage - 1))
                 .Take(pageSize);
 
-
-            //object[] arr = new object[]
-            //    {
-            //    new  { type="index",prop = "", label = "", width = "50" },
-            //    new  { type="",prop = "MenuName", label = "模块名称", width = "200" },
-            //    new  { type="",prop = "MenuUrl", label = "模块路径", width = "250" },
-            //    new  { type="",prop = "MenuIcon", label = "图标", width = "100" },
-            //    new  { type="",prop = "IsValid", label = "有效否", width = "100" },
-            //    new  { type="",prop = "ApplicationID", label = "应用平台", width = "250" },
-            //    };
-
-
             return Json(rows, currentPage, pageSize, data.Count);
         }
 
         public HttpResponseMessage FindSysMoudleForm(dynamic obj)
         {
-
             webDmsEntities db = new webDmsEntities();
-            int MenuID = obj.MenuID;
+            int MenuID = obj == null ? 0 : obj.MenuID;
 
             var _list = db.Sys_Menu.Where<Sys_Menu>(p => p.MenuID == MenuID);
+
+            var newData = new
+            {
+                MenuID = 0,
+                MenuName = "",
+                MenuParentID = 0,
+                MenuUrl = "",
+                IsValid = 1,
+                MenuIcon = "",
+                ApplicationNo = "",
+                Xh = "",
+
+                IsValidList = (
+                                new object[] {
+                                    new {label = "有效", value = 1 },
+                                    new {label="无效",value=0 }
+                                }).ToList(),
+                ApplicationNoList = db.Sys_Application.Select(a => new
+                {
+                    label = a.ApplicationName,
+                    value = a.ApplicationNo
+                }),
+                MenuParentIDList = new object[] { new { label = "未对应上级", value = 0 } }.
+                            Concat(
+                                db.Sys_Menu.Where<Sys_Menu>(a => a.MenuParentID == 0 && a.IsValid != 0).Select(a => new
+                                {
+                                    label = a.MenuName,
+                                    value = a.MenuID
+                                }))
+            };
 
             var list = (from t1 in _list
                         select new
                         {
                             MenuID = t1.MenuID,
                             MenuName = t1.MenuName,
-                            MenuNo = t1.MenuNo,
-                            MenuParentNo = t1.MenuParentNo,
+                            MenuParentID = t1.MenuParentID,
                             MenuUrl = t1.MenuUrl,
                             IsValid = t1.IsValid == null ? 1 : t1.IsValid,
                             MenuIcon = t1.MenuIcon,
@@ -204,23 +191,30 @@ namespace webDmsApi.Areas.Sys
                                 label = a.ApplicationName,
                                 value = a.ApplicationNo
                             }),
-                            MenuParentNoList = new object[] { new { label = "未对应上级", value = "0" } }.
+                            MenuParentIDList = new object[] { new { label = "未对应上级", value = 0 } }.
                             Concat(
-                                db.Sys_Menu.Where<Sys_Menu>(a => a.MenuParentNo == "0" && a.IsValid != 0).Select(a => new
+                                db.Sys_Menu.Where<Sys_Menu>(a => a.MenuParentID == 0 && a.IsValid != 0).Select(a => new
                                 {
                                     label = a.MenuName,
-                                    value = a.MenuNo
+                                    value = a.MenuID
                                 }))
-                        });
+                        }).FirstOrDefault();
 
-            return Json(true, "", list);
+            if (MenuID == 0)
+            {
+                return Json(true, "", newData);
+            }
+            else
+            {
+                return Json(true, "", list);
+            }
         }
 
         public HttpResponseMessage SaveSysMoudleForm(Sys_Menu menu)
         {
             webDmsEntities db = new webDmsEntities();
 
-            db.Entry<Sys_Menu>(menu).State = EntityState.Modified;
+            db.Entry<Sys_Menu>(menu).State = menu.MenuID == 0 ? EntityState.Added : EntityState.Modified;
 
             var result = db.SaveChanges();
 

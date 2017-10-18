@@ -12,12 +12,12 @@ namespace webDmsApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Sys_dictionarydata
+    public partial class Sys_DictionaryData
     {
-        public int dictdata_Id { get; set; }
-        public string dictdata_Table { get; set; }
-        public string dictdata_Field { get; set; }
-        public string dictdata_Name { get; set; }
-        public string dictdata_Value { get; set; }
+        public int DictdataID { get; set; }
+        public string DictdataTable { get; set; }
+        public string DictdataField { get; set; }
+        public string DictdataName { get; set; }
+        public string DictdataValue { get; set; }
     }
 }

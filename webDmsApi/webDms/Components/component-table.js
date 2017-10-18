@@ -34,6 +34,9 @@ Vue.component('component-table', {
         handleRowClick: function (row) {
             this.$emit('edit', row);
         },
+        handleRowDelete: function (row) {
+            this.$emit('delete',row);
+        },
         handleSizeChange: function (size) {
 
         },

@@ -20,7 +20,7 @@ Vue.component('component-form', {
             })
                 .then(function (result) {
                     if (result.result) {
-                        _self.data = result.data[0];
+                        _self.data = result.data;
                         for (var field in _self.data) {
                             if (field.length - field.indexOf("Arr") == 3) {
                                 _self.data[field] = _self.data[field].toString().split(",");
@@ -30,11 +30,11 @@ Vue.component('component-form', {
                 });
         }
     },
-    watch: {
-        condition: function (newVal, oldVal) {
-            this.GetData();
-        }
-    },
+    //watch: {
+    //    condition: function (newVal, oldVal) {
+    //        this.GetData();
+    //    }
+    //},
     render: function (_c) {
         var _self = this;
         return _c('div', { staticStyle: { padding: '0' } }, [

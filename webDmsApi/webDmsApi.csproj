@@ -200,6 +200,7 @@
     <Content Include="webDms\Components\component-condition.js" />
     <Content Include="webDms\Components\component-form.js" />
     <Content Include="webDms\Components\component-table.js" />
+    <Content Include="webDms\Components\component-title.js" />
     <Content Include="webDms\Components\component-tree.js" />
     <Content Include="webDms\Global\css.js" />
     <Content Include="webDms\Global\css\bootstrap.min.css" />
@@ -318,7 +319,7 @@
     <Compile Include="Models\Sys_Controls.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Sys_dictionarydata.cs">
+    <Compile Include="Models\Sys_DictionaryData.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sys_Menu.cs">

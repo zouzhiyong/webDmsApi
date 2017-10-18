@@ -17,8 +17,7 @@ namespace webDmsApi.Models
         public string LoginName { get; set; }
         public int UserID { get; set; }
         public int MenuID { get; set; }
-        public string MenuNo { get; set; }
-        public string MenuParentNo { get; set; }
+        public Nullable<int> MenuParentID { get; set; }
         public string MenuName { get; set; }
         public string MenuUrl { get; set; }
         public string MenuIcon { get; set; }

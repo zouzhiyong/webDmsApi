@@ -18,10 +18,6 @@ Vue.component('component-dialog', {
                 if (valid) {
                     var data = JSON.parse(JSON.stringify(_self.$refs.form.data));
                     for (var field in data) {
-                        //if (field.length - field.indexOf("List") == 4) {
-                        //    delete data[field]
-                        //}
-
                         if (field.length - field.indexOf("Arr") == 3) {
                             data[field.replace("Arr", '')] = data[field].toString();
                         }
@@ -48,7 +44,7 @@ Vue.component('component-dialog', {
             
         },
         handleCancleForm: function () {
-            this.$emit('input', false);
+            this.$emit('input', false);            
         },
         handleCloseForm: function () {
             this.$emit('input', false);

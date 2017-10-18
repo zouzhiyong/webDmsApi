@@ -108,21 +108,21 @@
             </div>
             <div class="menu scroll">
                 <ul>
-                    <li v-for="menuItem in menuData" v-if="menuItem.MenuParentNo=='0'">
-                        <template v-if="menuItem.MenuNo=='0'">
+                    <li v-for="menuItem in menuData" v-if="menuItem.MenuParentID=='0'">
+                        <template v-if="menuItem.MenuID==0">
                             <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(menuItem)" data-index="0" expanded="false">
                                 <i class="fa fa-home"></i>
                                 <span class="">主页</span>
                             </a>
                         </template>
                         <template v-else>
-                            <a href="javascript:;" :data-index="menuItem.MenuNo" expanded="false">
+                            <a href="javascript:;" :data-index="menuItem.MenuID" expanded="false">
                                 <i :class="menuItem.MenuIcon"></i>
                                 <span class="menu-label">{{menuItem.MenuName}}</span>
                                 <span class="fa fa-angle-left arrow"> </span>
                             </a>
                             <ul class="collapse" expanded="false">
-                                <li v-for="subMenuItem in menuData" v-if="subMenuItem.MenuParentNo==menuItem.MenuNo">
+                                <li v-for="subMenuItem in menuData" v-if="subMenuItem.MenuParentID==menuItem.MenuID">
                                     <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(subMenuItem)" data-index="4">
                                         <i class=""></i> {{subMenuItem.MenuName}}
                                     </a>
@@ -140,9 +140,9 @@
                 </button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content" style="margin-left: 0px;">
-                        <a v-for="(item,index) in openData" href="javascript:;" :class="[item.active?'active':'']+' J_menuTab'" :data-id="item.MenuNo" data-index="12" v-on:click="handleSwitchTab(item)">
+                        <a v-for="(item,index) in openData" href="javascript:;" :class="[item.active?'active':'']+' J_menuTab'" :data-id="item.MenuID" data-index="12" v-on:click="handleSwitchTab(item)">
                             {{item.MenuName}}
-                            <i v-if="item.MenuNo!='0'" class="fa fa-times-circle" v-on:click.stop="handleCloseTab(item,index)"></i>
+                            <i v-if="item.MenuID!=0" class="fa fa-times-circle" v-on:click.stop="handleCloseTab(item,index)"></i>
                         </a>
                     </div>
                 </nav>
@@ -171,7 +171,7 @@
                 <a href="javascript:;" class="roll-nav roll-right J_tabExit logoff-link" v-on:click="handleExit"><i class="fa fa fa-sign-out"></i>退出</a>
             </div>
             <div class="J_mainContent">
-                <div v-for="item in openData" class="J_iframe iframe_content" :data-id="item.MenuNo" :style="{display:item.active?'':'none'}">
+                <div v-for="item in openData" class="J_iframe iframe_content" :data-id="item.MenuID" :style="{display:item.active?'':'none'}">
                     <component :is="item.MenuUrl" :title="item.MenuName" :control="item.Controls">
 
                     </component>
@@ -211,8 +211,8 @@
     }).then(function (result) {
         if (result) {
             result.data.map(function (item) {
-                if (item.MenuParentNo == null) {
-                    item.MenuParentNo = 0;
+                if (item.MenuParentID == null) {
+                    item.MenuParentID = 0;
                 }
                 if (item.MenuIcon == null) {
                     item.MenuIcon = "";
@@ -231,8 +231,8 @@
         el: '.wrapper',
         data: {
             homePage: {
-                MenuNo: '0',
-                MenuParentNo: 0,
+                MenuID: 0,
+                MenuParentID: 0,
                 active: true,
                 MenuName: '主页',
                 MenuUrl: 'cust-page',
@@ -260,7 +260,7 @@
                     _self.handleUnActive();
                     var isActive = false;
                     _self.openData.map(function (item) {
-                        if (item.MenuNo == subMenuItem.MenuNo) {
+                        if (item.MenuID == subMenuItem.MenuID) {
                             item.active = true;
                             isActive = true;
                         }
@@ -291,7 +291,7 @@
             }, //关闭所有窗口
             handleCloseOther: function () {
                 for (var i = 0; i < this.openData.length - 1; i++) {
-                    if (this.openData[i].MenuNo != '0' && !this.openData[i].active) {
+                    if (this.openData[i].MenuID != 0 && !this.openData[i].active) {
                         this.openData.splice(i--, 1);
                     }
                 }

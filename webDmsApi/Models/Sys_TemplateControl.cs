@@ -20,5 +20,6 @@ namespace webDmsApi.Models
         public string FormUrl { get; set; }
         public string SaveUrl { get; set; }
         public string Describe { get; set; }
+        public string DeleteUrl { get; set; }
     }
 }

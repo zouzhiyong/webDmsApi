@@ -1,4 +1,4 @@
-define(['Components/component-tree.js', 'Components/component-table.js', 'Components/component-form.js', 'Components/component-dialog.js'], function(tree, table, form) {
+define(['Components/component-tree.js', 'Components/component-table.js', 'Components/component-form.js', 'Components/component-dialog.js', 'Components/component-title.js'], function (tree, table, form) {
     Vue.component('cust-tree-table', {
         data: function() {
             return {
@@ -42,19 +42,17 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
             handleRowClick: function (row) {
                 this.formCondition = row;
                 this.dialogFormVisible = true;
+            },
+            handleNewForm: function () {
+                this.formCondition = null;
+                this.dialogFormVisible = true;
             }
         },
         render: function(_c) {
             var _self = this;
 
             return _c('el-row', { staticStyle: { height: '100%' } }, [
-                _c('el-row', { staticClass: 'content-title' },[
-                    _c('el-col', [
-                        _c('div', [
-                            _c('span', _self.title)
-                        ])
-                    ])
-                ]),
+                _c('component-title', { attrs: { title: _self.title }, on: { 'click': _self.handleNewForm } }),
                 _c('el-row', { staticClass: 'content-outbox' }, [
                     _c('el-col', { staticStyle: { height: '100%', width: '200px' } }, [
                         _c('div', { staticStyle: { height: '100%' } }, [
@@ -67,7 +65,7 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                         ])
                     ])
                 ]),                
-                _c('component-dialog', { attrs: { control: _self.form, condition: _self.formCondition,"title": _self.title }, model: { value: (_self.dialogFormVisible), callback: function ($$v) { _self.dialogFormVisible = $$v}, expression: '_self.dialogFormVisible' } })
+                _self.dialogFormVisible ? _c('component-dialog', { attrs: { control: _self.form, condition: _self.formCondition, "title": _self.title }, model: { value: (_self.dialogFormVisible), callback: function ($$v) { _self.dialogFormVisible = $$v }, expression: '_self.dialogFormVisible' } }) : _self._e()
             ])
         }
     })
