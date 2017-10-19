@@ -22,7 +22,7 @@ Vue.component('component-form', {
                     if (result.result) {
                         _self.data = result.data;
                         for (var field in _self.data) {
-                            if (field.length - field.indexOf("Arr") == 3) {
+                            if (field.indexOf("Arr")>0 && field.length - field.indexOf("Arr") == 3) {
                                 _self.data[field] = _self.data[field].toString().split(",");
                             }
                         }

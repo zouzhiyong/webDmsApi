@@ -22,6 +22,8 @@ namespace webDmsApi.Models
         public string MenuUrl { get; set; }
         public string MenuIcon { get; set; }
         public Nullable<int> IsValid { get; set; }
+        public string IsValidName { get; set; }
+        public string ApplicationName { get; set; }
         public Nullable<int> Xh { get; set; }
         public string ApplicationNo { get; set; }
     }

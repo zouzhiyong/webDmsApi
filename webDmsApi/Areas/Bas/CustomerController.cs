@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -12,38 +13,26 @@ namespace webDmsApi.Areas.Bas
 {
     public class CustomerController : ApiBaseController
     {
+        webDmsEntities db = new webDmsEntities();
+
         public HttpResponseMessage FindMoudleRows(dynamic obj)
         {
-            webDmsEntities db = new webDmsEntities();
+            DBHelper<View_Customer> dbhelp = new DBHelper<View_Customer>();
 
+            string CustomerName = obj.CustomerName;
             int pageSize = obj.pageSize;
             int currentPage = obj.currentPage;
-            string CustomerName = obj.CustomerName;
+            int total = 0;
             string Region = obj.Region;
 
-            var data = db.Bas_Customer.Where<Bas_Customer>(p => (p.CustomerName.Contains(CustomerName) && p.Region.Contains(Region))).Select(u => new
-            {
-                CustomerID = u.CustomerID,
-                CustomerName = u.CustomerName,
-                LinkMan = u.LinkMan,
-                LinkManPhone = u.LinkManPhone,
-                RegionArr = db.View_Region.Where<View_Region>(t => t.RegionValue == u.Region).Select(v => v.Name).FirstOrDefault(),
-                IsValid = (u.IsValid == null || u.IsValid == 1 ? "正常" : "关门")
-            }).ToList();
+            var list = dbhelp.FindPagedList(currentPage, pageSize, out total, x => (x.CustomerName.Contains(CustomerName) && x.Region.Contains(Region)), s => s.CustomerID, true);
 
-            var rows = data
-                .OrderBy(a => a.CustomerID)
-                .Skip(pageSize * (currentPage - 1))
-                .Take(pageSize);
+            return Json(list, currentPage, pageSize, total);
 
-
-            return Json(rows, currentPage, pageSize, data.Count);
         }
 
-        public HttpResponseMessage FindMoudleForm(dynamic obj)
+        public HttpResponseMessage FindMoudleForm(Bas_Customer obj)
         {
-            webDmsEntities db = new webDmsEntities();
-
             int CustomerID = obj == null ? 0 : obj.CustomerID;
 
             var newData = new
@@ -122,37 +111,15 @@ namespace webDmsApi.Areas.Bas
             
         }
 
-        public HttpResponseMessage FindMoudleRegion(dynamic obj)
-        {
-            webDmsEntities db = new webDmsEntities();
-            string regionNo = obj.RegionNo;
-
-            var list = db.Sys_Region.Where(p => p.RegionParentNo == regionNo).Select(v => new
-            {
-                RegionNo = v.RegionNo,
-                label = v.RegionName,
-                children = db.Sys_Region.Where<Sys_Region>(p => 1 == 0).ToList(),
-                RegionParentNo = v.RegionParentNo
-            });
-
-            return Json(true, "", list);
-        }
-
         public HttpResponseMessage SaveMoudleForm(Bas_Customer obj)
         {
-            webDmsEntities db = new webDmsEntities();
-
-            db.Entry<Bas_Customer>(obj).State = obj.CustomerID==0? EntityState.Added: EntityState.Modified;
-
-            var result = db.SaveChanges();
-
+            DBHelper<Bas_Customer> dbhelp = new DBHelper<Bas_Customer>();
+            var result = obj.CustomerID == 0 ? dbhelp.Add(obj) : dbhelp.Update(obj);
             return Json(true, result == 1 ? "保存成功！" : "保存失败");
         }
 
         public HttpResponseMessage FindMoudleRegionList()
         {
-            webDmsEntities db = new webDmsEntities();
-
             var list = db.Sys_Region.Where<Sys_Region>(p => p.RegionParentNo == "0").Select(v => new
             {
                 RegionNo = v.RegionNo,
@@ -178,13 +145,7 @@ namespace webDmsApi.Areas.Bas
         [HttpPost]
         public HttpResponseMessage DeleteMoudleRow(Bas_Customer obj)
         {
-            webDmsEntities db = new webDmsEntities();
-
-            db.Bas_Customer.Attach(obj);
-
-            db.Bas_Customer.Remove(obj);
-
-            var result = db.SaveChanges();
+            var result = new DBHelper<Bas_Customer>().Remove(obj);
 
             return Json(true, result == 1 ? "删除成功！" : "删除失败");
         }

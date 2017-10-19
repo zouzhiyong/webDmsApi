@@ -220,12 +220,38 @@
           <Property Name="RecTimeStamp" Type="datetime" />
         </EntityType>
         <!--生成过程中发现错误:
+警告 6002: 表/视图“webDms.dbo.View_Customer”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="View_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="IsValidName" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="60" />
+          <Property Name="LinkMan" Type="nvarchar" MaxLength="20" />
+          <Property Name="LinkManPhone" Type="nvarchar" MaxLength="30" />
+          <Property Name="Region" Type="nvarchar" MaxLength="30" />
+          <Property Name="QQ" Type="nvarchar" MaxLength="20" />
+          <Property Name="Wechat" Type="nvarchar" MaxLength="20" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone1" Type="nvarchar" MaxLength="30" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="30" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepositAmount" Type="money" />
+          <Property Name="IsValid" Type="int" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="152" />
+          <Property Name="IsValidName" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <!--生成过程中发现错误:
 警告 6002: 表/视图“webDms.dbo.View_menu”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="View_menu">
           <Key>
             <PropertyRef Name="LoginName" />
             <PropertyRef Name="UserID" />
             <PropertyRef Name="MenuID" />
+            <PropertyRef Name="IsValidName" />
           </Key>
           <Property Name="LoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
@@ -235,6 +261,8 @@
           <Property Name="MenuUrl" Type="nvarchar" MaxLength="200" />
           <Property Name="MenuIcon" Type="nvarchar" MaxLength="200" />
           <Property Name="IsValid" Type="int" />
+          <Property Name="IsValidName" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="50" />
           <Property Name="Xh" Type="int" />
           <Property Name="ApplicationNo" Type="nvarchar" MaxLength="10" />
         </EntityType>
@@ -267,6 +295,27 @@
           <EntitySet Name="Sys_Templates" EntityType="Self.Sys_Templates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_User" EntityType="Self.Sys_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_UserRole" EntityType="Self.Sys_UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_Customer" EntityType="Self.View_Customer" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Customer].[CustomerID] AS [CustomerID], 
+    [View_Customer].[CustomerName] AS [CustomerName], 
+    [View_Customer].[LinkMan] AS [LinkMan], 
+    [View_Customer].[LinkManPhone] AS [LinkManPhone], 
+    [View_Customer].[Region] AS [Region], 
+    [View_Customer].[QQ] AS [QQ], 
+    [View_Customer].[Wechat] AS [Wechat], 
+    [View_Customer].[FAX] AS [FAX], 
+    [View_Customer].[Phone1] AS [Phone1], 
+    [View_Customer].[Phone2] AS [Phone2], 
+    [View_Customer].[Address1] AS [Address1], 
+    [View_Customer].[Address2] AS [Address2], 
+    [View_Customer].[DepositAmount] AS [DepositAmount], 
+    [View_Customer].[IsValid] AS [IsValid], 
+    [View_Customer].[RegionName] AS [RegionName], 
+    [View_Customer].[IsValidName] AS [IsValidName], 
+    [View_Customer].[Remark] AS [Remark]
+    FROM [dbo].[View_Customer] AS [View_Customer]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="View_menu" EntityType="Self.View_menu" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [View_menu].[LoginName] AS [LoginName], 
@@ -277,6 +326,8 @@
     [View_menu].[MenuUrl] AS [MenuUrl], 
     [View_menu].[MenuIcon] AS [MenuIcon], 
     [View_menu].[IsValid] AS [IsValid], 
+    [View_menu].[IsValidName] AS [IsValidName], 
+    [View_menu].[ApplicationName] AS [ApplicationName], 
     [View_menu].[Xh] AS [Xh], 
     [View_menu].[ApplicationNo] AS [ApplicationNo]
     FROM [dbo].[View_menu] AS [View_menu]</DefiningQuery>
@@ -301,6 +352,7 @@
           <EntitySet Name="Sys_Application" EntityType="webDmsModel.Sys_Application" />
           <EntitySet Name="Sys_Button" EntityType="webDmsModel.Sys_Button" />
           <EntitySet Name="Sys_Controls" EntityType="webDmsModel.Sys_Controls" />
+          <EntitySet Name="Sys_DictionaryData" EntityType="webDmsModel.Sys_DictionaryData" />
           <EntitySet Name="Sys_Menu" EntityType="webDmsModel.Sys_Menu" />
           <EntitySet Name="Sys_OperateLog" EntityType="webDmsModel.Sys_OperateLog" />
           <EntitySet Name="Sys_Region" EntityType="webDmsModel.Sys_Region" />
@@ -313,7 +365,7 @@
           <EntitySet Name="Sys_UserRole" EntityType="webDmsModel.Sys_UserRole" />
           <EntitySet Name="View_menu" EntityType="webDmsModel.View_menu" />
           <EntitySet Name="View_Region" EntityType="webDmsModel.View_Region" />
-          <EntitySet Name="Sys_DictionaryData" EntityType="webDmsModel.Sys_DictionaryData" />
+          <EntitySet Name="View_Customer" EntityType="webDmsModel.View_Customer" />
         </EntityContainer>
         <EntityType Name="Bas_Customer">
           <Key>
@@ -382,6 +434,16 @@
           <Property Name="ControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ControlName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_DictionaryData">
+          <Key>
+            <PropertyRef Name="DictdataID" />
+          </Key>
+          <Property Name="DictdataID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DictdataTable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DictdataField" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DictdataName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DictdataValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sys_Menu">
           <Key>
@@ -471,9 +533,9 @@
           <Property Name="ControlID" Type="Int32" Nullable="false" />
           <Property Name="FindUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FormUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeleteUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SaveUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DeleteUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sys_Templates">
           <Key>
@@ -524,6 +586,7 @@
             <PropertyRef Name="LoginName" />
             <PropertyRef Name="UserID" />
             <PropertyRef Name="MenuID" />
+            <PropertyRef Name="IsValidName" />
           </Key>
           <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
@@ -533,6 +596,8 @@
           <Property Name="MenuUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MenuIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsValid" Type="Int32" />
+          <Property Name="IsValidName" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Xh" Type="Int32" />
           <Property Name="ApplicationNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -546,15 +611,28 @@
           <Property Name="RegionValue" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="152" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Sys_DictionaryData">
+        <EntityType Name="View_Customer">
           <Key>
-            <PropertyRef Name="DictdataID" />
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="IsValidName" />
           </Key>
-          <Property Name="DictdataID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DictdataTable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DictdataField" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DictdataName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DictdataValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="LinkMan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LinkManPhone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Region" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="QQ" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Wechat" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Phone2" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DepositAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="RegionName" Type="String" MaxLength="152" FixedLength="false" Unicode="true" />
+          <Property Name="IsValidName" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -632,6 +710,17 @@
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
                 <ScalarProperty Name="ControlName" ColumnName="ControlName" />
                 <ScalarProperty Name="ControlID" ColumnName="ControlID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_DictionaryData">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_DictionaryData">
+              <MappingFragment StoreEntitySet="Sys_DictionaryData">
+                <ScalarProperty Name="DictdataValue" ColumnName="DictdataValue" />
+                <ScalarProperty Name="DictdataName" ColumnName="DictdataName" />
+                <ScalarProperty Name="DictdataField" ColumnName="DictdataField" />
+                <ScalarProperty Name="DictdataTable" ColumnName="DictdataTable" />
+                <ScalarProperty Name="DictdataID" ColumnName="DictdataID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -723,9 +812,9 @@
           <EntitySetMapping Name="Sys_TemplateControl">
             <EntityTypeMapping TypeName="webDmsModel.Sys_TemplateControl">
               <MappingFragment StoreEntitySet="Sys_TemplateControl">
-                <ScalarProperty Name="DeleteUrl" ColumnName="DeleteUrl" />
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
                 <ScalarProperty Name="SaveUrl" ColumnName="SaveUrl" />
+                <ScalarProperty Name="DeleteUrl" ColumnName="DeleteUrl" />
                 <ScalarProperty Name="FormUrl" ColumnName="FormUrl" />
                 <ScalarProperty Name="FindUrl" ColumnName="FindUrl" />
                 <ScalarProperty Name="ControlID" ColumnName="ControlID" />
@@ -785,6 +874,8 @@
               <MappingFragment StoreEntitySet="View_menu">
                 <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
                 <ScalarProperty Name="Xh" ColumnName="Xh" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="IsValidName" ColumnName="IsValidName" />
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
                 <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
@@ -807,14 +898,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sys_DictionaryData">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_DictionaryData">
-              <MappingFragment StoreEntitySet="Sys_DictionaryData">
-                <ScalarProperty Name="DictdataValue" ColumnName="DictdataValue" />
-                <ScalarProperty Name="DictdataName" ColumnName="DictdataName" />
-                <ScalarProperty Name="DictdataField" ColumnName="DictdataField" />
-                <ScalarProperty Name="DictdataTable" ColumnName="DictdataTable" />
-                <ScalarProperty Name="DictdataID" ColumnName="DictdataID" />
+          <EntitySetMapping Name="View_Customer">
+            <EntityTypeMapping TypeName="webDmsModel.View_Customer">
+              <MappingFragment StoreEntitySet="View_Customer">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsValidName" ColumnName="IsValidName" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="DepositAmount" ColumnName="DepositAmount" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="Wechat" ColumnName="Wechat" />
+                <ScalarProperty Name="QQ" ColumnName="QQ" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="LinkManPhone" ColumnName="LinkManPhone" />
+                <ScalarProperty Name="LinkMan" ColumnName="LinkMan" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -16,14 +16,13 @@ namespace webDmsApi.Areas.Sys
 {
     public class MenuController : ApiBaseController
     {
+        webDmsEntities db = new webDmsEntities();
         /// <summary>
         /// 获取菜单
         /// </summary>
         /// <returns></returns>
         public HttpResponseMessage FindSysMenu()
         {
-            webDmsEntities db = new webDmsEntities();
-
             string userId = HttpContext.Current.Session["userId"].ToString();
 
             var list = db.View_menu.Where<View_menu>(p => p.UserID.ToString() == userId).OrderBy(o => o.Xh).ThenBy(o => o.MenuID);
@@ -49,7 +48,7 @@ namespace webDmsApi.Areas.Sys
                                              ControlName = t4.ControlName,
                                              ControlID = t3.ControlID,
                                              FindUrl = t3.FindUrl,
-                                             DeleteUrl=t3.DeleteUrl,
+                                             DeleteUrl = t3.DeleteUrl,
                                              FormUrl = t3.FormUrl,
                                              SaveUrl = t3.SaveUrl,
                                              SubControls = (from t5 in db.Sys_SubControls
@@ -67,8 +66,6 @@ namespace webDmsApi.Areas.Sys
         /// <returns></returns>
         public HttpResponseMessage FindSysMoudle()
         {
-            webDmsEntities db = new webDmsEntities();
-
             string userId = HttpContext.Current.Session["userId"].ToString();
 
             var list = db.View_menu.Where<View_menu>(p => p.UserID.ToString() == userId);
@@ -94,10 +91,9 @@ namespace webDmsApi.Areas.Sys
                     }).ToList()
                 }
             };
-            
+
             return Json(true, "", new { rows = list, tree = treeList });
         }
-
 
         /// <summary>
         /// 获取菜单编辑窗口右边表格
@@ -105,34 +101,19 @@ namespace webDmsApi.Areas.Sys
         /// <returns></returns>
         public HttpResponseMessage FindSysMoudleRow(dynamic obj)
         {
-            webDmsEntities db = new webDmsEntities();
+            DBHelper<View_menu> dbhelp = new DBHelper<View_menu>();
 
             int MenuID = obj.MenuID;
             int pageSize = obj.pageSize;
             int currentPage = obj.currentPage;
+            int total = 0;
 
-            var data = (from t1 in db.Sys_Menu
-                        join t2 in db.Sys_DictionaryData
-                        on t1.ApplicationNo equals t2.DictdataValue
-                        where (t2.DictdataTable == "Sys_Menu" && t2.DictdataField == "ApplicationNo" && t1.MenuParentID == MenuID)
-                        select new
-                        {
-                            MenuID = t1.MenuID,
-                            MenuName = t1.MenuName,
-                            MenuUrl = t1.MenuUrl,
-                            MenuIcon = t1.MenuIcon,
-                            IsValid = t1.IsValid == null || t1.IsValid == 1 ? "有效" : "无效",
-                            ApplicationNo = t2.DictdataName
-                        }).ToList();
-            var rows = data
-                .OrderBy(a => a.MenuID)
-                .Skip(pageSize * (currentPage - 1))
-                .Take(pageSize);
+            var list = dbhelp.FindPagedList(currentPage, pageSize, out total, x => x.MenuParentID == MenuID, s => s.MenuID, true);
 
-            return Json(rows, currentPage, pageSize, data.Count);
+            return Json(list, currentPage, pageSize, total);
         }
 
-        public HttpResponseMessage FindSysMoudleForm(dynamic obj)
+        public HttpResponseMessage FindSysMoudleForm(Sys_Menu obj)
         {
             webDmsEntities db = new webDmsEntities();
             int MenuID = obj == null ? 0 : obj.MenuID;
@@ -210,13 +191,10 @@ namespace webDmsApi.Areas.Sys
             }
         }
 
-        public HttpResponseMessage SaveSysMoudleForm(Sys_Menu menu)
+        public HttpResponseMessage SaveSysMoudleForm(Sys_Menu obj)
         {
-            webDmsEntities db = new webDmsEntities();
-
-            db.Entry<Sys_Menu>(menu).State = menu.MenuID == 0 ? EntityState.Added : EntityState.Modified;
-
-            var result = db.SaveChanges();
+            DBHelper<Sys_Menu> dbhelp = new DBHelper<Sys_Menu>();
+            var result = obj.MenuID == 0 ? dbhelp.Add(obj) : dbhelp.Update(obj);
 
             return Json(true, result == 1 ? "保存成功！" : "保存失败");
         }

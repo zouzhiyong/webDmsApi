@@ -18,8 +18,8 @@ namespace webDmsApi.Models
         public int ControlID { get; set; }
         public string FindUrl { get; set; }
         public string FormUrl { get; set; }
+        public string DeleteUrl { get; set; }
         public string SaveUrl { get; set; }
         public string Describe { get; set; }
-        public string DeleteUrl { get; set; }
     }
 }

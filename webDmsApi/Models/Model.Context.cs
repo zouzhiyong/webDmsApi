@@ -30,6 +30,7 @@ namespace webDmsApi.Models
         public virtual DbSet<Sys_Application> Sys_Application { get; set; }
         public virtual DbSet<Sys_Button> Sys_Button { get; set; }
         public virtual DbSet<Sys_Controls> Sys_Controls { get; set; }
+        public virtual DbSet<Sys_DictionaryData> Sys_DictionaryData { get; set; }
         public virtual DbSet<Sys_Menu> Sys_Menu { get; set; }
         public virtual DbSet<Sys_OperateLog> Sys_OperateLog { get; set; }
         public virtual DbSet<Sys_Region> Sys_Region { get; set; }
@@ -42,6 +43,6 @@ namespace webDmsApi.Models
         public virtual DbSet<Sys_UserRole> Sys_UserRole { get; set; }
         public virtual DbSet<View_menu> View_menu { get; set; }
         public virtual DbSet<View_Region> View_Region { get; set; }
-        public virtual DbSet<Sys_DictionaryData> Sys_DictionaryData { get; set; }
+        public virtual DbSet<View_Customer> View_Customer { get; set; }
     }
 }
