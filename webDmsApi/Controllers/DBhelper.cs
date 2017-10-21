@@ -11,6 +11,7 @@ namespace webDmsApi.Controllers
     public class DBHelper<T> where T : class
     {
         webDmsEntities db = new webDmsEntities();
+
         /// <summary>
         /// 新增一个实体
         /// </summary>
@@ -142,4 +143,5 @@ namespace webDmsApi.Controllers
             return list;
         }
     }
+
 }

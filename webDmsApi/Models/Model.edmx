@@ -224,7 +224,6 @@
         <EntityType Name="View_Customer">
           <Key>
             <PropertyRef Name="CustomerID" />
-            <PropertyRef Name="IsValidName" />
           </Key>
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="60" />
@@ -241,7 +240,7 @@
           <Property Name="DepositAmount" Type="money" />
           <Property Name="IsValid" Type="int" />
           <Property Name="RegionName" Type="nvarchar" MaxLength="152" />
-          <Property Name="IsValidName" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="IsValidName" Type="nvarchar" MaxLength="10" />
           <Property Name="Remark" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <!--生成过程中发现错误:
@@ -363,9 +362,9 @@
           <EntitySet Name="Sys_Templates" EntityType="webDmsModel.Sys_Templates" />
           <EntitySet Name="Sys_User" EntityType="webDmsModel.Sys_User" />
           <EntitySet Name="Sys_UserRole" EntityType="webDmsModel.Sys_UserRole" />
+          <EntitySet Name="View_Customer" EntityType="webDmsModel.View_Customer" />
           <EntitySet Name="View_menu" EntityType="webDmsModel.View_menu" />
           <EntitySet Name="View_Region" EntityType="webDmsModel.View_Region" />
-          <EntitySet Name="View_Customer" EntityType="webDmsModel.View_Customer" />
         </EntityContainer>
         <EntityType Name="Bas_Customer">
           <Key>
@@ -581,6 +580,28 @@
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="View_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="LinkMan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LinkManPhone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Region" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="QQ" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Wechat" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Phone2" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DepositAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="RegionName" Type="String" MaxLength="152" FixedLength="false" Unicode="true" />
+          <Property Name="IsValidName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="View_menu">
           <Key>
             <PropertyRef Name="LoginName" />
@@ -610,29 +631,6 @@
           <Property Name="RegionParentNo" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="RegionValue" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="152" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="View_Customer">
-          <Key>
-            <PropertyRef Name="CustomerID" />
-            <PropertyRef Name="IsValidName" />
-          </Key>
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="CustomerName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
-          <Property Name="LinkMan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="LinkManPhone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Region" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="QQ" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Wechat" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FAX" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Phone1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Phone2" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DepositAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="IsValid" Type="Int32" />
-          <Property Name="RegionName" Type="String" MaxLength="152" FixedLength="false" Unicode="true" />
-          <Property Name="IsValidName" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -869,6 +867,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="View_Customer">
+            <EntityTypeMapping TypeName="webDmsModel.View_Customer">
+              <MappingFragment StoreEntitySet="View_Customer">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsValidName" ColumnName="IsValidName" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="DepositAmount" ColumnName="DepositAmount" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="Wechat" ColumnName="Wechat" />
+                <ScalarProperty Name="QQ" ColumnName="QQ" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="LinkManPhone" ColumnName="LinkManPhone" />
+                <ScalarProperty Name="LinkMan" ColumnName="LinkMan" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="View_menu">
             <EntityTypeMapping TypeName="webDmsModel.View_menu">
               <MappingFragment StoreEntitySet="View_menu">
@@ -895,29 +916,6 @@
                 <ScalarProperty Name="RegionParentNo" ColumnName="RegionParentNo" />
                 <ScalarProperty Name="RegionName" ColumnName="RegionName" />
                 <ScalarProperty Name="RegionNo" ColumnName="RegionNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="View_Customer">
-            <EntityTypeMapping TypeName="webDmsModel.View_Customer">
-              <MappingFragment StoreEntitySet="View_Customer">
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="IsValidName" ColumnName="IsValidName" />
-                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
-                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
-                <ScalarProperty Name="DepositAmount" ColumnName="DepositAmount" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
-                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
-                <ScalarProperty Name="FAX" ColumnName="FAX" />
-                <ScalarProperty Name="Wechat" ColumnName="Wechat" />
-                <ScalarProperty Name="QQ" ColumnName="QQ" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="LinkManPhone" ColumnName="LinkManPhone" />
-                <ScalarProperty Name="LinkMan" ColumnName="LinkMan" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

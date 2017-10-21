@@ -41,8 +41,8 @@ namespace webDmsApi.Models
         public virtual DbSet<Sys_Templates> Sys_Templates { get; set; }
         public virtual DbSet<Sys_User> Sys_User { get; set; }
         public virtual DbSet<Sys_UserRole> Sys_UserRole { get; set; }
+        public virtual DbSet<View_Customer> View_Customer { get; set; }
         public virtual DbSet<View_menu> View_menu { get; set; }
         public virtual DbSet<View_Region> View_Region { get; set; }
-        public virtual DbSet<View_Customer> View_Customer { get; set; }
     }
 }

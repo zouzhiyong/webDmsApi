@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using webDmsApi.Controllers;
@@ -17,6 +18,11 @@ namespace webDmsApi.Areas.Sys
     public class MenuController : ApiBaseController
     {
         webDmsEntities db = new webDmsEntities();
+        partial class sysMenuForm : Sys_Menu
+        {
+            public IQueryable<object> ApplicationNoList { get; set; }
+            public IEnumerable<object> MenuParentIDList { get; set; }
+        }
         /// <summary>
         /// 获取菜单
         /// </summary>
@@ -112,85 +118,131 @@ namespace webDmsApi.Areas.Sys
 
             return Json(list, currentPage, pageSize, total);
         }
-
+        /// <summary>
+        /// 表单窗口数据获取
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public HttpResponseMessage FindSysMoudleForm(Sys_Menu obj)
         {
-            webDmsEntities db = new webDmsEntities();
             int MenuID = obj == null ? 0 : obj.MenuID;
 
-            var _list = db.Sys_Menu.Where<Sys_Menu>(p => p.MenuID == MenuID);
-
-            var newData = new
+            sysMenuForm sysmenuform = new sysMenuForm();
+            sysmenuform.ApplicationNoList = db.Sys_Application.Select(a => new
             {
-                MenuID = 0,
-                MenuName = "",
-                MenuParentID = 0,
-                MenuUrl = "",
-                IsValid = 1,
-                MenuIcon = "",
-                ApplicationNo = "",
-                Xh = "",
-
-                IsValidList = (
-                                new object[] {
-                                    new {label = "有效", value = 1 },
-                                    new {label="无效",value=0 }
-                                }).ToList(),
-                ApplicationNoList = db.Sys_Application.Select(a => new
-                {
-                    label = a.ApplicationName,
-                    value = a.ApplicationNo
-                }),
-                MenuParentIDList = new object[] { new { label = "未对应上级", value = 0 } }.
-                            Concat(
-                                db.Sys_Menu.Where<Sys_Menu>(a => a.MenuParentID == 0 && a.IsValid != 0).Select(a => new
-                                {
-                                    label = a.MenuName,
-                                    value = a.MenuID
-                                }))
-            };
-
-            var list = (from t1 in _list
-                        select new
-                        {
-                            MenuID = t1.MenuID,
-                            MenuName = t1.MenuName,
-                            MenuParentID = t1.MenuParentID,
-                            MenuUrl = t1.MenuUrl,
-                            IsValid = t1.IsValid == null ? 1 : t1.IsValid,
-                            MenuIcon = t1.MenuIcon,
-                            ApplicationNo = t1.ApplicationNo,
-                            Xh = t1.Xh,
-
-                            IsValidList = (
-                                new object[] {
-                                    new {label = "有效", value = 1 },
-                                    new {label="无效",value=0 }
-                                }).ToList(),
-                            ApplicationNoList = db.Sys_Application.Select(a => new
+                label = a.ApplicationName,
+                value = a.ApplicationNo
+            });
+            sysmenuform.MenuParentIDList = new object[] { new { label = "未对应上级", value = 0 } }.
+                        Concat(
+                            db.Sys_Menu.Where<Sys_Menu>(a => a.MenuParentID == 0 && a.IsValid != 0).Select(a => new
                             {
-                                label = a.ApplicationName,
-                                value = a.ApplicationNo
-                            }),
-                            MenuParentIDList = new object[] { new { label = "未对应上级", value = 0 } }.
-                            Concat(
-                                db.Sys_Menu.Where<Sys_Menu>(a => a.MenuParentID == 0 && a.IsValid != 0).Select(a => new
-                                {
-                                    label = a.MenuName,
-                                    value = a.MenuID
-                                }))
-                        }).FirstOrDefault();
+                                label = a.MenuName,
+                                value = a.MenuID
+                            }));
+            sysmenuform.IsValid = 1;
 
-            if (MenuID == 0)
+            if (MenuID != 0)
             {
-                return Json(true, "", newData);
+                DBHelper<Sys_Menu> dbhelp = new DBHelper<Sys_Menu>();
+                var list = dbhelp.FindList(p => p.MenuID == MenuID).FirstOrDefault();
+
+                PropertyInfo[] properties1 = sysmenuform.GetType().GetProperties();
+                PropertyInfo[] properties2 = list.GetType().GetProperties();
+
+                foreach (PropertyInfo item1 in properties1)
+                {
+                    foreach (PropertyInfo item2 in properties2)
+                    {
+                        if (item1.Name == item2.Name && item1.PropertyType == item2.PropertyType)
+                        {
+                            item1.SetValue(sysmenuform, item2.GetValue(list, null), null);
+                            break;
+                        }
+                    }
+                }
             }
-            else
-            {
-                return Json(true, "", list);
-            }
+            return Json(true, "", sysmenuform);
+
+
+
+
+
+
+            //webDmsEntities db = new webDmsEntities();
+            //int MenuID = obj == null ? 0 : obj.MenuID;
+
+            //var _list = db.Sys_Menu.Where<Sys_Menu>(p => p.MenuID == MenuID);
+
+            //var newData = new
+            //{
+            //    MenuID = 0,
+            //    MenuName = "",
+            //    MenuParentID = 0,
+            //    MenuUrl = "",
+            //    IsValid = 1,
+            //    MenuIcon = "",
+            //    ApplicationNo = "",
+            //    Xh = "",
+
+            //    IsValidList = (
+            //                    new object[] {
+            //                        new {label = "有效", value = 1 },
+            //                        new {label="无效",value=0 }
+            //                    }).ToList(),
+            //    ApplicationNoList = db.Sys_Application.Select(a => new
+            //    {
+            //        label = a.ApplicationName,
+            //        value = a.ApplicationNo
+            //    }),
+            //    MenuParentIDList = new object[] { new { label = "未对应上级", value = 0 } }.
+            //                Concat(
+            //                    db.Sys_Menu.Where<Sys_Menu>(a => a.MenuParentID == 0 && a.IsValid != 0).Select(a => new
+            //                    {
+            //                        label = a.MenuName,
+            //                        value = a.MenuID
+            //                    }))
+            //};
+
+            //var list = (from t1 in _list
+            //            select new
+            //            {
+            //                MenuID = t1.MenuID,
+            //                MenuName = t1.MenuName,
+            //                MenuParentID = t1.MenuParentID,
+            //                MenuUrl = t1.MenuUrl,
+            //                IsValid = t1.IsValid,
+            //                MenuIcon = t1.MenuIcon,
+            //                ApplicationNo = t1.ApplicationNo,
+            //                Xh = t1.Xh,
+            //                ApplicationNoList = db.Sys_Application.Select(a => new
+            //                {
+            //                    label = a.ApplicationName,
+            //                    value = a.ApplicationNo
+            //                }),
+            //                MenuParentIDList = new object[] { new { label = "未对应上级", value = 0 } }.
+            //                Concat(
+            //                    db.Sys_Menu.Where<Sys_Menu>(a => a.MenuParentID == 0 && a.IsValid != 0).Select(a => new
+            //                    {
+            //                        label = a.MenuName,
+            //                        value = a.MenuID
+            //                    }))
+            //            }).FirstOrDefault();
+
+            //if (MenuID == 0)
+            //{
+            //    return Json(true, "", newData);
+            //}
+            //else
+            //{
+            //    return Json(true, "", list);
+            //}
         }
-
+        /// <summary>
+        /// 表单数据保存
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public HttpResponseMessage SaveSysMoudleForm(Sys_Menu obj)
         {
             DBHelper<Sys_Menu> dbhelp = new DBHelper<Sys_Menu>();
@@ -198,5 +250,6 @@ namespace webDmsApi.Areas.Sys
 
             return Json(true, result == 1 ? "保存成功！" : "保存失败");
         }
+
     }
 }

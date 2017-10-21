@@ -17,12 +17,6 @@ Vue.component('component-dialog', {
             _self.$refs.form.$refs.form.validate(function (valid) {
                 if (valid) {
                     var data = JSON.parse(JSON.stringify(_self.$refs.form.data));
-                    for (var field in data) {
-                        if (field.length - field.indexOf("Arr") == 3) {
-                            data[field.replace("Arr", '')] = data[field].toString();
-                        }
-                    }
-
                     ajaxData(_self.control.SaveUrl, {
                         async: false,
                         data: data

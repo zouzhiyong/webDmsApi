@@ -22,9 +22,16 @@ Vue.component('component-form', {
                     if (result.result) {
                         _self.data = result.data;
                         for (var field in _self.data) {
-                            if (field.indexOf("Arr")>0 && field.length - field.indexOf("Arr") == 3) {
-                                _self.data[field] = _self.data[field].toString().split(",");
-                            }
+                            //if (field.indexOf("Arr")>0 && field.length - field.indexOf("Arr") == 3) {
+                            //    _self.data[field] = _self.data[field].toString().split(",");
+                            //}
+                            //调整状态字段
+                            if (field == 'IsValid') {
+                                _self.data[field] = (_self.data[field] == null ? 1 : _self.data[field]);
+                                _self.data.IsValidList = [
+                                    { label:'有效',value:1},
+                                    { label: '无效', value: 0 }];
+                            }                            
                         }
                     }
                 });
@@ -64,7 +71,8 @@ Vue.component('component-form', {
                                     }))
                             }
                             if (_item === 'el-cascader') {
-                                return _c(_item, { attrs: { placeholder: "请选择", options: _self.data[item.Prop + 'List'], props: { value: 'RegionNo', children: 'children' } }, model: { value: (_self.data[item.Prop]), callback: function ($$v) { _self.data[item.Prop] = $$v }, expression: item.Prop }, on: { 'active-item-change': _self.handleItemChange } })
+                                var val = _self.data[item.Prop].toString().split(",");
+                                return _c(_item, { attrs: { placeholder: "请选择", options: _self.data[item.Prop + 'List'], props: { value: 'RegionNo', children: 'children' } }, model: { value: (val), callback: function ($$v) { _self.data[item.Prop] = $$v.toString(); }, expression: item.Prop }, on: { 'active-item-change': _self.handleItemChange } })
                             }
                             else {
                                 return _c(_item, { model: { value: (_self.data[item.Prop]), callback: function ($$v) { _self.data[item.Prop] = $$v }, expression: item.Prop } })

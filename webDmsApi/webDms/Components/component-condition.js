@@ -55,7 +55,8 @@ Vue.component('component-condition', {
                                     }))
                             }
                             if (_item === 'el-cascader') {
-                                return _c(_item, { attrs: { clearable:true,placeholder: "请选择", options: _self.data[item.Prop + 'List'], props: { value: 'RegionNo', children: 'children' } }, model: { value: (_self.data[item.Prop]), callback: function ($$v) { _self.data[item.Prop] = $$v }, expression: item.Prop }, on: { 'active-item-change': _self.handleItemChange } })
+                                var val = _self.data[item.Prop].toString().split(",");
+                                return _c(_item, { attrs: { clearable: true, placeholder: "请选择", options: _self.data[item.Prop + 'List'], props: { value: 'RegionNo', children: 'children' } }, model: { value: (val), callback: function ($$v) { _self.data[item.Prop] = $$v.toString() }, expression: item.Prop }, on: { 'active-item-change': _self.handleItemChange } })
                             }
                             else {
                                 return _c(_item, { model: { value: (_self.data[item.Prop]), callback: function ($$v) { _self.data[item.Prop] = $$v }, expression: item.Prop } })
