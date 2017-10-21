@@ -71,7 +71,7 @@ Vue.component('component-form', {
                                     }))
                             }
                             if (_item === 'el-cascader') {
-                                var val = _self.data[item.Prop].toString().split(",");
+                                var val = (_self.data[item.Prop]==null?"":_self.data[item.Prop].toString()).split(",");
                                 return _c(_item, { attrs: { placeholder: "请选择", options: _self.data[item.Prop + 'List'], props: { value: 'RegionNo', children: 'children' } }, model: { value: (val), callback: function ($$v) { _self.data[item.Prop] = $$v.toString(); }, expression: item.Prop }, on: { 'active-item-change': _self.handleItemChange } })
                             }
                             else {

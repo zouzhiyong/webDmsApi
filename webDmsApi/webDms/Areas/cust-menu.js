@@ -1,5 +1,5 @@
 define(['Components/component-tree.js', 'Components/component-table.js', 'Components/component-form.js', 'Components/component-dialog.js', 'Components/component-title.js'], function (tree, table, form) {
-    Vue.component('cust-tree-table', {
+    Vue.component('cust-menu', {
         data: function() {
             return {
                 tableCondition: {},
@@ -54,7 +54,7 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
             return _c('el-row', { staticStyle: { height: '100%' } }, [
                 _c('component-title', { attrs: { title: _self.title }, on: { 'click': _self.handleNewForm } }),
                 _c('el-row', { staticClass: 'content-outbox' }, [
-                    _c('el-col', { staticStyle: { height: '100%', width: '200px' } }, [
+                    _c('el-col', { staticStyle: { height: '100%', width: '200px','padding-right':'5px' } }, [
                         _c('div', { staticStyle: { height: '100%' } }, [
                             _c('component-tree', { attrs: { control: _self.tree }, on: { 'node-click': _self.handleNodeClick } })
                         ])

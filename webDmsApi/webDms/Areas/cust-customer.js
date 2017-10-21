@@ -1,5 +1,5 @@
 ﻿define(['Components/component-table.js', 'Components/component-form.js', 'Components/component-condition.js', 'Components/component-dialog.js','Components/component-title.js'], function (tree, table, form) {
-    Vue.component('cust-table', {
+    Vue.component('cust-customer', {
         data: function () {
             return {
                 tableCondition: {},
@@ -16,7 +16,6 @@
         },
         created: function () {
             this.iniData();
-            console.log(this.control);
         },
         mounted: function () {
             this.$refs.condition.handleClick();
