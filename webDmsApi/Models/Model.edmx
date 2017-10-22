@@ -181,6 +181,7 @@
           </Key>
           <Property Name="TemplateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TemplateName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsValid" Type="int" />
           <Property Name="Describe" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Sys_User">
@@ -543,6 +544,7 @@
           <Property Name="TemplateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsValid" Type="Int32" />
         </EntityType>
         <EntityType Name="Sys_User">
           <Key>
@@ -823,6 +825,7 @@
           <EntitySetMapping Name="Sys_Templates">
             <EntityTypeMapping TypeName="webDmsModel.Sys_Templates">
               <MappingFragment StoreEntitySet="Sys_Templates">
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
                 <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
                 <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
