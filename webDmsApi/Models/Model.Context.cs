@@ -25,6 +25,8 @@ namespace webDmsApi.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Bas_Comodities> Bas_Comodities { get; set; }
+        public virtual DbSet<Bas_ComoditiesType> Bas_ComoditiesType { get; set; }
         public virtual DbSet<Bas_Customer> Bas_Customer { get; set; }
         public virtual DbSet<Bas_Supplier> Bas_Supplier { get; set; }
         public virtual DbSet<Sys_Application> Sys_Application { get; set; }

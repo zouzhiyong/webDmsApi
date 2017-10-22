@@ -29,5 +29,6 @@ namespace webDmsApi.Models
         public string TempateIcons { get; set; }
         public string TempateEvents { get; set; }
         public string Describe { get; set; }
+        public Nullable<int> Xh { get; set; }
     }
 }

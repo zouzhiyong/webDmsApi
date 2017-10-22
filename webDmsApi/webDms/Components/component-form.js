@@ -9,6 +9,7 @@ Vue.component('component-form', {
         control: { type: Object }
     },
     created: function () {
+        
         this.GetData();
     },
     methods: {
@@ -22,9 +23,6 @@ Vue.component('component-form', {
                     if (result.result) {
                         _self.data = result.data;
                         for (var field in _self.data) {
-                            //if (field.indexOf("Arr")>0 && field.length - field.indexOf("Arr") == 3) {
-                            //    _self.data[field] = _self.data[field].toString().split(",");
-                            //}
                             //调整状态字段
                             if (field == 'IsValid') {
                                 _self.data[field] = (_self.data[field] == null ? 1 : _self.data[field]);

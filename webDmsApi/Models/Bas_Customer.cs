@@ -16,6 +16,7 @@ namespace webDmsApi.Models
     {
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
+        public string Code { get; set; }
         public string LinkMan { get; set; }
         public string LinkManPhone { get; set; }
         public string Region { get; set; }

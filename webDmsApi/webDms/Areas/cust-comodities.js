@@ -1,5 +1,5 @@
 define(['Components/component-tree.js', 'Components/component-table.js', 'Components/component-form.js', 'Components/component-dialog.js', 'Components/component-title.js'], function (tree, table, form) {
-    Vue.component('cust-menu', {
+    Vue.component('cust-comodities', {
         data: function() {
             return {
                 tableCondition: {},
@@ -44,7 +44,7 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                 this.dialogFormVisible = true;
             },
             handleNewForm: function () {                
-                this.formCondition = { MenuID:0,MenuParentID: this.tableCondition.MenuID };
+                this.formCondition = { TypeID: 0, ParentID: this.tableCondition.TypeID };
                 this.dialogFormVisible = true;
             }
         },

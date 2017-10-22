@@ -59,7 +59,7 @@ namespace webDmsApi.Areas.Sys
                                              SaveUrl = t3.SaveUrl,
                                              SubControls = (from t5 in db.Sys_SubControls
                                                             where (t5.ControlID == t3.ControlID && t5.TemplateID == t3.TemplateID)
-                                                            select t5).ToList()
+                                                            select t5).OrderBy(x=>x.Xh).ToList()
                                          }).ToList()
                          }).ToList();
 
@@ -72,9 +72,9 @@ namespace webDmsApi.Areas.Sys
         /// <returns></returns>
         public HttpResponseMessage FindSysMoudle()
         {
-            string userId = HttpContext.Current.Session["userId"].ToString();
+            //string userId = HttpContext.Current.Session["userId"].ToString();
 
-            var list = db.View_menu.Where<View_menu>(p => p.UserID.ToString() == userId);
+            var list = db.Sys_Menu;//.Where<View_menu>(p => p.UserID.ToString() == userId);
 
             var treeList = new object[]{
                 new
@@ -83,12 +83,12 @@ namespace webDmsApi.Areas.Sys
                     label = "所有模块",
                     MenuName = "所有模块",
                     MenuParentID = 0,
-                    children = list.Where<View_menu>(p => p.MenuParentID == 0).Select(t1 => new {
+                    children = list.Where<Sys_Menu>(p => p.MenuParentID == 0).Select(t1 => new {
                         MenuID = t1.MenuID,
                         label = t1.MenuName,
                         MenuName = t1.MenuName,
                         MenuParentID = t1.MenuParentID,
-                        children = list.Where<View_menu>(p => p.MenuParentID == t1.MenuID).Select(t2 => new {
+                        children = list.Where<Sys_Menu>(p => p.MenuParentID == t1.MenuID).Select(t2 => new {
                             MenuID = t2.MenuID,
                             label = t2.MenuName,
                             MenuName = t2.MenuName,
@@ -107,7 +107,7 @@ namespace webDmsApi.Areas.Sys
         /// <returns></returns>
         public HttpResponseMessage FindSysMoudleRow(dynamic obj)
         {
-            DBHelper<View_menu> dbhelp = new DBHelper<View_menu>();
+            DBHelper<Sys_Menu> dbhelp = new DBHelper<Sys_Menu>();
 
             int MenuID = obj.MenuID;
             int pageSize = obj.pageSize;
@@ -123,11 +123,13 @@ namespace webDmsApi.Areas.Sys
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public HttpResponseMessage FindSysMoudleForm(Sys_Menu obj)
+        public HttpResponseMessage FindSysMoudleForm(dynamic obj)
         {
             int MenuID = obj == null ? 0 : obj.MenuID;
+            int MenuParentID = obj.MenuParentID;
 
             sysMenuForm sysmenuform = new sysMenuForm();
+            sysmenuform.MenuParentID = MenuParentID;
             sysmenuform.ApplicationNoList = db.Sys_Application.Select(a => new
             {
                 label = a.ApplicationName,

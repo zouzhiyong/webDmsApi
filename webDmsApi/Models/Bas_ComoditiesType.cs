@@ -12,11 +12,14 @@ namespace webDmsApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Sys_Templates
+    public partial class Bas_ComoditiesType
     {
-        public int TemplateID { get; set; }
-        public string TemplateName { get; set; }
+        public int TypeID { get; set; }
+        public string TypeName { get; set; }
+        public string TypeCode { get; set; }
+        public Nullable<int> xh { get; set; }
         public Nullable<int> IsValid { get; set; }
-        public string Describe { get; set; }
+        public string Remark { get; set; }
+        public Nullable<int> ParentID { get; set; }
     }
 }

@@ -28,6 +28,13 @@ Vue.component('component-table', {
                 .then(function (result) {
                     if (result) {
                         _self.tableData = result;
+                        _self.tableData.rows.map(function (item) {
+                            if (item.IsValid == 0) {
+                                item.IsValid = "无效";
+                            } else {
+                                item.IsValid = "有效";
+                            }
+                        })
                     }
                 });
         },
@@ -64,7 +71,7 @@ Vue.component('component-table', {
 
         return _c('div', { staticStyle: { height: "100%" } }, [
             _c('el-table', { attrs: { data: _self.tableData.rows, border: true, height: '100%' }, staticStyle: { width: '100%', height: 'calc(100% - 35px)' } }, [
-                _self._l(_self.control.SubControls, function (item) {
+                _self._l(_self.control.SubControls, function (item) {                    
                      return _c('el-table-column', {
                          attrs: { type: item.Type, label: item.Label, width: item.Width, align: item.Align, prop: item.Prop, 'header-align': 'center' },
                         staticStyle: {},

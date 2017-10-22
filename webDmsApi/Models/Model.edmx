@@ -5,12 +5,42 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="webDmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bas_Comodities">
+          <Key>
+            <PropertyRef Name="ComoditiesID" />
+          </Key>
+          <Property Name="ComoditiesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TypeID" Type="int" />
+          <Property Name="BrandID" Type="int" />
+          <Property Name="SpecificationsID" Type="int" />
+          <Property Name="RecPrice" Type="money" />
+          <Property Name="UnitID" Type="int" />
+          <Property Name="SalPrice" Type="money" />
+          <Property Name="Barcode" Type="nvarchar" MaxLength="64" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Bas_ComoditiesType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TypeCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="xh" Type="int" />
+          <Property Name="IsValid" Type="int" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Bas_Customer">
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="60" />
+          <Property Name="Code" Type="nvarchar" MaxLength="60" />
           <Property Name="LinkMan" Type="nvarchar" MaxLength="20" />
           <Property Name="LinkManPhone" Type="nvarchar" MaxLength="30" />
           <Property Name="Region" Type="nvarchar" MaxLength="30" />
@@ -161,6 +191,7 @@
           <Property Name="TempateIcons" Type="nvarchar(max)" />
           <Property Name="TempateEvents" Type="nvarchar(max)" />
           <Property Name="Describe" Type="nvarchar(max)" />
+          <Property Name="Xh" Type="int" />
         </EntityType>
         <EntityType Name="Sys_TemplateControl">
           <Key>
@@ -279,6 +310,8 @@
           <Property Name="Name" Type="nvarchar" MaxLength="152" />
         </EntityType>
         <EntityContainer Name="webDmsModelStoreContainer">
+          <EntitySet Name="Bas_Comodities" EntityType="Self.Bas_Comodities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bas_ComoditiesType" EntityType="Self.Bas_ComoditiesType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bas_Customer" EntityType="Self.Bas_Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bas_Supplier" EntityType="Self.Bas_Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Application" EntityType="Self.Sys_Application" Schema="dbo" store:Type="Tables" />
@@ -347,6 +380,8 @@
     <edmx:ConceptualModels>
       <Schema Namespace="webDmsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="webDmsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bas_Comodities" EntityType="webDmsModel.Bas_Comodities" />
+          <EntitySet Name="Bas_ComoditiesType" EntityType="webDmsModel.Bas_ComoditiesType" />
           <EntitySet Name="Bas_Customer" EntityType="webDmsModel.Bas_Customer" />
           <EntitySet Name="Bas_Supplier" EntityType="webDmsModel.Bas_Supplier" />
           <EntitySet Name="Sys_Application" EntityType="webDmsModel.Sys_Application" />
@@ -367,12 +402,42 @@
           <EntitySet Name="View_menu" EntityType="webDmsModel.View_menu" />
           <EntitySet Name="View_Region" EntityType="webDmsModel.View_Region" />
         </EntityContainer>
+        <EntityType Name="Bas_Comodities">
+          <Key>
+            <PropertyRef Name="ComoditiesID" />
+          </Key>
+          <Property Name="ComoditiesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TypeID" Type="Int32" />
+          <Property Name="BrandID" Type="Int32" />
+          <Property Name="SpecificationsID" Type="Int32" />
+          <Property Name="RecPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="UnitID" Type="Int32" />
+          <Property Name="SalPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Barcode" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Bas_ComoditiesType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="xh" Type="Int32" />
+          <Property Name="IsValid" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParentID" Type="Int32" />
+        </EntityType>
         <EntityType Name="Bas_Customer">
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="LinkMan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="LinkManPhone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Region" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
@@ -523,6 +588,7 @@
           <Property Name="TempateIcons" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TempateEvents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Xh" Type="Int32" />
         </EntityType>
         <EntityType Name="Sys_TemplateControl">
           <Key>
@@ -543,8 +609,8 @@
           </Key>
           <Property Name="TemplateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsValid" Type="Int32" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sys_User">
           <Key>
@@ -640,6 +706,37 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="webDmsModelStoreContainer" CdmEntityContainer="webDmsEntities">
+          <EntitySetMapping Name="Bas_Comodities">
+            <EntityTypeMapping TypeName="webDmsModel.Bas_Comodities">
+              <MappingFragment StoreEntitySet="Bas_Comodities">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="SalPrice" ColumnName="SalPrice" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="RecPrice" ColumnName="RecPrice" />
+                <ScalarProperty Name="SpecificationsID" ColumnName="SpecificationsID" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="ShorName" ColumnName="ShorName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ComoditiesID" ColumnName="ComoditiesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bas_ComoditiesType">
+            <EntityTypeMapping TypeName="webDmsModel.Bas_ComoditiesType">
+              <MappingFragment StoreEntitySet="Bas_ComoditiesType">
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="xh" ColumnName="xh" />
+                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Bas_Customer">
             <EntityTypeMapping TypeName="webDmsModel.Bas_Customer">
               <MappingFragment StoreEntitySet="Bas_Customer">
@@ -656,6 +753,7 @@
                 <ScalarProperty Name="Region" ColumnName="Region" />
                 <ScalarProperty Name="LinkManPhone" ColumnName="LinkManPhone" />
                 <ScalarProperty Name="LinkMan" ColumnName="LinkMan" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
               </MappingFragment>
@@ -791,6 +889,7 @@
           <EntitySetMapping Name="Sys_SubControls">
             <EntityTypeMapping TypeName="webDmsModel.Sys_SubControls">
               <MappingFragment StoreEntitySet="Sys_SubControls">
+                <ScalarProperty Name="Xh" ColumnName="Xh" />
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
                 <ScalarProperty Name="TempateEvents" ColumnName="TempateEvents" />
                 <ScalarProperty Name="TempateIcons" ColumnName="TempateIcons" />
@@ -825,8 +924,8 @@
           <EntitySetMapping Name="Sys_Templates">
             <EntityTypeMapping TypeName="webDmsModel.Sys_Templates">
               <MappingFragment StoreEntitySet="Sys_Templates">
-                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
                 <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
               </MappingFragment>

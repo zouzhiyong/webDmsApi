@@ -19,7 +19,8 @@ Vue.component('component-tree', {
                 .then(function(result) {
                     if (result) {
                         _self.data = result.data.tree;
-                        _self.handleNodeClick(_self.data[0]);
+                        _self.$emit('node-click', _self.data[0]);
+                        //_self.handleNodeClick(_self.data[0]);
                     }
                 });
         },

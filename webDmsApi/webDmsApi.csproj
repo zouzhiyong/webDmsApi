@@ -196,6 +196,7 @@
     </Content>
     <Content Include="webDms\Areas\cust-config.js" />
     <Content Include="webDms\Areas\cust-customer.js" />
+    <Content Include="webDms\Areas\cust-comodities.js" />
     <Content Include="webDms\Areas\cust-menu.js" />
     <Content Include="webDms\Components\component-dialog.js" />
     <Content Include="webDms\Components\component-condition.js" />
@@ -275,6 +276,7 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiExceptionFilterAttribute.cs" />
+    <Compile Include="Areas\Bas\ComoditiesController.cs" />
     <Compile Include="Areas\Bas\CustomerController.cs" />
     <Compile Include="Areas\Login\LoginController.cs" />
     <Compile Include="Areas\Sys\ConfigController.cs" />
@@ -291,6 +293,12 @@
     <Compile Include="Controllers\SQLHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bas_Comodities.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bas_ComoditiesType.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Bas_Customer.cs">
       <DependentUpon>Model.tt</DependentUpon>
