@@ -112,9 +112,8 @@ var ajaxData = function (url, option) {
     return $.ajax(opts);
 };
 
-
 // var hostUrl = 'http://localhost:64573/';
-var hostUrl = 'http://localhost/webDmsApi/';
+var hostUrl = 'http://' + window.location.host + '/webDmsApi/';
 var getUrl = function (url) {
     return hostUrl + url;
 };
