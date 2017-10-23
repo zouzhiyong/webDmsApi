@@ -48,7 +48,7 @@
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
-                }).then(() => {
+                }).then(function(){
                     ajaxData(_self.table.DeleteUrl, {
                         async: false,
                         data: row
