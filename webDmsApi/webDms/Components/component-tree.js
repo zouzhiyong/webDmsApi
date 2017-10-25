@@ -50,16 +50,18 @@
         },
         handleAdd: function () {
         },
-        handleDel: function (data) {
+        handleDel: function (data) {            
+            data[this.ID] = -1;
         },
         renderContent: function (_c, obj) {
             var _self = this;
+            //如果ID等于-1不显示，状态标示为删除
             return _c('span', [
                 _self.isEdit == false ? _c('span', [_self._v(obj.data.label)]) : _self._e(),
                 _self.isEdit == true ? _c('span', [
                     _c('input', { staticStyle: { border: 'none', height: '30px', 'line-height': '36px', width: 'calc(100% - 90px)', background: '#f8f3daee' }, staticClass: 'el-input__inner', directives: [{ name: "model", rawName: "v-model", value: (obj.data[_self.Label]), expression: "obj.node.label" }], attrs: { "placeholder": "请输入内容" }, domProps: { "value": (obj.data[_self.Label]) }, on: { "input": function ($event) { if ($event.target.composing) return; obj.data[_self.Label] = $event.target.value; obj.data.label = $event.target.value } } }),
                 _c('el-button', { attrs: { type: "text", icon: 'plus', size: "small" }, staticStyle: { width: '25px' }, on: { 'click': _self.handleAdd } }),
-                _c('el-button', { attrs: { type: "text", icon: 'delete', size: "small" }, staticStyle: { width: '25px' }, on: { 'click': _self.handleDel(obj.data) } }),
+                _c('el-button', { attrs: { type: "text", icon: 'delete', size: "small" }, staticStyle: { width: '25px' }, on: { 'click': function () { _self.handleDel(obj.data) } } }),
                 ]) : _self._e()
             ])
         }

@@ -50,6 +50,10 @@ namespace webDmsApi.Areas.Bas
                 {
                     db.Entry<Bas_ComoditiesType>(item).State = EntityState.Added;
                 }
+                else if(item.TypeID == -1)
+                {
+                    db.Entry<Bas_ComoditiesType>(item).State = EntityState.Deleted;
+                }
                 else
                 {
                     db.Entry<Bas_ComoditiesType>(item).State = EntityState.Modified;
