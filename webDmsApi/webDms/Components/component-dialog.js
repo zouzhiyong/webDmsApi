@@ -10,6 +10,9 @@ Vue.component('component-dialog', {
         control: { type: Object },
         condition: { type: Object },
     },
+    mounted: function () {
+
+    },
     methods: {
         handleSaveForm: function () {           
             var _self = this;

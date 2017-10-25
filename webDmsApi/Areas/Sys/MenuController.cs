@@ -72,33 +72,22 @@ namespace webDmsApi.Areas.Sys
         /// <returns></returns>
         public HttpResponseMessage FindSysMoudle()
         {
-            //string userId = HttpContext.Current.Session["userId"].ToString();
+            var list = db.Sys_Menu;
 
-            var list = db.Sys_Menu;//.Where<View_menu>(p => p.UserID.ToString() == userId);
+            List<object> treeList = new List<object>();
 
-            var treeList = new object[]{
-                new
-                {
-                    MenuID = 0,
-                    label = "所有模块",
-                    MenuName = "所有模块",
-                    MenuParentID = 0,
-                    children = list.Where<Sys_Menu>(p => p.MenuParentID == 0).Select(t1 => new {
-                        MenuID = t1.MenuID,
-                        label = t1.MenuName,
-                        MenuName = t1.MenuName,
-                        MenuParentID = t1.MenuParentID,
-                        children = list.Where<Sys_Menu>(p => p.MenuParentID == t1.MenuID).Select(t2 => new {
-                            MenuID = t2.MenuID,
-                            label = t2.MenuName,
-                            MenuName = t2.MenuName,
-                            MenuParentID = t2.MenuParentID
-                        }).ToList()
-                    }).ToList()
-                }
+            var tempOjb = new
+            {
+                MenuID = 0,
+                label = "所有模块",
+                MenuName = "所有模块",
+                MenuParentID = 0,
+                children = ListToTree(list, 0)
             };
 
-            return Json(true, "", new { rows = list, tree = treeList });
+            treeList.Add(tempOjb);
+
+             return Json(true, "", new { rows = list, tree = treeList, ID = "MenuID" });
         }
 
         /// <summary>
@@ -253,5 +242,42 @@ namespace webDmsApi.Areas.Sys
             return Json(true, result == 1 ? "保存成功！" : "保存失败");
         }
 
+
+        private void TreeToList(dynamic obj, List<dynamic> list)
+        {
+            foreach (dynamic item in obj)
+            {
+                Sys_Menu sys_menu = new Sys_Menu()
+                {
+                    MenuID = item.MenuID,
+                    MenuParentID = item.MenuParentID,
+                    MenuName = item.MenuName,
+                };
+                var children = item.children;
+                list.Add(sys_menu);
+                TreeToList(children, list);
+            }
+        }
+
+        private List<object> ListToTree(dynamic list, int parentId)
+        {
+            List<dynamic> tempList = new List<dynamic>();
+            foreach (dynamic item in list)
+            {
+                if (item.MenuParentID == parentId)
+                {
+                    var sys_menu = new
+                    {
+                        MenuID = item.MenuID,
+                        label = item.MenuName,
+                        MenuName = item.MenuName,
+                        MenuParentID = item.MenuParentID,
+                        children = ListToTree(list, item.MenuID)
+                    };
+                    tempList.Add(sys_menu);
+                }
+            }
+            return tempList;
+        }
     }
 }
