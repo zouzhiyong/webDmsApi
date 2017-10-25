@@ -87,7 +87,7 @@ namespace webDmsApi.Areas.Sys
 
             treeList.Add(tempOjb);
 
-             return Json(true, "", new { rows = list, tree = treeList, ID = "MenuID" });
+             return Json(true, "", new { rows = list, tree = treeList, ID = "MenuID", Label = "MenuName" });
         }
 
         /// <summary>

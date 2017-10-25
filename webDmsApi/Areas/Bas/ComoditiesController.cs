@@ -35,14 +35,13 @@ namespace webDmsApi.Areas.Bas
 
             treeList.Add(tempOjb);
 
-            return Json(true, "", new { rows = list, tree = treeList,ID= "TypeID" });
+            return Json(true, "", new { rows = list, tree = treeList,ID= "TypeID",Label="TypeName" });
         }
 
         public HttpResponseMessage SaveLeftTreeMoudle(dynamic obj)
-        {
+        {            
             DBHelper<Bas_ComoditiesType> dbhelp = new DBHelper<Bas_ComoditiesType>();
             int result = 0;
-            object list = null;
             List<dynamic> treeData = new List<dynamic>();
             TreeToList(obj[0].children, treeData);
             foreach (var item in treeData)
