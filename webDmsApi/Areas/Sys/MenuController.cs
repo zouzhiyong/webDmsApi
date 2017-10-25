@@ -81,7 +81,7 @@ namespace webDmsApi.Areas.Sys
                 MenuID = 0,
                 label = "所有模块",
                 MenuName = "所有模块",
-                MenuParentID = 0,
+                MenuParentID = -1,
                 children = ListToTree(list, 0)
             };
 
@@ -272,6 +272,8 @@ namespace webDmsApi.Areas.Sys
                         label = item.MenuName,
                         MenuName = item.MenuName,
                         MenuParentID = item.MenuParentID,
+                        //以下为树形添加字段
+                        isAdd = false,
                         children = ListToTree(list, item.MenuID)
                     };
                     tempList.Add(sys_menu);

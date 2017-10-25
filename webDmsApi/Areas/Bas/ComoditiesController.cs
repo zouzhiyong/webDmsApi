@@ -29,7 +29,7 @@ namespace webDmsApi.Areas.Bas
                 TypeID = 0,
                 label = "所有类别",
                 TypeName = "所有类别",
-                ParentID = 0,
+                ParentID = -1,
                 children = ListToTree(list, 0)
             };
 
@@ -46,11 +46,11 @@ namespace webDmsApi.Areas.Bas
             TreeToList(obj[0].children, treeData);
             foreach (var item in treeData)
             {
-                if (item.TypeID == 0)
+                if (item.TypeID == -1)
                 {
                     db.Entry<Bas_ComoditiesType>(item).State = EntityState.Added;
                 }
-                else if(item.TypeID == -1)
+                else if(item.TypeID == -2)
                 {
                     db.Entry<Bas_ComoditiesType>(item).State = EntityState.Deleted;
                 }
@@ -99,6 +99,8 @@ namespace webDmsApi.Areas.Bas
                         label = item.TypeName,
                         TypeName = item.TypeName,
                         ParentID = item.ParentID,
+                        //以下为树形添加字段
+                        isAdd=false,
                         children = ListToTree(list, item.TypeID)
                     };
                     tempList.Add(bas_comoditiesType);
