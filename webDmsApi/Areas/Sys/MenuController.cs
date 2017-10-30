@@ -87,7 +87,7 @@ namespace webDmsApi.Areas.Sys
 
             treeList.Add(tempOjb);
 
-             return Json(true, "", new { rows = list, tree = treeList, ID = "MenuID", Label = "MenuName" });
+             return Json(true, "", new { rows = list, tree = treeList, ID = "MenuID", ParentID = "MenuParentID", Label = "MenuName" });
         }
 
         /// <summary>
@@ -247,11 +247,12 @@ namespace webDmsApi.Areas.Sys
         {
             foreach (dynamic item in obj)
             {
-                Sys_Menu sys_menu = new Sys_Menu()
+                var sys_menu = new
                 {
                     MenuID = item.MenuID,
                     MenuParentID = item.MenuParentID,
                     MenuName = item.MenuName,
+                    Status = item.Status
                 };
                 var children = item.children;
                 list.Add(sys_menu);
@@ -270,6 +271,8 @@ namespace webDmsApi.Areas.Sys
                     {
                         MenuID = item.MenuID,
                         label = item.MenuName,
+                        isEdit = false,
+                        Status=0,
                         MenuName = item.MenuName,
                         MenuParentID = item.MenuParentID,
                         //以下为树形添加字段

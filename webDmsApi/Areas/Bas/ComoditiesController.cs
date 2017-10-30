@@ -35,7 +35,7 @@ namespace webDmsApi.Areas.Bas
 
             treeList.Add(tempOjb);
 
-            return Json(true, "", new { rows = list, tree = treeList,ID= "TypeID",Label="TypeName" });
+            return Json(true, "", new { rows = list, tree = treeList,ID= "TypeID",ParentID= "ParentID", Label="TypeName" });
         }
 
         public HttpResponseMessage SaveLeftTreeMoudle(dynamic obj)
@@ -46,17 +46,26 @@ namespace webDmsApi.Areas.Bas
             TreeToList(obj[0].children, treeData);
             foreach (var item in treeData)
             {
-                if (item.TypeID == -1)
+                Bas_ComoditiesType _item = new Bas_ComoditiesType()
                 {
-                    db.Entry<Bas_ComoditiesType>(item).State = EntityState.Added;
+                    TypeID = item.TypeID,
+                    ParentID = item.ParentID,
+                    TypeName = item.TypeName,
+                    IsValid = 1,
+                };
+
+                //-1为新增，-2为删除
+                if (item.Status == -1)
+                {
+                    db.Entry<Bas_ComoditiesType>(_item).State = EntityState.Added;
                 }
-                else if(item.TypeID == -2)
+                if(item.Status == -2)
                 {
-                    db.Entry<Bas_ComoditiesType>(item).State = EntityState.Deleted;
+                    db.Entry<Bas_ComoditiesType>(_item).State = EntityState.Deleted;
                 }
                 else
                 {
-                    db.Entry<Bas_ComoditiesType>(item).State = EntityState.Modified;
+                    db.Entry<Bas_ComoditiesType>(_item).State = EntityState.Modified;
                 }
             }
 
@@ -70,15 +79,13 @@ namespace webDmsApi.Areas.Bas
         {
             foreach (dynamic item in obj)
             {
-                Bas_ComoditiesType bas_comoditiesType = new Bas_ComoditiesType()
+                var bas_comoditiesType = new
                 {
                     TypeID = item.TypeID,
                     ParentID = item.ParentID,
                     TypeName = item.TypeName,
-                    TypeCode = item.TypeCode,
-                    xh = item.xh == null ? 0 : item.xh,
                     IsValid = 1,
-                    Remark = item.Remark
+                    Status=item.Status
                 };
                 var children = item.children;
                 list.Add(bas_comoditiesType);
@@ -97,6 +104,8 @@ namespace webDmsApi.Areas.Bas
                     {
                         TypeID = item.TypeID,
                         label = item.TypeName,
+                        isEdit = false,
+                        Status=0,
                         TypeName = item.TypeName,
                         ParentID = item.ParentID,
                         //以下为树形添加字段
