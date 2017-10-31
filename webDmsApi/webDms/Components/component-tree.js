@@ -8,7 +8,8 @@
             ParentID:"",
             Label: "",
             newData: { ID: -1, Label: '' },
-            idIndex:1000
+            idIndex: 1000,
+            delData:[]
         }
     },
     props: {
@@ -43,7 +44,7 @@
             if (_self.isEdit == true) {
                 ajaxData(_self.control.SaveUrl, {
                     async: false,
-                    data: _self.data
+                    data: { saveData: _self.data, delData: _self.delData }
                 }).then(function (result) {
                     if (result.result) {
                         _self.GetData();//重新获取数据
@@ -53,7 +54,6 @@
             } else {
                 _self.isEdit = true;
             }
-
         },
         handleAdd: function (obj) {
             if (this.newData.Label == "") return;
@@ -91,6 +91,7 @@
             var index = children.findIndex(function (d) {
                 return d[_self.ID] === obj.data[_self.ID];
             });
+            this.delData.push(children[index]);
             children.splice(index, 1);
         },
         handleCancel: function () {
@@ -118,7 +119,7 @@
                     ]),
                     _c('input', { staticStyle: { border: 'none', height: '30px', 'line-height': '36px', width: 'calc(100% - 90px)', border: '1px solid #eee' }, staticClass: 'el-input__inner', directives: [{ name: "model", rawName: "v-model", value: (obj.node.data[_self.Label]), expression: "obj.node.label" }], attrs: { "placeholder": "请输入内容" }, domProps: { "value": (obj.node.data[_self.Label]) }, on: { "input": function ($event) { if ($event.target.composing) return; obj.node.data[_self.Label] = $event.target.value; obj.node.data.label = $event.target.value } } }),
                 _c('el-button', { attrs: { type: "text", icon: 'plus', size: "small" }, directives: [{ name: "popover", rawName: "v-popover:popover", arg: "popover" }], staticStyle: { width: '25px' }}),
-                _c('el-button', { attrs: { type: "text", icon: 'delete', size: "small" }, staticStyle: { width: '25px' }, on: { 'click': function () { _self.handleDel(obj) } } }),
+                (obj.node.data.isLink || false) == false ? _c('el-button', { attrs: { type: "text", icon: 'delete', size: "small" }, staticStyle: { width: '25px' }, on: { 'click': function () { _self.handleDel(obj) } } }) : _self._e(),
                 ]) : _self._e(),
             ])
         },
