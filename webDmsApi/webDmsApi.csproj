@@ -219,6 +219,7 @@
     <Content Include="webDms\Global\js\ajaxData.js" />
     <Content Include="webDms\Global\js\bootstrap.min.js" />
     <Content Include="webDms\Global\js\config.js" />
+    <Content Include="webDms\Global\js\FileSaver.min.js" />
     <Content Include="webDms\Global\js\frame.js" />
     <Content Include="webDms\Global\js\index.js" />
     <Content Include="webDms\Global\js\jquery.cookie.js" />
@@ -237,7 +238,9 @@
     <Content Include="webDms\Global\js\less.min.js" />
     <Content Include="webDms\Global\js\r.js" />
     <Content Include="webDms\Global\js\require.js" />
+    <Content Include="webDms\Global\js\tableExport.js" />
     <Content Include="webDms\Global\js\vue.min.js" />
+    <Content Include="webDms\Global\js\xlsx.core.min.js" />
     <Content Include="webDms\index.html" />
     <Content Include="webDms\login.html" />
     <EntityDeploy Include="Models\Model.edmx">
