@@ -54,12 +54,12 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
             return _c('el-row', { staticStyle: { height: '100%' } }, [
                 _c('component-title', { attrs: { title: _self.title }, on: { 'click': _self.handleNewForm } }),
                 _c('el-row', { staticClass: 'content-outbox' }, [
-                    _c('el-col', { staticStyle: { height: '100%', width: '200px','padding-right':'5px' } }, [
+                    _c('el-col', { staticStyle: { height: '100%', width: '250px','padding-right':'5px' } }, [
                         _c('div', { staticStyle: { height: '100%' } }, [
                             _c('component-tree', { attrs: { control: _self.tree }, on: { 'node-click': _self.handleNodeClick } })
                         ])
                     ]),
-                    _c('el-col', { staticStyle: { height: '100%', width: 'calc(100% - 200px)' } }, [
+                    _c('el-col', { staticStyle: { height: '100%', width: 'calc(100% - 250px)' } }, [
                         _c('div', { staticStyle: { height: '100%' } }, [
                             _c('component-table', { attrs: { control: _self.table, condition: _self.tableCondition }, on: { 'edit': _self.handleRowClick } })
                         ])

@@ -30,6 +30,7 @@ namespace webDmsApi.Areas.Bas
                 label = "所有类别",
                 TypeName = "所有类别",
                 ParentID = -1,
+                isEdit=false,
                 children = ListToTree(list, 0)
             };
 
@@ -40,12 +41,15 @@ namespace webDmsApi.Areas.Bas
 
         public HttpResponseMessage SaveLeftTreeMoudle(dynamic obj)
         {
-            var saveData = obj.saveData;
-            var delData = obj.delData;
             DBHelper<Bas_ComoditiesType> dbhelp = new DBHelper<Bas_ComoditiesType>();
             int result = 0;
+
+            //新增或修改
             List<dynamic> treeData = new List<dynamic>();
-            TreeToList(saveData[0].children, treeData);
+            TreeToList(obj[0].children, treeData);
+
+            List<int> listID = new List<int>();            
+
             foreach (var item in treeData)
             {
                 Bas_ComoditiesType _item = new Bas_ComoditiesType()
@@ -56,38 +60,54 @@ namespace webDmsApi.Areas.Bas
                     IsValid = 1,
                 };
 
-                //-1为新增，-2为删除
+                listID.Add(item.TypeID);
+
+                //-1为新增
                 if (item.Status == -1)
                 {
                     db.Entry<Bas_ComoditiesType>(_item).State = EntityState.Added;
-                }
+                }           
                 else
                 {
                     db.Entry<Bas_ComoditiesType>(_item).State = EntityState.Modified;
                 }
             }
 
-            if (treeData.Count() > 0)
-                result += db.SaveChanges();
+            //删除
+            foreach (var item in db.Bas_ComoditiesType.ToList())
+            {
+                if (listID.BinarySearch(item.TypeID) <0)
+                {
+                    db.Entry<Bas_ComoditiesType>(item).State = EntityState.Deleted;
+                }
+            }
 
-            return Json(true, (result > 0 && result == treeData.Count()) ? "保存成功！" : "保存失败");
+            result += db.SaveChanges();
+
+
+            return Json(true, (result>0) ? "保存成功！" : "保存失败");
         }
-
+        /// <summary>
+        /// 树形转数组
+        /// </summary>
+        /// <param name="obj">源数据</param>
+        /// <param name="list">返回生成以后的数组</param>
         private void TreeToList(dynamic obj, List<dynamic> list)
         {
             foreach (dynamic item in obj)
             {
                 var bas_comoditiesType = new
                 {
-                    TypeID = item.TypeID,
-                    ParentID = item.ParentID,
-                    TypeName = item.TypeName,
+                    TypeID = Convert.ToInt32(item.TypeID),
+                    ParentID = Convert.ToInt32(item.ParentID),
+                    TypeName = Convert.ToString(item.TypeName),
                     IsValid = 1,
-                    Status = item.Status
+                    Status = Convert.ToInt32(item.Status)
                 };
                 var children = item.children;
                 list.Add(bas_comoditiesType);
                 TreeToList(children, list);
+
             }
         }
 
@@ -105,7 +125,7 @@ namespace webDmsApi.Areas.Bas
                         label = item.TypeName,
                         isEdit = false,
                         Status = 0,
-                        isLink = db.Bas_Comodities.Where<Bas_Comodities>(w => w.TypeID == ID).Count() > 0 ? true : false,
+                        isLink = db.Bas_Comodities.Where<Bas_Comodities>(w => w.TypeID == ID).Count() > 0 ? true : false,//是否有对应商品
                         TypeName = item.TypeName,
                         ParentID = item.ParentID,
                         //以下为树形添加字段
