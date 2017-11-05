@@ -61,11 +61,11 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                     ]),
                     _c('el-col', { staticStyle: { height: '100%', width: 'calc(100% - 250px)' } }, [
                         _c('div', { staticStyle: { height: '100%' } }, [
-                            //_c('component-table', { attrs: { control: _self.table, condition: _self.tableCondition }, on: { 'edit': _self.handleRowClick } })
+                            _c('component-table', { attrs: { control: _self.table, condition: _self.tableCondition }, on: { 'edit': _self.handleRowClick } })
                         ])
                     ])
                 ]),                
-                //_self.dialogFormVisible ? _c('component-dialog', { attrs: { control: _self.form, condition: _self.formCondition, "title": _self.title }, model: { value: (_self.dialogFormVisible), callback: function ($$v) { _self.dialogFormVisible = $$v }, expression: '_self.dialogFormVisible' } }) : _self._e()
+                _self.dialogFormVisible ? _c('component-dialog', { attrs: { control: _self.form, condition: _self.formCondition, "title": _self.title }, model: { value: (_self.dialogFormVisible), callback: function ($$v) { _self.dialogFormVisible = $$v }, expression: '_self.dialogFormVisible' } }) : _self._e()
             ])
         }
     })

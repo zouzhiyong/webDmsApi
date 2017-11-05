@@ -26,5 +26,6 @@ namespace webDmsApi.Models
         public Nullable<decimal> SalPrice { get; set; }
         public string Barcode { get; set; }
         public string Remark { get; set; }
+        public Nullable<int> IsValid { get; set; }
     }
 }

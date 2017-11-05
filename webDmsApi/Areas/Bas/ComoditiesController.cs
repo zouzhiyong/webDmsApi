@@ -87,6 +87,30 @@ namespace webDmsApi.Areas.Bas
 
             return Json(true, (result>0) ? "保存成功！" : "保存失败");
         }
+
+        public HttpResponseMessage FindComoditiesRows(dynamic obj)
+        {
+            DBHelper<Bas_Comodities> dbhelp = new DBHelper<Bas_Comodities>();
+
+            List<dynamic> objTemp = new List<dynamic>();
+            objTemp.Add(obj);
+            List<dynamic> treeData = new List<dynamic>();
+            List<int?> arrID = new List<int?>();
+            TreeToList(objTemp, treeData);
+
+            foreach (var item in treeData)
+            {
+                arrID.Add(item.TypeID);
+            }
+
+            int pageSize = obj.pageSize;
+            int currentPage = obj.currentPage;
+            int total = 0;
+
+            var list = dbhelp.FindPagedList(currentPage, pageSize, out total, x => arrID.Contains(x.TypeID), s => s.TypeID, true);
+
+            return Json(list, currentPage, pageSize, total);
+        }
         /// <summary>
         /// 树形转数组
         /// </summary>

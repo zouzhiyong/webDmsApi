@@ -21,6 +21,7 @@
           <Property Name="SalPrice" Type="money" />
           <Property Name="Barcode" Type="nvarchar" MaxLength="64" />
           <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsValid" Type="int" />
         </EntityType>
         <EntityType Name="Bas_ComoditiesType">
           <Key>
@@ -418,6 +419,7 @@
           <Property Name="SalPrice" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Barcode" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsValid" Type="Int32" />
         </EntityType>
         <EntityType Name="Bas_ComoditiesType">
           <Key>
@@ -709,6 +711,7 @@
           <EntitySetMapping Name="Bas_Comodities">
             <EntityTypeMapping TypeName="webDmsModel.Bas_Comodities">
               <MappingFragment StoreEntitySet="Bas_Comodities">
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Barcode" ColumnName="Barcode" />
                 <ScalarProperty Name="SalPrice" ColumnName="SalPrice" />
