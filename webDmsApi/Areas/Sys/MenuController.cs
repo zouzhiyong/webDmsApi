@@ -72,22 +72,31 @@ namespace webDmsApi.Areas.Sys
         /// <returns></returns>
         public HttpResponseMessage FindSysMoudle()
         {
-            var list = db.Sys_Menu;
+            var list = db.Sys_Menu.ToList();
 
-            List<object> treeList = new List<object>();
 
-            var tempOjb = new
+            // List<Bas_ComoditiesType> treeList = new List<Bas_ComoditiesType>();
+            list.Add(new Sys_Menu
             {
                 MenuID = 0,
-                label = "所有模块",
                 MenuName = "所有模块",
-                MenuParentID = -1,
-                children = ListToTree(list, 0)
-            };
+                MenuParentID = -1
+            });
 
-            treeList.Add(tempOjb);
+            //List<object> treeList = new List<object>();
 
-             return Json(true, "", new { rows = list, tree = treeList, ID = "MenuID", ParentID = "MenuParentID", Label = "MenuName" });
+            //var tempOjb = new
+            //{
+            //    MenuID = 0,
+            //    label = "所有模块",
+            //    MenuName = "所有模块",
+            //    MenuParentID = -1,
+            //    children = ListToTree(list, 0)
+            //};
+
+            //treeList.Add(tempOjb);
+
+            return Json(true, "", new { rows = list, ID = "MenuID", ParentID = "MenuParentID", Label = "MenuName" });
         }
 
         /// <summary>
@@ -254,35 +263,13 @@ namespace webDmsApi.Areas.Sys
                     MenuName = item.MenuName,
                     Status = item.Status
                 };
-                var children = item.children;
                 list.Add(sys_menu);
-                TreeToList(children, list);
-            }
-        }
-
-        private List<object> ListToTree(dynamic list, int parentId)
-        {
-            List<dynamic> tempList = new List<dynamic>();
-            foreach (dynamic item in list)
-            {
-                if (item.MenuParentID == parentId)
+                if (item.children != null)
                 {
-                    var sys_menu = new
-                    {
-                        MenuID = item.MenuID,
-                        label = item.MenuName,
-                        isEdit = false,
-                        Status=0,
-                        MenuName = item.MenuName,
-                        MenuParentID = item.MenuParentID,
-                        //以下为树形添加字段
-                        isAdd = false,
-                        children = ListToTree(list, item.MenuID)
-                    };
-                    tempList.Add(sys_menu);
+                    var children = item.children;
+                    TreeToList(children, list);
                 }
             }
-            return tempList;
         }
     }
 }

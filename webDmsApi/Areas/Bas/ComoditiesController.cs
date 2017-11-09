@@ -21,22 +21,27 @@ namespace webDmsApi.Areas.Bas
         /// <returns></returns>
         public HttpResponseMessage FindLeftTreeMoudle()
         {
-            var list = db.Bas_ComoditiesType;
-            List<object> treeList = new List<object>();
-
-            var tempOjb = new
+            var list = db.Bas_ComoditiesType.ToList();
+            // List<Bas_ComoditiesType> treeList = new List<Bas_ComoditiesType>();
+            list.Add(new Bas_ComoditiesType
             {
-                TypeID = 0,
-                label = "所有类别",
-                TypeName = "所有类别",
-                ParentID = -1,
-                isEdit=false,
-                children = ListToTree(list, 0)
-            };
+                TypeID=0,
+                TypeName= "所有类别",
+                ParentID=-1
+            });
+            //var tempOjb = new
+            //{
+            //    TypeID = 0,
+            //    label = "所有类别",
+            //    TypeName = "所有类别",
+            //    ParentID = -1,
+            //    isEdit=false,
+            //    children = ListToTree(list, 0)
+            //};
 
-            treeList.Add(tempOjb);
+            //treeList.Add(tempOjb);
 
-            return Json(true, "", new { rows = list, tree = treeList, ID = "TypeID", ParentID = "ParentID", Label = "TypeName" });
+            return Json(true, "", new { rows = list, ID = "TypeID", ParentID = "ParentID", Label = "TypeName" });
         }
 
         public HttpResponseMessage SaveLeftTreeMoudle(dynamic obj)
@@ -128,38 +133,41 @@ namespace webDmsApi.Areas.Bas
                     IsValid = 1,
                     Status = Convert.ToInt32(item.Status)
                 };
-                var children = item.children;
+                
                 list.Add(bas_comoditiesType);
-                TreeToList(children, list);
-
-            }
-        }
-
-        private List<object> ListToTree(dynamic list, int parentId)
-        {
-            List<dynamic> tempList = new List<dynamic>();
-            foreach (dynamic item in list)
-            {
-                int ID = item.TypeID;
-                if (item.ParentID == parentId)
+                if (item.children != null)
                 {
-                    var bas_comoditiesType = new
-                    {
-                        TypeID = item.TypeID,
-                        label = item.TypeName,
-                        isEdit = false,
-                        Status = 0,
-                        isLink = db.Bas_Comodities.Where<Bas_Comodities>(w => w.TypeID == ID).Count() > 0 ? true : false,//是否有对应商品
-                        TypeName = item.TypeName,
-                        ParentID = item.ParentID,
-                        //以下为树形添加字段
-                        isAdd = false,
-                        children = ListToTree(list, item.TypeID)
-                    };
-                    tempList.Add(bas_comoditiesType);
+                    var children = item.children;
+                    TreeToList(children, list);
                 }
             }
-            return tempList;
         }
+
+        //private List<object> ListToTree(dynamic list, int parentId)
+        //{
+        //    List<dynamic> tempList = new List<dynamic>();
+        //    foreach (dynamic item in list)
+        //    {
+        //        int ID = item.TypeID;
+        //        if (item.ParentID == parentId)
+        //        {
+        //            var bas_comoditiesType = new
+        //            {
+        //                TypeID = item.TypeID,
+        //                label = item.TypeName,
+        //                isEdit = false,
+        //                Status = 0,
+        //                isLink = db.Bas_Comodities.Where<Bas_Comodities>(w => w.TypeID == ID).Count() > 0 ? true : false,//是否有对应商品
+        //                TypeName = item.TypeName,
+        //                ParentID = item.ParentID,
+        //                //以下为树形添加字段
+        //                isAdd = false,
+        //                children = ListToTree(list, item.TypeID)
+        //            };
+        //            tempList.Add(bas_comoditiesType);
+        //        }
+        //    }
+        //    return tempList;
+        //}
     }
 }

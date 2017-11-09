@@ -26,12 +26,17 @@
                 .then(function (result) {
                     if (result) {
                         //增加是否编辑标志
-                        _self.data = result.data.tree;
-                        _self.$emit('node-click', _self.data[0]);
                         _self.ID = result.data.ID || "ID";
                         _self.ParentID = result.data.ParentID || "ParentID";
                         _self.Label = result.data.Label;
                         _self.newData.Label = "";
+                        result.data.rows.map(function (item) {
+                            item.label = item[_self.Label];
+                            item.isEdit = false;
+                        })
+                        var d = _self.transData(result.data.rows, _self.ID, _self.ParentID, "children");
+                        _self.data = d;//result.data.tree;
+                        _self.$emit('node-click', _self.data[0]);
                     }
                 });
         },
@@ -103,6 +108,30 @@
         handlePopoverHide: function () {
 
         },
+        /**   
+        * json格式转树状结构
+        *  * @param   {json}      json数据
+        *  * @param   {String}    id的字符串
+        *  * @param   {String}    父id的字符串
+        *  * @param   {String}    children的字符串
+        *  * @return  {Array}     数组 
+        *  */
+        transData: function (a, idStr, pidStr, chindrenStr) {
+            var r = [], hash = {}, id = idStr, pid = pidStr, children = chindrenStr, i = 0, j = 0, len = a.length;
+            for (; i < len; i++) {
+                hash[a[i][id]] = a[i];
+            }
+            for (; j < len; j++) {
+                var aVal = a[j], hashVP = hash[aVal[pid]];
+                if (hashVP) {
+                    !hashVP[children] && (hashVP[children] = []);
+                    hashVP[children].push(aVal);
+                } else {
+                    r.push(aVal);
+                }
+            }
+            return r;
+        },
         renderContent: function (_c, obj) {
             var _self = this;
 
@@ -111,7 +140,7 @@
                 (obj.node.key == 0 || _self.isEdit == false) ? _c('span', { on: { click: function (event) { obj.node.data.isEdit = true; } } }, [_self._v(obj.node.data.label)]) : _self._e(),
                 (_self.isEdit == true) ? _c('span', [
                     _c('el-popover', { ref: "popover", attrs: { "placement": "right", "width": "160" }, model: { value: (obj.node.data.isEdit), callback: function ($$v) { obj.node.data.isEdit = $$v }, expression: "obj.node.data.isEdit" }, staticStyle: {}, on: { show: _self.handlePopoverShow, hide: _self.handlePopoverHide } }, [
-                        (obj.node.key != 0)?_c('el-radio', { staticClass: "radio", attrs: { "label": "1" }, model: { value: (_self.radio), callback: function ($$v) { _self.radio = $$v }, expression: "_self.radio" } }, [_self._v("同级")]):_self._e(),
+                        (obj.node.key != 0) ? _c('el-radio', { staticClass: "radio", attrs: { "label": "1" }, model: { value: (_self.radio), callback: function ($$v) { _self.radio = $$v }, expression: "_self.radio" } }, [_self._v("同级")]) : _self._e(),
                         _c('el-radio', { staticClass: "radio", attrs: { "label": "2" }, model: { value: (_self.radio), callback: function ($$v) { _self.radio = $$v }, expression: "_self.radio" } }, [_self._v("子级")]),
                         _c('el-input', { attrs: { "placeholder": "请输入内容" }, model: { value: (_self.newData.Label), callback: function ($$v) { _self.newData.Label = $$v; }, expression: "_self.newData.Label" } }),
                         _c('el-button', { attrs: { "type": "primary", size: 'small' }, staticStyle: { 'margin-top': '5px' }, on: { click: function () { _self.handleAdd(obj) } } }, [_self._v("添加")])
