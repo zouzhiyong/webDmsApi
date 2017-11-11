@@ -18,5 +18,6 @@ namespace webDmsApi.Models
         public string TemplateName { get; set; }
         public Nullable<int> IsValid { get; set; }
         public string Describe { get; set; }
+        public string Controls { get; set; }
     }
 }
