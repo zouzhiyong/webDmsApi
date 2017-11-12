@@ -21,6 +21,7 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
         methods: {
             iniData: function() {
                 var _self = this;
+                this.control = JSON.parse(this.control);
                 this.control.map(function(item) {
                     if (item.ControlName === 'component-tree') {
                         _self.tree = item;

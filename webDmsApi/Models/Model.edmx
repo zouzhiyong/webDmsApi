@@ -96,14 +96,6 @@
           <Property Name="BtnScript" Type="nvarchar" MaxLength="50" />
           <Property Name="MenuNo" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <EntityType Name="Sys_Controls">
-          <Key>
-            <PropertyRef Name="ControlID" />
-          </Key>
-          <Property Name="ControlID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ControlName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Describe" Type="nvarchar(max)" />
-        </EntityType>
         <EntityType Name="Sys_DictionaryData">
           <Key>
             <PropertyRef Name="DictdataID" />
@@ -172,40 +164,6 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="ModifyUserID" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="Sys_SubControls">
-          <Key>
-            <PropertyRef Name="SubControlID" />
-          </Key>
-          <Property Name="SubControlID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TemplateID" Type="int" />
-          <Property Name="ControlID" Type="int" />
-          <Property Name="Type" Type="nvarchar" MaxLength="50" />
-          <Property Name="Prop" Type="nvarchar" MaxLength="50" />
-          <Property Name="ListUrl" Type="nvarchar" MaxLength="50" />
-          <Property Name="Rules" Type="nvarchar(max)" />
-          <Property Name="Label" Type="nvarchar" MaxLength="50" />
-          <Property Name="Width" Type="nvarchar" MaxLength="50" />
-          <Property Name="Align" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsMust" Type="int" />
-          <Property Name="TempateControls" Type="nvarchar(max)" />
-          <Property Name="TempateIcons" Type="nvarchar(max)" />
-          <Property Name="TempateEvents" Type="nvarchar(max)" />
-          <Property Name="Describe" Type="nvarchar(max)" />
-          <Property Name="Xh" Type="int" />
-        </EntityType>
-        <EntityType Name="Sys_TemplateControl">
-          <Key>
-            <PropertyRef Name="TemplateID" />
-            <PropertyRef Name="ControlID" />
-          </Key>
-          <Property Name="TemplateID" Type="int" Nullable="false" />
-          <Property Name="ControlID" Type="int" Nullable="false" />
-          <Property Name="FindUrl" Type="nvarchar" MaxLength="50" />
-          <Property Name="FormUrl" Type="nvarchar" MaxLength="50" />
-          <Property Name="DeleteUrl" Type="nvarchar" MaxLength="50" />
-          <Property Name="SaveUrl" Type="nvarchar" MaxLength="50" />
-          <Property Name="Describe" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Sys_Templates">
           <Key>
@@ -318,15 +276,12 @@
           <EntitySet Name="Bas_Supplier" EntityType="Self.Bas_Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Application" EntityType="Self.Sys_Application" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Button" EntityType="Self.Sys_Button" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sys_Controls" EntityType="Self.Sys_Controls" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_DictionaryData" EntityType="Self.Sys_DictionaryData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Menu" EntityType="Self.Sys_Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_OperateLog" EntityType="Self.Sys_OperateLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Region" EntityType="Self.Sys_Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Role" EntityType="Self.Sys_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_RoleMenu" EntityType="Self.Sys_RoleMenu" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sys_SubControls" EntityType="Self.Sys_SubControls" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sys_TemplateControl" EntityType="Self.Sys_TemplateControl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Templates" EntityType="Self.Sys_Templates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_User" EntityType="Self.Sys_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_UserRole" EntityType="Self.Sys_UserRole" Schema="dbo" store:Type="Tables" />
@@ -388,15 +343,12 @@
           <EntitySet Name="Bas_Supplier" EntityType="webDmsModel.Bas_Supplier" />
           <EntitySet Name="Sys_Application" EntityType="webDmsModel.Sys_Application" />
           <EntitySet Name="Sys_Button" EntityType="webDmsModel.Sys_Button" />
-          <EntitySet Name="Sys_Controls" EntityType="webDmsModel.Sys_Controls" />
           <EntitySet Name="Sys_DictionaryData" EntityType="webDmsModel.Sys_DictionaryData" />
           <EntitySet Name="Sys_Menu" EntityType="webDmsModel.Sys_Menu" />
           <EntitySet Name="Sys_OperateLog" EntityType="webDmsModel.Sys_OperateLog" />
           <EntitySet Name="Sys_Region" EntityType="webDmsModel.Sys_Region" />
           <EntitySet Name="Sys_Role" EntityType="webDmsModel.Sys_Role" />
           <EntitySet Name="Sys_RoleMenu" EntityType="webDmsModel.Sys_RoleMenu" />
-          <EntitySet Name="Sys_SubControls" EntityType="webDmsModel.Sys_SubControls" />
-          <EntitySet Name="Sys_TemplateControl" EntityType="webDmsModel.Sys_TemplateControl" />
           <EntitySet Name="Sys_Templates" EntityType="webDmsModel.Sys_Templates" />
           <EntitySet Name="Sys_User" EntityType="webDmsModel.Sys_User" />
           <EntitySet Name="Sys_UserRole" EntityType="webDmsModel.Sys_UserRole" />
@@ -427,12 +379,12 @@
             <PropertyRef Name="TypeID" />
           </Key>
           <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentID" Type="Int32" />
           <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="xh" Type="Int32" />
           <Property Name="IsValid" Type="Int32" />
           <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ParentID" Type="Int32" />
         </EntityType>
         <EntityType Name="Bas_Customer">
           <Key>
@@ -494,14 +446,6 @@
           <Property Name="BtnIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BtnScript" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MenuNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Sys_Controls">
-          <Key>
-            <PropertyRef Name="ControlID" />
-          </Key>
-          <Property Name="ControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ControlName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sys_DictionaryData">
           <Key>
@@ -572,40 +516,6 @@
           <Property Name="ModifyUserID" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="Sys_SubControls">
-          <Key>
-            <PropertyRef Name="SubControlID" />
-          </Key>
-          <Property Name="SubControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TemplateID" Type="Int32" />
-          <Property Name="ControlID" Type="Int32" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Prop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ListUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Rules" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Align" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsMust" Type="Int32" />
-          <Property Name="TempateControls" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TempateIcons" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TempateEvents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Xh" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Sys_TemplateControl">
-          <Key>
-            <PropertyRef Name="TemplateID" />
-            <PropertyRef Name="ControlID" />
-          </Key>
-          <Property Name="TemplateID" Type="Int32" Nullable="false" />
-          <Property Name="ControlID" Type="Int32" Nullable="false" />
-          <Property Name="FindUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FormUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DeleteUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SaveUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Sys_Templates">
           <Key>
             <PropertyRef Name="TemplateID" />
@@ -613,8 +523,8 @@
           <Property Name="TemplateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsValid" Type="Int32" />
-          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Controls" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sys_User">
           <Key>
@@ -732,12 +642,12 @@
           <EntitySetMapping Name="Bas_ComoditiesType">
             <EntityTypeMapping TypeName="webDmsModel.Bas_ComoditiesType">
               <MappingFragment StoreEntitySet="Bas_ComoditiesType">
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="xh" ColumnName="xh" />
                 <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -804,15 +714,6 @@
                 <ScalarProperty Name="BtnNo" ColumnName="BtnNo" />
                 <ScalarProperty Name="BtnName" ColumnName="BtnName" />
                 <ScalarProperty Name="BtnID" ColumnName="BtnID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sys_Controls">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_Controls">
-              <MappingFragment StoreEntitySet="Sys_Controls">
-                <ScalarProperty Name="Describe" ColumnName="Describe" />
-                <ScalarProperty Name="ControlName" ColumnName="ControlName" />
-                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -891,46 +792,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sys_SubControls">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_SubControls">
-              <MappingFragment StoreEntitySet="Sys_SubControls">
-                <ScalarProperty Name="Xh" ColumnName="Xh" />
-                <ScalarProperty Name="Describe" ColumnName="Describe" />
-                <ScalarProperty Name="TempateEvents" ColumnName="TempateEvents" />
-                <ScalarProperty Name="TempateIcons" ColumnName="TempateIcons" />
-                <ScalarProperty Name="TempateControls" ColumnName="TempateControls" />
-                <ScalarProperty Name="IsMust" ColumnName="IsMust" />
-                <ScalarProperty Name="Align" ColumnName="Align" />
-                <ScalarProperty Name="Width" ColumnName="Width" />
-                <ScalarProperty Name="Label" ColumnName="Label" />
-                <ScalarProperty Name="Rules" ColumnName="Rules" />
-                <ScalarProperty Name="ListUrl" ColumnName="ListUrl" />
-                <ScalarProperty Name="Prop" ColumnName="Prop" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
-                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
-                <ScalarProperty Name="SubControlID" ColumnName="SubControlID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sys_TemplateControl">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_TemplateControl">
-              <MappingFragment StoreEntitySet="Sys_TemplateControl">
-                <ScalarProperty Name="Describe" ColumnName="Describe" />
-                <ScalarProperty Name="SaveUrl" ColumnName="SaveUrl" />
-                <ScalarProperty Name="DeleteUrl" ColumnName="DeleteUrl" />
-                <ScalarProperty Name="FormUrl" ColumnName="FormUrl" />
-                <ScalarProperty Name="FindUrl" ColumnName="FindUrl" />
-                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
-                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sys_Templates">
             <EntityTypeMapping TypeName="webDmsModel.Sys_Templates">
               <MappingFragment StoreEntitySet="Sys_Templates">
-                <ScalarProperty Name="Controls" ColumnName="Controls" />
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="Controls" ColumnName="Controls" />
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
                 <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />

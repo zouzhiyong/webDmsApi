@@ -330,9 +330,6 @@
     <Compile Include="Models\Sys_Button.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Sys_Controls.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Sys_DictionaryData.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -349,12 +346,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sys_RoleMenu.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Sys_SubControls.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Sys_TemplateControl.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sys_Templates.cs">

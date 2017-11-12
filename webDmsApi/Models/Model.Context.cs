@@ -31,15 +31,12 @@ namespace webDmsApi.Models
         public virtual DbSet<Bas_Supplier> Bas_Supplier { get; set; }
         public virtual DbSet<Sys_Application> Sys_Application { get; set; }
         public virtual DbSet<Sys_Button> Sys_Button { get; set; }
-        public virtual DbSet<Sys_Controls> Sys_Controls { get; set; }
         public virtual DbSet<Sys_DictionaryData> Sys_DictionaryData { get; set; }
         public virtual DbSet<Sys_Menu> Sys_Menu { get; set; }
         public virtual DbSet<Sys_OperateLog> Sys_OperateLog { get; set; }
         public virtual DbSet<Sys_Region> Sys_Region { get; set; }
         public virtual DbSet<Sys_Role> Sys_Role { get; set; }
         public virtual DbSet<Sys_RoleMenu> Sys_RoleMenu { get; set; }
-        public virtual DbSet<Sys_SubControls> Sys_SubControls { get; set; }
-        public virtual DbSet<Sys_TemplateControl> Sys_TemplateControl { get; set; }
         public virtual DbSet<Sys_Templates> Sys_Templates { get; set; }
         public virtual DbSet<Sys_User> Sys_User { get; set; }
         public virtual DbSet<Sys_UserRole> Sys_UserRole { get; set; }

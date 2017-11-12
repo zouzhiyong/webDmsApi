@@ -20,31 +20,11 @@ namespace webDmsApi.Areas.Sys
             return Json(true, "", list);
         }
 
-        public HttpResponseMessage FindRightTable1(dynamic obj)
+        public HttpResponseMessage SaveTemplate(Sys_Templates obj)
         {
-            int TemplateID = obj.TemplateID;
-            var list = db.Sys_TemplateControl.Where<Sys_TemplateControl>(x => x.TemplateID == TemplateID).Select(v => new
-            {
-                TemplateID = v.TemplateID,
-                ControlID=v.ControlID,
-                FindUrl = v.FindUrl,
-                FormUrl = v.FormUrl,
-                DeleteUrl = v.DeleteUrl,
-                SaveUrl = v.SaveUrl,
-                TemplateName = db.Sys_Templates.Where<Sys_Templates>(w1 => w1.TemplateID == TemplateID).Select(a => a.TemplateName).FirstOrDefault(),
-                ControlName = db.Sys_Controls.Where<Sys_Controls>(w2 => w2.ControlID == v.ControlID).Select(a => a.ControlName).FirstOrDefault()
-            }).ToList();
-
-            return Json(true, "", list);
-        }
-
-        public HttpResponseMessage FindRightTable2(dynamic obj)
-        {
-            int TemplateID = obj.TemplateID;
-            int ControlID = obj.ControlID;
-            var list = db.Sys_SubControls.Where<Sys_SubControls>(x => (x.TemplateID == TemplateID && x.ControlID==ControlID)).ToList();
-
-            return Json(true, "", list);
+            DBHelper<Sys_Templates> dbhelp = new DBHelper<Sys_Templates>();
+            var result = obj.TemplateID == 0 ? dbhelp.Add(obj) : dbhelp.Update(obj);
+            return Json(true, result == 1 ? "保存成功！" : "保存失败");
         }
     }
 }

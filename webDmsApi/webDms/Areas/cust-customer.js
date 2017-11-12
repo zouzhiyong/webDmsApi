@@ -23,6 +23,7 @@
         methods: {
             iniData: function () {
                 var _self = this;
+                this.control = JSON.parse(this.control);
                 this.control.map(function (item) {
                     if (item.ControlName === 'component-table') {
                         _self.table = item;

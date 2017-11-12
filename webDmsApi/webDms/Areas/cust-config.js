@@ -3,7 +3,7 @@
         data: function () {
             return {
                 menuData: [],
-                controlData: {},
+                itemData: {},
                 errMsg: ''
             }
         },
@@ -34,18 +34,28 @@
                 var _self = this;
                 _self.menuData.map(function (item) {
                     if (index == item.TemplateID) {
-                        _self.controlData = JSON.stringify(JSON.parse(item.Controls), null, 4);
+                        _self.itemData = item;                        
                     }
                 })
                 _self.handleFormat();
             },
-            handleClick: function () {
-                console.log(JSON.stringify(JSON.parse(this.controlData)))
+            handleSave: function () {
+                var obj = JSON.parse(JSON.stringify(this.itemData));
+                obj.Controls = JSON.stringify(JSON.parse(obj.Controls));
+
+                var _self = this;
+                ajaxData("api/Config/SaveTemplate", {
+                    data: obj
+                }).then(function (result) {
+                    if (result.result == true) {
+                        
+                    }
+                });
             },
             handleFormat: function () {
                 var _self = this;
                 try {
-                    _self.controlData = JSON.stringify(JSON.parse(_self.controlData), null, 4);
+                    _self.itemData.Controls = JSON.stringify(JSON.parse(_self.itemData.Controls), null, 4);
                     _self.errMsg = '';
                 } catch (error) {
                     _self.errMsg = error.message;
@@ -69,13 +79,13 @@
                     ]),
                     _c('el-col', { staticStyle: { height: '100%', width: 'calc(100% - 200px)' } }, [                       
                         _c('div', { staticStyle: { height: _self.errMsg == '' ? 'calc(100% - 60px)' : 'calc(100% - 95px)' } }, [
-                            _c('el-input', { ref: 'textarea', attrs: { type: 'textarea' }, staticStyle: { height: '100%' }, model: { value: (_self.controlData), callback: function ($$v) { _self.controlData = $$v }, expression: "_self.controlData" }, on: { change: _self.handleFormat } }),
+                            _c('el-input', { ref: 'textarea', attrs: { type: 'textarea' }, staticStyle: { height: '100%' }, model: { value: (_self.itemData.Controls), callback: function ($$v) { _self.itemData.Controls = $$v }, expression: "_self.itemData.Controls" }}),
                         ]),
                          _self.errMsg != '' ? _c('div', [
                             _c('el-alert', { attrs: { title: _self.errMsg, type: 'error', closable: false } }),
                          ]) : _self._e(),
                         _c('div', { staticStyle: { 'text-align': 'center', padding: '10px' } }, [
-                            _c('el-button', { attrs: { type: 'primary' }, on: { click: _self.handleClick } }, '保存'),
+                            _c('el-button', { attrs: { type: 'primary' }, on: { click: _self.handleSave } }, '保存'),
                             _c('el-button', { attrs: { type: 'primary' }, on: { click: _self.handleFormat } }, '格式化')
                         ])
                     ])

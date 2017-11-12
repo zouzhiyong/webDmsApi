@@ -15,11 +15,11 @@ namespace webDmsApi.Models
     public partial class Bas_ComoditiesType
     {
         public int TypeID { get; set; }
+        public Nullable<int> ParentID { get; set; }
         public string TypeName { get; set; }
         public string TypeCode { get; set; }
         public Nullable<int> xh { get; set; }
         public Nullable<int> IsValid { get; set; }
         public string Remark { get; set; }
-        public Nullable<int> ParentID { get; set; }
     }
 }

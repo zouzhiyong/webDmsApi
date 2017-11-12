@@ -31,39 +31,54 @@ namespace webDmsApi.Areas.Sys
         {
             string userId = HttpContext.Current.Session["userId"].ToString();
 
-            var list = db.View_menu.Where<View_menu>(p => p.UserID.ToString() == userId).OrderBy(o => o.Xh).ThenBy(o => o.MenuID);
+            var list = db.View_menu.Where<View_menu>(p => p.UserID.ToString() == userId).Select(s => new
+            {
+                MenuID = s.MenuID,
+                MenuParentID = s.MenuParentID,
+                MenuName = s.MenuName,
+                MenuUrl = s.MenuUrl,
+                MenuIcon = s.MenuIcon,
+                IsValid = s.IsValid,
+                ApplicationNo = s.ApplicationNo,
+                Xh = s.Xh,
+                Controls = (from t in db.Sys_Templates
+                            where t.TemplateName == s.MenuUrl
+                            select t.Controls).FirstOrDefault()
+            }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList();
 
-            var _list = (from t in list
-                         select new
-                         {
-                             MenuID = t.MenuID,
-                             MenuParentID = t.MenuParentID,
-                             MenuName = t.MenuName,
-                             MenuUrl = t.MenuUrl,
-                             MenuIcon = t.MenuIcon,
-                             IsValid = t.IsValid,
-                             ApplicationNo = t.ApplicationNo,
-                             Controls = (from t2 in db.Sys_Templates
-                                         join t3 in db.Sys_TemplateControl
-                                         on t2.TemplateID equals t3.TemplateID
-                                         join t4 in db.Sys_Controls
-                                         on t3.ControlID equals t4.ControlID
-                                         where t2.TemplateName == t.MenuUrl
-                                         select new
-                                         {
-                                             ControlName = t4.ControlName,
-                                             ControlID = t3.ControlID,
-                                             FindUrl = t3.FindUrl,
-                                             DeleteUrl = t3.DeleteUrl,
-                                             FormUrl = t3.FormUrl,
-                                             SaveUrl = t3.SaveUrl,
-                                             SubControls = (from t5 in db.Sys_SubControls
-                                                            where (t5.ControlID == t3.ControlID && t5.TemplateID == t3.TemplateID)
-                                                            select t5).OrderBy(x=>x.Xh).ToList()
-                                         }).ToList()
-                         }).ToList();
+            //var _list = (from t in list
+            //             select new
+            //             {
+            //                 MenuID = t.MenuID,
+            //                 MenuParentID = t.MenuParentID,
+            //                 MenuName = t.MenuName,
+            //                 MenuUrl = t.MenuUrl,
+            //                 MenuIcon = t.MenuIcon,
+            //                 IsValid = t.IsValid,
+            //                 ApplicationNo = t.ApplicationNo,
+            //                 Controls= JsonConvert.SerializeObject((from t2 in db.Sys_Templates
+            //                           where t2.TemplateName==t.MenuUrl select t2).ToList())
+            //                 //Controls = (from t2 in db.Sys_Templates
+            //                 //            join t3 in db.Sys_TemplateControl
+            //                 //            on t2.TemplateID equals t3.TemplateID
+            //                 //            join t4 in db.Sys_Controls
+            //                 //            on t3.ControlID equals t4.ControlID
+            //                 //            where t2.TemplateName == t.MenuUrl
+            //                 //            select new
+            //                 //            {
+            //                 //                ControlName = t4.ControlName,
+            //                 //                ControlID = t3.ControlID,
+            //                 //                FindUrl = t3.FindUrl,
+            //                 //                DeleteUrl = t3.DeleteUrl,
+            //                 //                FormUrl = t3.FormUrl,
+            //                 //                SaveUrl = t3.SaveUrl,
+            //                 //                SubControls = (from t5 in db.Sys_SubControls
+            //                 //                               where (t5.ControlID == t3.ControlID && t5.TemplateID == t3.TemplateID)
+            //                 //                               select t5).OrderBy(x=>x.Xh).ToList()
+            //                 //            }).ToList()
+            //             }).ToList();
 
-            return Json(true, "", _list);
+            return Json(true, "", list);
         }
 
         /// <summary>
