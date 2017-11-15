@@ -277,6 +277,7 @@
     <Content Include="DMS\src\components\page\index1.vue" />
     <Content Include="DMS\src\components\page\index2.vue" />
     <Content Include="DMS\static\.gitkeep" />
+    <Content Include="DMS\src\components\page\index0.vue" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
