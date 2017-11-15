@@ -194,11 +194,6 @@
     <Content Include="DMS\config\dev.env.js" />
     <Content Include="DMS\config\index.js" />
     <Content Include="DMS\config\prod.env.js" />
-    <Content Include="DMS\dist\index.html" />
-    <Content Include="DMS\dist\static\css\app.e47ad7e64718721705891ac8bc21c29d.css" />
-    <Content Include="DMS\dist\static\js\app.13b209b976af641aa81b.js" />
-    <Content Include="DMS\dist\static\js\manifest.35ec37bbd3eb320ee17a.js" />
-    <Content Include="DMS\dist\static\js\vendor.d83da3e1fbdc193ab72b.js" />
     <Content Include="DMS\index.html" />
     <Content Include="DMS\src\assets\logo.png" />
     <Content Include="DMS\src\main.js" />
@@ -275,7 +270,6 @@
     </Content>
     <Content Include="DMS\.babelrc" />
     <Content Include="DMS\.editorconfig" />
-    <Content Include="DMS\dist\static\fonts\element-icons.b02bdc1.ttf" />
     <Content Include="DMS\package.json" />
     <Content Include="DMS\README.md" />
     <Content Include="DMS\src\App.vue" />
