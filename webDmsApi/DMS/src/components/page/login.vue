@@ -59,7 +59,7 @@ export default {
                     if (loginParams.username == "admin" && loginParams.password == "123456") {
                         _this.logining = false;
                         sessionStorage.setItem('user', JSON.stringify(loginParams));
-                        _this.$router.push({ path: '/menutab' });
+                        _this.$router.push({ path: '/home' });
                     } else {
                         _this.logining = false;
                         _this.$alert('用户名或密码错误！', '提示信息', {
@@ -76,7 +76,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 body {
     background: #131a48;
     height: 100%;

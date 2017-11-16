@@ -2,7 +2,7 @@
  * 引用组件
  */
 import login from './components/page/login' 
-import index1 from './components/page/index1' 
+import home from './components/page/home' 
 import index2 from './components/page/index2'  
 
 import step1 from './components/page/children/step1'  
@@ -12,6 +12,9 @@ export default[
 	{
 	    path : '/login',component : login
 	},
+    {
+        path : '/home',component : home
+    },
 //	{
 //	    path : '/index0',component : index0,
 //	},
