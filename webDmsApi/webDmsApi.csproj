@@ -191,6 +191,7 @@
     <Content Include="DMS\build\webpack.base.conf.js" />
     <Content Include="DMS\build\webpack.dev.conf.js" />
     <Content Include="DMS\build\webpack.prod.conf.js" />
+    <Content Include="DMS\src\axios-config.js" />
     <Content Include="DMS\config\dev.env.js" />
     <Content Include="DMS\config\index.js" />
     <Content Include="DMS\config\prod.env.js" />

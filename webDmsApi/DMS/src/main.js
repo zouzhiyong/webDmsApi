@@ -6,16 +6,16 @@ import VueRouter from 'vue-router';
 import 'font-awesome/css/font-awesome.min.css';
 import 'element-ui/lib/theme-chalk/index.css';
 import ElementUI from 'element-ui';
-import axios from 'axios';
+import axiosConfig from './axios-config';
 
-Vue.prototype.$http = axios;
+Vue.prototype.$http = axiosConfig;
 
 Vue.use(VueRouter)
 Vue.use(ElementUI);
 
 // 创建路由
 const router = new VueRouter({
-  routes: routerConfig
+    routes: routerConfig
 })
 
 router.beforeEach((to, from, next) => {
@@ -35,6 +35,6 @@ router.beforeEach((to, from, next) => {
 
 // 实例
 new Vue({
-  router,
-  render: h => h(App)
+    router,
+    render: h => h(App)
 }).$mount('#app')

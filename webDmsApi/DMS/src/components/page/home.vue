@@ -125,6 +125,7 @@ export default {
                 //type: 'warning'
             }).then(() => {
                 sessionStorage.removeItem('user');
+                sessionStorage.removeItem('Ticket');
                 _this.$router.push('/login');
             }).catch(() => {
 
@@ -145,101 +146,101 @@ export default {
 
 <style  lang="scss" scoped>
 .container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    .header {
-        height: 60px;
-        line-height: 60px;
-        background: #bbdbfb;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  .header {
+    height: 60px;
+    line-height: 60px;
+    background: #bbdbfb;
+    color: #fff;
+    .userinfo {
+      text-align: right;
+      padding-right: 35px;
+      float: right;
+      .userinfo-inner {
+        cursor: pointer;
         color: #fff;
-        .userinfo {
-            text-align: right;
-            padding-right: 35px;
-            float: right;
-            .userinfo-inner {
-                cursor: pointer;
-                color: #fff;
-            }
-        }
-        .logo {
-            height: 60px;
-            font-size: 22px;
-            padding-left: 20px;
-            padding-right: 20px;
-            border-color: rgba(238,241,146,0.3);
-            border-right-width: 1px;
-            border-right-style: solid;
-        }
-        .logo-width {
-            width: 230px;
-        }
-        .logo-collapse-width {
-            width: 60px;
-        }
-        .tools {
-            padding: 0 23px;
-            width: 14px;
-            height: 60px;
-            line-height: 60px;
-            cursor: pointer;
-        }
+      }
     }
-    .main {
-        display: flex;
-        position: absolute;
-        top: 60px;
-        bottom: 0;
-        overflow: hidden;
-        aside {
-            flex: 0 0 230px;
-            width: 230px;
-            .el-menu {
-                height: 100%;
-            }
-            .collapsed {
-                width: 60px;
-                .item {
-                    position: relative;
-                }
-                .submenu {
-                    position: absolute;
-                    top: 0;
-                    left: 60px;
-                    z-index: 99999;
-                    height: auto;
-                    display: none;
-                }
-            }
-        }
-        .menu-collapsed {
-            flex: 0 0 60px;
-            width: 60px;
-        }
-        .menu-expanded {
-            flex: 0 0 230px;
-            width: 230px;
-        }
-        .content-container {
-            flex: 1;
-            overflow-y: scroll;
-            padding: 20px;
-            .breadcrumb-container {
-                .title {
-                    width: 200px;
-                    float: left;
-                    color: #475669;
-                }
-                .breadcrumb-inner {
-                    float: right;
-                }
-            }
-            .content-wrapper {
-                background-color: #fff;
-                box-sizing: border-box;
-            }
-        }
+    .logo {
+      height: 60px;
+      font-size: 22px;
+      padding-left: 20px;
+      padding-right: 20px;
+      border-color: rgba(238, 241, 146, 0.3);
+      border-right-width: 1px;
+      border-right-style: solid;
     }
+    .logo-width {
+      width: 230px;
+    }
+    .logo-collapse-width {
+      width: 60px;
+    }
+    .tools {
+      padding: 0 23px;
+      width: 14px;
+      height: 60px;
+      line-height: 60px;
+      cursor: pointer;
+    }
+  }
+  .main {
+    display: flex;
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    overflow: hidden;
+    aside {
+      flex: 0 0 230px;
+      width: 230px;
+      .el-menu {
+        height: 100%;
+      }
+      .collapsed {
+        width: 60px;
+        .item {
+          position: relative;
+        }
+        .submenu {
+          position: absolute;
+          top: 0;
+          left: 60px;
+          z-index: 99999;
+          height: auto;
+          display: none;
+        }
+      }
+    }
+    .menu-collapsed {
+      flex: 0 0 60px;
+      width: 60px;
+    }
+    .menu-expanded {
+      flex: 0 0 230px;
+      width: 230px;
+    }
+    .content-container {
+      flex: 1;
+      overflow-y: scroll;
+      padding: 20px;
+      .breadcrumb-container {
+        .title {
+          width: 200px;
+          float: left;
+          color: #475669;
+        }
+        .breadcrumb-inner {
+          float: right;
+        }
+      }
+      .content-wrapper {
+        background-color: #fff;
+        box-sizing: border-box;
+      }
+    }
+  }
 }
 </style>

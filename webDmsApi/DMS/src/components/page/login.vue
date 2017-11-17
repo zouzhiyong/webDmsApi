@@ -63,11 +63,12 @@ export default {
                         strPwd: this.ruleForm.checkPass
                     };
                     
-                    _this.$http.post('http://localhost/webDmsApi/api/Login/Login',loginParams)
+                    _this.$http.post('api/Login/Login',loginParams)
                             .then(function(res){                                
                                     if (res.data.bRes) {
                                         _this.logining = false;
                                         sessionStorage.setItem('user', JSON.stringify(_this.ruleForm.account));
+                                        sessionStorage.setItem('Ticket', res.data.Ticket);
                                         _this.$router.push({ path: '/home' });
                                
                             } else {
@@ -76,7 +77,7 @@ export default {
                             }
                             })
                             .catch(function(err){
-                                _this.$message(err);
+                                _this.logining = false;
                             })
 
                 } else {
