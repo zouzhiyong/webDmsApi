@@ -6,6 +6,9 @@ import VueRouter from 'vue-router';
 import 'font-awesome/css/font-awesome.min.css';
 import 'element-ui/lib/theme-chalk/index.css';
 import ElementUI from 'element-ui';
+import axios from 'axios';
+
+Vue.prototype.$http = axios;
 
 Vue.use(VueRouter)
 Vue.use(ElementUI);
