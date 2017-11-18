@@ -10,38 +10,39 @@ export default {}
 
 <style lang="scss">
 body {
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    -webkit-font-smoothing: antialiased;
-    overflow: scroll;
-    overflow-y: hidden;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  overflow: scroll;
+  overflow-y: hidden;
+  height: 100%;
 }
 
 #app {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.el-submenu [class^=fa] {
-    vertical-align: baseline;
-    margin-right: 10px;
+.el-submenu [class^="fa"] {
+  vertical-align: baseline;
+  margin-right: 10px;
 }
 
-.el-menu-item [class^=fa] {
-    vertical-align: baseline;
-    margin-right: 10px;
+.el-menu-item [class^="fa"] {
+  vertical-align: baseline;
+  margin-right: 10px;
 }
 
 .toolbar {
-    background: #f2f2f2;
-    padding: 10px;
-    margin: 10px 0;
-    .el-form-item {
-        margin-bottom: 10px;
-    }
+  background: #f2f2f2;
+  padding: 10px;
+  margin: 10px 0;
+  .el-form-item {
+    margin-bottom: 10px;
+  }
 }
-
 </style>
