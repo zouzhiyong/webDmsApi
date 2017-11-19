@@ -8,7 +8,12 @@
 export default {}
 </script>
 
-<style lang="scss">
+<style>
+* {
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, SimSun, sans-serif;
+  font-size: 13px;
+}
 body {
   margin: 0;
   padding: 0;
@@ -41,8 +46,9 @@ body {
   background: #f2f2f2;
   padding: 10px;
   margin: 10px 0;
-  .el-form-item {
-    margin-bottom: 10px;
-  }
+}
+
+.toolbar .el-form-item {
+  margin-bottom: 10px;
 }
 </style>

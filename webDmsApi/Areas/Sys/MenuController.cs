@@ -29,7 +29,7 @@ namespace webDmsApi.Areas.Sys
         /// <returns></returns>
         public HttpResponseMessage FindSysMenu()
         {
-            string userId = HttpContext.Current.Session["userId"].ToString();
+            string userId = "3";// HttpContext.Current.Session["userId"].ToString();
 
             var list = db.View_menu.Where<View_menu>(p => p.UserID.ToString() == userId).Select(s => new
             {
