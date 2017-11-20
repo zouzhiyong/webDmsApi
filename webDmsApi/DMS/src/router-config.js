@@ -17,6 +17,11 @@ export default[
         path : '/home',component : home,
         children:[
             {
+                name: '主页',
+                path : '/main',component : index0
+            },
+            {
+                name: '模块设置',
                 path : '/index0',component : index0
             }
         ]

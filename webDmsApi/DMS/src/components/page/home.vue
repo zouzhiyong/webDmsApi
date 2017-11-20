@@ -16,12 +16,12 @@
       <el-menu
       router
       :collapse="collapsed"
-      default-active="2"
+      default-active="0"
       unique-opened
       class="el-menu-vertical-demo"      
       text-color="#fff"
       active-text-color="#fff">
-      <el-menu-item index="0">
+      <el-menu-item index="/main">
         <i class="fa fa-home"></i>
         <span slot="title">主页</span>
       </el-menu-item>
@@ -147,6 +147,7 @@ export default {
   background-color: #080d16;
   color: #333;
   line-height: 100%;
+  overflow-x: hidden;
 }
 
 .el-container .el-aside.collapsed {
@@ -229,7 +230,6 @@ export default {
 .el-container .el-main {
   background-color: #e9eef3;
   color: #333;
-  line-height: 160px;
 }
 
 body > .el-container {
