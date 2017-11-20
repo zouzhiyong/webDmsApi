@@ -3,6 +3,7 @@
  */
 import login from './components/page/login' 
 import home from './components/page/home' 
+import index0 from './components/page/index0' 
 import index2 from './components/page/index2'  
 
 import step1 from './components/page/children/step1'  
@@ -13,8 +14,13 @@ export default[
 	    path : '/login',component : login
 	},
     {
-        path : '/home',component : home
-    },
+        path : '/home',component : home,
+        children:[
+            {
+                path : '/index0',component : index0
+            }
+        ]
+    }
 //	{
 //	    path : '/index0',component : index0,
 //	},

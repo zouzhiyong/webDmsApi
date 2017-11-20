@@ -26,5 +26,6 @@ namespace webDmsApi.Models
         public string ApplicationName { get; set; }
         public Nullable<int> Xh { get; set; }
         public string ApplicationNo { get; set; }
+        public string MenuPath { get; set; }
     }
 }

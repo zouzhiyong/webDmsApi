@@ -14,6 +14,7 @@
           <i class="fa fa-bars"></i>
         </div>
       <el-menu
+      router
       :collapse="collapsed"
       default-active="2"
       unique-opened
@@ -29,12 +30,16 @@
           <i :class="menuItem.MenuIcon"></i>
           <span>{{menuItem.MenuName}}</span>
         </template>
-        <el-menu-item :index="index.toString()+'-'+_index.toString()" v-for="(subMenuItem,_index) in menuData"  :key="subMenuItem.MenuID" v-if="subMenuItem.MenuParentID==menuItem.MenuID">{{subMenuItem.MenuName}}</el-menu-item>
+        <el-menu-item :index="subMenuItem.MenuPath" v-for="subMenuItem in menuData"  :key="subMenuItem.MenuID" v-if="subMenuItem.MenuParentID==menuItem.MenuID">{{subMenuItem.MenuName}}</el-menu-item>
       </el-submenu>      
     </el-menu>
     </el-aside>
     <el-container>
-      <el-main>Main</el-main>
+      <el-main>
+        <transition name="fade" mode="out-in">
+             <router-view></router-view>
+           </transition>
+      </el-main>
       <el-footer height="40px">© 2016 XXX.com 版权所有 ICP证：湘ICP备XXXXXXX</el-footer>
     </el-container>
   </el-container>
@@ -47,37 +52,7 @@ export default {
     data() {
         return {
           collapsed:false,
-          menuData:[],
-            menu:[{
-        path: '/login',
-        name: '',
-        hidden: true
-    },
-    {
-        path: '/404',
-        name: '',
-        hidden: true
-    },
-    {
-        path: '/',
-        name: '导航一',
-        iconCls: 'el-icon-message', //图标样式class
-        children: [{
-            path: '/menutab',
-            name: 'Tab'
-        }]
-    },
-    {
-        path: '/',
-        name: '导航二',
-        iconCls: 'fa fa-id-card-o',
-        children: [{
-                path: '/menutable',
-                name: 'Table'
-            }
-        ]
-    }
-],
+          menuData:[],         
             sysName: 'VueDemo',
             sysUserName: '',
             collapsed: false
@@ -121,6 +96,9 @@ export default {
                                   }
                                   if (item.MenuUrl == null) {
                                       item.MenuUrl = "";
+                                  }
+                                  if (item.MenuPath == null) {
+                                      item.MenuPath = "";
                                   }
                                   })
 							              _this.menuData = res.data.data;

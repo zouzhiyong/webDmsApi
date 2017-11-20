@@ -37,6 +37,7 @@ namespace webDmsApi.Areas.Sys
                 MenuParentID = s.MenuParentID,
                 MenuName = s.MenuName,
                 MenuUrl = s.MenuUrl,
+                MenuPath = s.MenuPath,
                 MenuIcon = s.MenuIcon,
                 IsValid = s.IsValid,
                 ApplicationNo = s.ApplicationNo,

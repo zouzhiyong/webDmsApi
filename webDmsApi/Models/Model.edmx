@@ -114,6 +114,7 @@
           <Property Name="MenuParentID" Type="int" />
           <Property Name="MenuName" Type="nvarchar" MaxLength="64" />
           <Property Name="MenuUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="MenuPath" Type="nvarchar" MaxLength="200" />
           <Property Name="MenuIcon" Type="nvarchar" MaxLength="200" />
           <Property Name="IsValid" Type="int" />
           <Property Name="ApplicationNo" Type="nvarchar" MaxLength="10" />
@@ -250,6 +251,7 @@
           <Property Name="MenuParentID" Type="int" />
           <Property Name="MenuName" Type="nvarchar" MaxLength="64" />
           <Property Name="MenuUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="MenuPath" Type="nvarchar" MaxLength="200" />
           <Property Name="MenuIcon" Type="nvarchar" MaxLength="200" />
           <Property Name="IsValid" Type="int" />
           <Property Name="IsValidName" Type="varchar" MaxLength="4" Nullable="false" />
@@ -314,6 +316,7 @@
     [View_menu].[MenuParentID] AS [MenuParentID], 
     [View_menu].[MenuName] AS [MenuName], 
     [View_menu].[MenuUrl] AS [MenuUrl], 
+    [View_menu].[MenuPath] AS [MenuPath], 
     [View_menu].[MenuIcon] AS [MenuIcon], 
     [View_menu].[IsValid] AS [IsValid], 
     [View_menu].[IsValidName] AS [IsValidName], 
@@ -469,6 +472,7 @@
           <Property Name="IsValid" Type="Int32" />
           <Property Name="ApplicationNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Xh" Type="Int32" />
+          <Property Name="MenuPath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sys_OperateLog">
           <Key>
@@ -603,6 +607,7 @@
           <Property Name="ApplicationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Xh" Type="Int32" />
           <Property Name="ApplicationNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MenuPath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="View_Region">
           <Key>
@@ -731,6 +736,7 @@
           <EntitySetMapping Name="Sys_Menu">
             <EntityTypeMapping TypeName="webDmsModel.Sys_Menu">
               <MappingFragment StoreEntitySet="Sys_Menu">
+                <ScalarProperty Name="MenuPath" ColumnName="MenuPath" />
                 <ScalarProperty Name="Xh" ColumnName="Xh" />
                 <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />
@@ -867,6 +873,7 @@
           <EntitySetMapping Name="View_menu">
             <EntityTypeMapping TypeName="webDmsModel.View_menu">
               <MappingFragment StoreEntitySet="View_menu">
+                <ScalarProperty Name="MenuPath" ColumnName="MenuPath" />
                 <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
                 <ScalarProperty Name="Xh" ColumnName="Xh" />
                 <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
