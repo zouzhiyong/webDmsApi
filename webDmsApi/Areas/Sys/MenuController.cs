@@ -287,5 +287,29 @@ namespace webDmsApi.Areas.Sys
                 }
             }
         }
+
+
+        public HttpResponseMessage FindMenu()
+        {
+            string userId = "3";// HttpContext.Current.Session["userId"].ToString();
+
+            var list = db.View_menu.Where<View_menu>(p => p.UserID.ToString() == userId && p.MenuParentID==0).Select(s => new
+            {
+                path="/",
+                name = s.MenuName,
+                Xh=s.Xh,
+                MenuID=s.MenuID,
+                iconCls = s.MenuIcon,
+                children= db.View_menu.Where<View_menu>(p1 => p1.MenuParentID == s.MenuID).Select(s1=>new {
+                    path="/"+s1.MenuPath,
+                    name =s1.MenuName,
+                    Xh=s1.Xh,
+                    MenuID=s1.MenuID
+                }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList()
+        }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList();
+
+
+            return Json(true, "", list);
+        }
     }
 }

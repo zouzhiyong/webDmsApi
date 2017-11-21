@@ -40,8 +40,10 @@ namespace webDmsApi.Areas.Login
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(0, loginData.strUser, DateTime.Now,
                             DateTime.Now.AddHours(1), true, string.Format("{0}&{1}", loginData.strUser, loginData.strPwd),
                             FormsAuthentication.FormsCookiePath);
+            webDmsEntities db = new webDmsEntities();
+            var UserInfo = db.Sys_User.Where(w => w.LoginName == loginData.strUser).FirstOrDefault();
             //返回登录结果、用户信息、用户验证票据信息
-            var oUser = new UserInfo { bRes = true, UserName = loginData.strUser, Password = loginData.strPwd, Ticket = FormsAuthentication.Encrypt(ticket) };
+            var oUser = new UserInfo { bRes = true, UserName = loginData.strUser, Password = loginData.strPwd, user = new { name= UserInfo.RealName, avatar=UserInfo.Avatar }, Ticket = FormsAuthentication.Encrypt(ticket) };
             //将身份信息保存在session中，验证当前请求是否是有效请求
             HttpContext.Current.Session[loginData.strUser] = oUser;            
             return oUser;
@@ -73,6 +75,8 @@ namespace webDmsApi.Areas.Login
             public string Password { get; set; }
 
             public string Ticket { get; set; }
+
+            public object user { get; set; }
         }
     }
 }

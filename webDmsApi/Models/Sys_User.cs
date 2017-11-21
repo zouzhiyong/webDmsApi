@@ -32,5 +32,6 @@ namespace webDmsApi.Models
         public string Comment { get; set; }
         public Nullable<System.Guid> SessionId { get; set; }
         public Nullable<System.DateTime> RecTimeStamp { get; set; }
+        public string Avatar { get; set; }
     }
 }

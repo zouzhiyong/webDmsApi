@@ -195,6 +195,7 @@
           <Property Name="RoleID" Type="int" />
           <Property Name="IsValid" Type="int" />
           <Property Name="WorkingPlace" Type="nvarchar" MaxLength="128" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="128" />
           <Property Name="Comment" Type="nvarchar" MaxLength="256" />
           <Property Name="SessionId" Type="uniqueidentifier" />
           <Property Name="RecTimeStamp" Type="datetime" />
@@ -552,6 +553,7 @@
           <Property Name="Comment" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="SessionId" Type="Guid" />
           <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="Avatar" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sys_UserRole">
           <Key>
@@ -812,6 +814,7 @@
           <EntitySetMapping Name="Sys_User">
             <EntityTypeMapping TypeName="webDmsModel.Sys_User">
               <MappingFragment StoreEntitySet="Sys_User">
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="RecTimeStamp" ColumnName="RecTimeStamp" />
                 <ScalarProperty Name="SessionId" ColumnName="SessionId" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
