@@ -44,7 +44,7 @@
 						</template>
 						<template v-else>
 							<li class="el-submenu">
-								<div class="el-submenu__title el-menu-item" style="padding-left: 20px;height: 56px;line-height: 56px;padding: 0 20px;" :class="$route.path==item.children[0].path?'is-active':''" @click="$router.push(item.children[0].path)"><i :class="item.iconCls"></i></div>
+								<div class="el-submenu__title el-menu-item" style="padding-left: 20px;height: 56px;line-height: 56px;padding: 0 20px;min-width:auto" :class="$route.path==item.children[0].path?'is-active':''" @click="$router.push(item.children[0].path)"><i :class="item.iconCls"></i></div>
 							</li>
 						</template>
 					</li>
@@ -270,7 +270,7 @@ export default {
       // top: 0px;
       // bottom: 0px;
       // left: 230px;
-      overflow-y: scroll;
+      overflow-y: auto;
       padding: 20px;
       .breadcrumb-container {
         //margin-bottom: 15px;
