@@ -2,6 +2,7 @@ import Login from './views/Login.vue'
 import index from './views/index.vue'
 import NotFound from './views/404.vue'
 import Home from './views/Home.vue'
+// import sys_module from './views/sys/sys_module.vue'
 // import Main from './views/Main.vue'
 // import Table from './views/nav1/Table.vue'
 // import Form from './views/nav1/Form.vue'
@@ -37,7 +38,16 @@ let routes = [{
             name: '主页'
         }]
     },
-
+    // {
+    //     path: '/',
+    //     component: Home,
+    //     name: '系统设置',
+    //     children: [{
+    //         path: '/sys_module',
+    //         component: resolve => require([`./views/sys/sys_module.vue`], resolve), //sys_module,
+    //         name: '模块设置'
+    //     }]
+    // },
     //{ path: '/main', component: Main },
     // {
     //     path: '/',
@@ -87,14 +97,8 @@ let routes = [{
     }
 ];
 
-// let zz = [];
-// getMenu().then(res => {
-//     res.data.data.map(item => {
-//         item.component = Home;
-//         zz.push(item);
-//     });
 
-//     console.log(routes);
-// });
+
+
 
 export default routes;

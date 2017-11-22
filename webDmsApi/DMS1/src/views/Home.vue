@@ -23,32 +23,16 @@
 		<el-col :span="24" class="main">
 			<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
 				<!--导航菜单-->
-				<el-menu :default-active="$route.path" id="lastclass" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
-					 unique-opened router v-show="!collapsed">
+				<el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
+					 unique-opened router :collapse="collapsed" theme="dark">
 					<template v-for="(item,index) in menuData" v-if="!item.hidden">
 						<el-submenu :index="index+''" v-if="!item.leaf" :key="index">
-							<template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
+							<template slot="title"><i :class="item.iconCls"></i><span slot="title">{{item.name}}</span></template>
 							<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
 						</el-submenu>
-						<el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path" :key="index"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
+						<el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path" :key="index"><i :class="item.iconCls"></i><span slot="title">{{item.children[0].name}}</span></el-menu-item>
 					</template>
 				</el-menu>
-				<!--导航菜单-折叠后-->
-				<ul class="el-menu el-menu-vertical-demo collapsed" v-show="collapsed" ref="menuCollapsed">
-					<li v-for="(item,index) in menuData" v-if="!item.hidden" class="el-submenu item" :key="index">
-						<template v-if="!item.leaf">
-							<div class="el-submenu__title" style="padding-left: 20px;" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)"><i :class="item.iconCls"></i></div>
-							<ul class="el-menu submenu" :class="'submenu-hook-'+index" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)"> 
-								<li v-for="child in item.children" v-if="!child.hidden" :key="child.path" class="el-menu-item" style="padding-left: 40px;" :class="$route.path==child.path?'is-active':''" @click="$router.push(child.path)">{{child.name}}</li>
-							</ul>
-						</template>
-						<template v-else>
-							<li class="el-submenu">
-								<div class="el-submenu__title el-menu-item" style="padding-left: 20px;height: 56px;line-height: 56px;padding: 0 20px;min-width:auto" :class="$route.path==item.children[0].path?'is-active':''" @click="$router.push(item.children[0].path)"><i :class="item.iconCls"></i></div>
-							</li>
-						</template>
-					</li>
-				</ul>
 			</aside>
 			<section class="content-container">
 				<div class="grid-content bg-purple-light">
@@ -66,7 +50,8 @@
 						</transition>
 					</el-col>
 				</div>
-			</section>
+        <div class="footer">© 2016 XXX.com 版权所有 ICP证：湘ICP备XXXXXXX</div>
+			</section>      
 		</el-col>
 	</el-row>
 </template>
@@ -119,10 +104,10 @@ export default {
     //折叠导航栏
     collapse: function() {
       this.collapsed = !this.collapsed;
-      var uiwidth = document.getElementById("lastclass");
-      if (uiwidth.offsetWidth === 0) {
-        uiwidth.style.width = "230px";
-      }
+      // var uiwidth = document.getElementById("lastclass");
+      // if (uiwidth.offsetWidth === 0) {
+      //   uiwidth.style.width = "230px";
+      // }
     },
     showMenu(i, status) {
       this.$refs.menuCollapsed.getElementsByClassName(
@@ -147,9 +132,20 @@ export default {
     getMenu().then(res => {
       res.data.data.splice(0, 0, obj);
       this.menuData = res.data.data;
-    });
 
-    console.log(this.menuData);
+      this.menuData.map(item => {
+        item.component = resolve => require([`./Home.vue`], resolve);
+        item.children.map(_item => {
+          if (_item.component) {
+            var path =
+              "./" + _item.component.split("_")[0] + "/" + _item.component;
+            _item.component = resolve => require([path + `.vue`], resolve);
+          }
+        });
+      });
+
+      this.$router.addRoutes(this.menuData);
+    });
   },
   mounted() {
     var user = sessionStorage.getItem("user");
@@ -210,10 +206,10 @@ export default {
       }
     }
     .logo-width {
-      width: 230px;
+      width: 200px;
     }
     .logo-collapse-width {
-      width: 60px;
+      width: 64px;
     }
     .tools {
       padding: 0px 23px;
@@ -231,39 +227,66 @@ export default {
     bottom: 0px;
     overflow: hidden;
     aside {
-      flex: 0 0 230px;
-      width: 230px;
+      // flex: 0 0 200px;
+      // width: 200px;
+      .el-menu-vertical-demo {
+        &:not(.el-menu--collapse) {
+          width: 200px;
+        }
+      }
       // position: absolute;
       // top: 0px;
       // bottom: 0px;
       .el-menu {
         height: 100%;
-      }
-      .collapsed {
-        width: 60px;
-        .item {
-          position: relative;
+        border-radius: 0;
+        .el-menu-item {
+          [class^="fa"] {
+            margin-right: 5px;
+            width: 24px;
+            text-align: center;
+          }
         }
-        .submenu {
-          position: absolute;
-          top: 0px;
-          left: 60px;
-          z-index: 99999;
-          height: auto;
-          display: none;
+        .el-submenu {
+          [class^="fa"] {
+            vertical-align: middle;
+            margin-right: 5px;
+            width: 24px;
+            text-align: center;
+          }
+
+          .el-menu-item {
+            min-width: auto;
+            padding-right: 20px;
+          }
         }
       }
+      // .collapsed {
+      //   width: 60px;
+      //   .item {
+      //     position: relative;
+      //   }
+      //   .submenu {
+      //     position: absolute;
+      //     top: 0px;
+      //     left: 60px;
+      //     z-index: 99999;
+      //     height: auto;
+      //     display: none;
+      //   }
+      // }
     }
-    .menu-collapsed {
-      flex: 0 0 60px;
-      width: 60px;
-    }
-    .menu-expanded {
-      flex: 0 0 230px;
-      width: 230px;
-    }
+    // .menu-collapsed {
+    //   flex: 0 0 60px;
+    //   width: 60px;
+    // }
+    // .menu-expanded {
+    //   flex: 0 0 230px;
+    //   width: 230px;
+    // }
     .content-container {
       // background: #f1f2f7;
+      height: 100%;
       flex: 1;
       // position: absolute;
       // right: 0px;
@@ -271,21 +294,33 @@ export default {
       // bottom: 0px;
       // left: 230px;
       overflow-y: auto;
-      padding: 20px;
-      .breadcrumb-container {
-        //margin-bottom: 15px;
-        .title {
-          width: 200px;
-          float: left;
-          color: #475669;
-        }
-        .breadcrumb-inner {
-          float: right;
+      padding: 0;
+      .grid-content {
+        height: calc(100% - 40px);
+        .breadcrumb-container {
+          padding: 10px;
+          border-bottom: solid 1px #eee;
+          //margin-bottom: 15px;
+          .title {
+            width: 200px;
+            float: left;
+            color: #475669;
+          }
+          .breadcrumb-inner {
+            float: right;
+          }
         }
       }
       .content-wrapper {
-        background-color: #fff;
+        background: #f0f0f0;
         box-sizing: border-box;
+        height: calc(100% - 38px);
+        padding: 20px;
+      }
+      .footer {
+        text-align: right;
+        border-top: solid 1px #cbd6eb;
+        padding: 10px;
       }
     }
   }

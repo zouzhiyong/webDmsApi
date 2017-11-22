@@ -338,6 +338,7 @@
     <Content Include="DMS1\src\mock\index.js" />
     <Content Include="DMS1\src\mock\mock.js" />
     <Content Include="DMS1\src\routes.js" />
+    <None Include="DMS1\src\views\sys\sys_module.vue" />
     <Content Include="DMS1\src\vuex\actions.js" />
     <Content Include="DMS1\src\vuex\getters.js" />
     <Content Include="DMS1\src\vuex\store.js" />
