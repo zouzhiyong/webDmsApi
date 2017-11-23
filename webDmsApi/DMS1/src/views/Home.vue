@@ -45,9 +45,9 @@
 						</el-breadcrumb>
 					</el-col>
 					<el-col :span="24" class="content-wrapper">
-						<transition name="fade" mode="out-in">
+						<!-- <transition name="fade" mode="out-in"> -->
 							<router-view></router-view>
-						</transition>
+						<!-- </transition> -->
 					</el-col>
 				</div>
         <div class="footer">© 2016 XXX.com 版权所有 ICP证：湘ICP备XXXXXXX</div>
@@ -133,18 +133,18 @@ export default {
       res.data.data.splice(0, 0, obj);
       this.menuData = res.data.data;
 
-      this.menuData.map(item => {
-        item.component = resolve => require([`./Home.vue`], resolve);
-        item.children.map(_item => {
-          if (_item.component) {
-            var path =
-              "./" + _item.component.split("_")[0] + "/" + _item.component;
-            _item.component = resolve => require([path + `.vue`], resolve);
-          }
-        });
-      });
+      // this.menuData.map(item => {
+      //   item.component = resolve => require([`./Home.vue`], resolve);
+      //   item.children.map(_item => {
+      //     if (_item.component) {
+      //       var path =
+      //         "./" + _item.component.split("_")[0] + "/" + _item.component;
+      //       _item.component = resolve => require([path + `.vue`], resolve);
+      //     }
+      //   });
+      // });
 
-      this.$router.addRoutes(this.menuData);
+      // this.$router.addRoutes(this.menuData);
     });
   },
   mounted() {

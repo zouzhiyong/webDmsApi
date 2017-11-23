@@ -6,7 +6,7 @@ export const requestLogin = params => { return axios.post(`${base}/api/Login/Log
 
 export const getMenu = params => { return axios.post(`${base}/api/Menu/FindMenu`); };
 
-export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
+export const FindSysModule = params => { return axios.post(`${base}/api/Menu/FindSysModule`); };
 
 export const getUserListPage = params => { return axios.get(`${base}/user/listpage`, { params: params }); };
 

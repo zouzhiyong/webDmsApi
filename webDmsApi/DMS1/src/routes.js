@@ -38,16 +38,16 @@ let routes = [{
             name: '主页'
         }]
     },
-    // {
-    //     path: '/',
-    //     component: Home,
-    //     name: '系统设置',
-    //     children: [{
-    //         path: '/sys_module',
-    //         component: resolve => require([`./views/sys/sys_module.vue`], resolve), //sys_module,
-    //         name: '模块设置'
-    //     }]
-    // },
+    {
+        path: '/',
+        component: Home,
+        name: '系统设置',
+        children: [{
+            path: '/sys_module',
+            component: resolve => require([`./views/sys/sys_module.vue`], resolve), //sys_module,
+            name: '模块设置'
+        }]
+    },
     //{ path: '/main', component: Main },
     // {
     //     path: '/',

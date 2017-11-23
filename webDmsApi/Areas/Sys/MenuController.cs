@@ -313,5 +313,23 @@ namespace webDmsApi.Areas.Sys
 
             return Json(true, "", list);
         }
+
+        public HttpResponseMessage FindSysModule()
+        {
+            var list = db.View_menu.Where<View_menu>(p => p.MenuParentID == 0).Select(s => new
+            {
+                label = s.MenuName,
+                Xh = s.Xh,
+                id = s.MenuID,
+                children = db.View_menu.Where<View_menu>(p1 => p1.MenuParentID == s.MenuID).Select(s1 => new {
+                    label = s1.MenuName,
+                    Xh = s1.Xh,
+                    id = s1.MenuID
+                }).OrderBy(o => o.Xh).ThenBy(o => o.id).ToList()
+            }).OrderBy(o => o.Xh).ThenBy(o => o.id).ToList();
+
+
+            return Json(true, "", list);
+        }
     }
 }
