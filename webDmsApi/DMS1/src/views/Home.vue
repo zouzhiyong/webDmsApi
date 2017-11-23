@@ -204,12 +204,18 @@ export default {
       .txt {
         color: #fff;
       }
+
+      &:not(.logo-collapse-width) {
+        width: 200px;
+        transition: width 0.3s;
+      }
     }
-    .logo-width {
-      width: 200px;
-    }
+    // .logo-width {
+    //   width: 200px;
+    // }
     .logo-collapse-width {
       width: 64px;
+      transition: width 0.3s;
     }
     .tools {
       padding: 0px 23px;
