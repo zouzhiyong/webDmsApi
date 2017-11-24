@@ -321,10 +321,12 @@ namespace webDmsApi.Areas.Sys
                 label = s.MenuName,
                 Xh = s.Xh,
                 id = s.MenuID,
+                MenuID=s.MenuID,
                 children = db.View_menu.Where<View_menu>(p1 => p1.MenuParentID == s.MenuID).Select(s1 => new {
                     label = s1.MenuName,
                     Xh = s1.Xh,
-                    id = s1.MenuID
+                    id = s1.MenuID,
+                    MenuID = s.MenuID,
                 }).OrderBy(o => o.Xh).ThenBy(o => o.id).ToList()
             }).OrderBy(o => o.Xh).ThenBy(o => o.id).ToList();
 

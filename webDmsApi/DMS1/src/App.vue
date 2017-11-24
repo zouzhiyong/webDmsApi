@@ -21,6 +21,17 @@ export default {
     Microsoft YaHei, SimSun, sans-serif;
   box-sizing: border-box;
 }
+.el-icon-arrow-left:before {
+  content: "上一页";
+}
+.el-icon-arrow-right:before {
+  content: "下一页";
+}
+
+.el-button--text {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 body {
   margin: 0px;
   padding: 0px;

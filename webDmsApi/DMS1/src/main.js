@@ -23,14 +23,6 @@ layui.config({
     base: '' //设定扩展的Layui模块的所在目录，一般用于外部模块扩展
 });
 
-layui.use(['layer'], function() {
-    var layer = layui.layer;
-
-    var index = layer.open({
-        content: 'test'
-    });
-});
-
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(Vuex)
