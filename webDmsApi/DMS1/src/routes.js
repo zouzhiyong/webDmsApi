@@ -29,7 +29,7 @@ let routes = [{
     {
         path: '/',
         component: Home,
-        name: '主页',
+        name: '',
         iconCls: 'fa fa-home',
         leaf: true, //只有一个节点
         children: [{

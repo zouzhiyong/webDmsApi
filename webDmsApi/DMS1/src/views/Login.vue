@@ -49,15 +49,15 @@ export default {
         if (valid) {
           //_this.$router.replace('/table');
           this.logining = true;
-          //NProgress.start();
+          // this.$Progress.start();
           var loginParams = {
             strUser: this.ruleForm2.account,
             strPwd: this.ruleForm2.checkPass
           };
-          requestLogin(loginParams).then(data => {
+          requestLogin(loginParams).then(result => {
             this.logining = false;
-            //NProgress.done();
-            let { message, bRes, user } = data;
+            // this.$Progress.finish();
+            let { message, bRes, user } = result;
             if (bRes !== true) {
               this.$message({
                 message: message,

@@ -21,6 +21,7 @@
         "layui-src": "^2.2.2"
     },
     "devDependencies": {
+        "vue-progressbar": "^0.7.3",
         "autoprefixer": "^7.1.6",
         "axios-mock-adapter": "^1.10.0",
         "babel-core": "^6.26.0",

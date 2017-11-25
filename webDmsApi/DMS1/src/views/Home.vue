@@ -129,9 +129,9 @@ export default {
       ]
     };
 
-    getMenu().then(res => {
-      res.data.data.splice(0, 0, obj);
-      this.menuData = res.data.data;
+    getMenu().then(result => {
+      result.data.splice(0, 0, obj);
+      this.menuData = result.data;
 
       // this.menuData.map(item => {
       //   item.component = resolve => require([`./Home.vue`], resolve);
@@ -330,5 +330,35 @@ export default {
       }
     }
   }
+}
+</style>
+<style>
+.el-dialog__header {
+  padding: 0 80px 0 20px;
+  height: 42px;
+  line-height: 42px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+  overflow: hidden;
+  background-color: #f8f8f8;
+  border-radius: 2px 2px 0 0;
+  cursor: move;
+}
+.el-dialog__headerbtn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 0;
+  line-height: initial;
+}
+.el-dialog__body {
+  height: calc(100% - 100px);
+  overflow: auto;
+}
+.el-dialog__footer {
+  padding: 10px 20px 15px;
+  text-align: center;
+  box-sizing: border-box;
+  background: #fff;
 }
 </style>

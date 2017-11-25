@@ -4,13 +4,15 @@
 		            mode="out-in">
 			<router-view></router-view>
 		</transition>
+    <vue-progress-bar></vue-progress-bar>
 	</div>
 </template>
 
 <script>
 export default {
   name: "app",
-  components: {}
+  components: {},
+  created() {}
 };
 </script>
 

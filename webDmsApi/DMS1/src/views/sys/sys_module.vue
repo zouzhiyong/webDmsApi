@@ -15,7 +15,7 @@
       width="100"      
       header-align="center"
       align="center">
-      <template scope="scope">
+      <template slot-scope="scope">
         {{scope.$index + 1 + (pageSize * (currentPage - 1))}}
       </template>
     </el-table-column>
@@ -47,14 +47,14 @@
       label="操作"
       align="center"
       header-align="center">
-      <template scope="scope">
+      <template slot-scope="scope">
         <el-button type="text" icon="edit" @click="handleEditClick(scope.row)"></el-button>
         <el-button type="text" icon="delete"></el-button>
       </template>
     </el-table-column>
   </el-table>
   <el-pagination
-      @size-change="handleSizeChange"
+      @size-change="handleSizeChange"      
       @current-change="handleCurrentChange"
       :current-page.sync="currentPage"
       :page-size="pageSize"
@@ -64,15 +64,33 @@
     </el-pagination>
     </el-col>
   </el-row>
+  <el-dialog
+  custom-class="cust-el-dialog"
+  :visible.sync="dialogVisible"
+  :close-on-click-modal="false"
+  :close-on-press-escape="false"
+  :before-close="handleClose">
+  <span slot="title">{{$route.name}}</span>
+  <span><moduleForm></moduleForm></span>
+  <span slot="footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
+</el-dialog>
   </div>
 </template>
 
 <script>
 import { FindSysModule, FindSysMoudleRow } from "../../api/api";
+import moduleForm from "./sys_module_form";
 
 export default {
+  components: {
+    moduleForm
+  },
   data() {
     return {
+      dialogVisible: false,
       treeData: [],
 
       defaultProps: {
@@ -96,8 +114,8 @@ export default {
       }
     ];
 
-    FindSysModule().then(res => {
-      obj[0].children = res.data.data;
+    FindSysModule().then(result => {
+      obj[0].children = result.data;
       this.treeData = obj;
       if (this.treeData.length > 0) {
         this.handleNodeClick(this.treeData[0]);
@@ -111,9 +129,9 @@ export default {
       this.pageSize = Math.floor(this.$refs.table.$el.clientHeight / 40);
       data.currentPage = this.currentPage;
       data.pageSize = this.pageSize;
-      FindSysMoudleRow(data).then(res => {
-        this.tableData = res.data.rows;
-        this.total = res.data.total;
+      FindSysMoudleRow(data).then(result => {
+        this.tableData = result.rows;
+        this.total = result.total;
       });
     },
     handleNodeClick(data) {
@@ -126,25 +144,31 @@ export default {
       this.GetData();
     },
     handleEditClick() {
-      layui.use(["layer"], function() {
-        var layer = layui.layer;
-
-        var index = layer.open({
-          area: ["500px", "300px"],
-          title: "模块编辑",
-          content: "<div>123</div>"
-        });
-      });
+      var _this = this;
+      this.dialogVisible = true;
+    },
+    handleClose(done) {
+      done();
+      // this.$confirm("确认关闭？")
+      //   .then(_ => {
+      //     done();
+      //   })
+      //   .catch(_ => {});
     }
   }
 };
 </script>
+
 
 <style  scoped lang="scss">
 .body {
   padding: 10px;
   height: 100%;
   background: #fff;
+  /deep/ .cust-el-dialog {
+    width: 900px;
+    height: 500px;
+  }
   .el-row {
     height: 100%;
     .tree {

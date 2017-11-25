@@ -468,6 +468,7 @@
     <Content Include="DMS1\src\views\nav2\Page5.vue" />
     <Content Include="DMS1\src\views\nav3\Page6.vue" />
     <Content Include="DMS1\static\.gitkeep" />
+    <Content Include="DMS1\src\views\sys\sys_module_form.vue" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
