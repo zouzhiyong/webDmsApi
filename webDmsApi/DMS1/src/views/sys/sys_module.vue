@@ -2,7 +2,7 @@
   <div class='body'>
     <el-row>
     <el-col class='tree'>
-      <el-tree :data="treeData" :props="defaultProps" node-key="id" :current-node-key="0" :highlight-current=true :default-expanded-keys="[0]" @node-click="handleNodeClick"></el-tree>
+      <el-tree :data="treeData" :props="defaultProps" node-key="MenuID" :current-node-key="0" :highlight-current=true :default-expanded-keys="[0]" @node-click="handleNodeClick"></el-tree>
     </el-col>
     <el-col class='table'>
 <el-table
@@ -71,17 +71,17 @@
   :close-on-press-escape="false"
   :before-close="handleClose">
   <span slot="title">{{$route.name}}</span>
-  <span><moduleForm></moduleForm></span>
+  <span><moduleForm ref="form" v-model="formData"></moduleForm></span>
   <span slot="footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    <el-button type="primary" @click="handleSave">保存</el-button>
   </span>
 </el-dialog>
   </div>
 </template>
 
 <script>
-import { FindSysModule, FindSysMoudleRow } from "../../api/api";
+import * as api from "../../api/api";
 import moduleForm from "./sys_module_form";
 
 export default {
@@ -101,20 +101,20 @@ export default {
       pageSize: 0,
       total: 0,
       conditionData: {},
-      tableData: []
+      tableData: [],
+      formData: {}
     };
   },
   created() {
     var obj = [
       {
-        id: 0,
         MenuID: 0,
         label: "所有模块",
         children: []
       }
     ];
 
-    FindSysModule().then(result => {
+    api.FindSysModule().then(result => {
       obj[0].children = result.data;
       this.treeData = obj;
       if (this.treeData.length > 0) {
@@ -129,7 +129,7 @@ export default {
       this.pageSize = Math.floor(this.$refs.table.$el.clientHeight / 40);
       data.currentPage = this.currentPage;
       data.pageSize = this.pageSize;
-      FindSysMoudleRow(data).then(result => {
+      api.FindSysMoudleRow(data).then(result => {
         this.tableData = result.rows;
         this.total = result.total;
       });
@@ -143,9 +143,11 @@ export default {
       this.currentPage = currentPage;
       this.GetData();
     },
-    handleEditClick() {
-      var _this = this;
-      this.dialogVisible = true;
+    handleEditClick(row) {
+      api.FindMoudleForm(row).then(result => {
+        this.formData = result.data;
+        this.dialogVisible = true;
+      });
     },
     handleClose(done) {
       done();
@@ -154,6 +156,18 @@ export default {
       //     done();
       //   })
       //   .catch(_ => {});
+    },
+    handleSave() {
+      this.$refs.form.$refs.ruleForm.validate(valid => {
+        if (valid) {
+          api.SaveSysMoudleForm(this.formData).then(result => {
+            this.dialogVisible = false;
+            this.GetData();
+          });
+        } else {
+          return false;
+        }
+      });
     }
   }
 };

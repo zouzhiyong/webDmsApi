@@ -298,17 +298,18 @@ namespace webDmsApi.Areas.Sys
                 path = "/",
                 name = s.MenuName,
                 component = "",
-                Xh =s.Xh,
-                MenuID=s.MenuID,
+                Xh = s.Xh,
+                MenuID = s.MenuID,
                 iconCls = s.MenuIcon,
-                children= db.View_menu.Where<View_menu>(p1 => p1.MenuParentID == s.MenuID).Select(s1=>new {
-                    path="/"+s1.MenuPath,
-                    name =s1.MenuName,
-                    component=s1.MenuPath,
-                    Xh =s1.Xh,
-                    MenuID=s1.MenuID
+                children = db.View_menu.Where<View_menu>(p1 => p1.MenuParentID == s.MenuID).Select(s1 => new
+                {
+                    path = "/" + s1.MenuPath,
+                    name = s1.MenuName,
+                    component = s1.MenuPath,
+                    Xh = s1.Xh,
+                    MenuID = s1.MenuID
                 }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList()
-        }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList();
+            }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList();
 
 
             return Json(true, "", list);
@@ -320,18 +321,54 @@ namespace webDmsApi.Areas.Sys
             {
                 label = s.MenuName,
                 Xh = s.Xh,
-                id = s.MenuID,
-                MenuID=s.MenuID,
-                children = db.View_menu.Where<View_menu>(p1 => p1.MenuParentID == s.MenuID).Select(s1 => new {
+                MenuID = s.MenuID,
+                children = db.View_menu.Where<View_menu>(p1 => p1.MenuParentID == s.MenuID).Select(s1 => new
+                {
                     label = s1.MenuName,
                     Xh = s1.Xh,
-                    id = s1.MenuID,
-                    MenuID = s.MenuID,
-                }).OrderBy(o => o.Xh).ThenBy(o => o.id).ToList()
-            }).OrderBy(o => o.Xh).ThenBy(o => o.id).ToList();
+                    MenuID = s1.MenuID,
+                }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList()
+            }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList();
 
 
             return Json(true, "", list);
+        }
+
+        public HttpResponseMessage FindMoudleForm(dynamic obj)
+        {
+            int MenuID = obj == null ? 0 : obj.MenuID;
+
+            var list = db.Sys_Menu.Where(w => w.MenuID == MenuID).Select(s => new
+            {
+                MenuID = s.MenuID,
+                MenuParentID = s.MenuParentID,
+                MenuParentIDList = new object[] { new { label = "未对应上级", value = 0 } }.
+                        Concat(db.Sys_Menu.Where(w1 => w1.MenuParentID == 0).Select(s1 => new
+                        {
+                            label = s1.MenuName,
+                            value = s1.MenuID
+                        })),
+                MenuName = s.MenuName,
+                MenuPath = s.MenuPath,
+                MenuIcon = s.MenuIcon,
+                IsValid = s.IsValid,
+                IsValidList = new object[] {
+                    new { label = "有效", value = 1 },
+                    new { label = "无效", value = 0 }
+                }.ToList(),
+                ApplicationNo = s.ApplicationNo,
+                ApplicationNoList = db.Sys_Application.Select(s2 => new
+                {
+                    label = s2.ApplicationName,
+                    value = s2.ApplicationNo
+                }).ToList(),
+                Xh = s.Xh
+
+            }).FirstOrDefault();
+
+            return Json(true, "", list);
+
+
         }
     }
 }

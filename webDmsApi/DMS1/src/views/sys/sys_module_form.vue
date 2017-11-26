@@ -1,47 +1,54 @@
 <template>
-  <el-form :inline="true" :model="formInline" label-width='80px' class="demo-form-inline">
-  <el-form-item label="模块名称" required>
-    <el-input v-model="formInline.MenuName" placeholder="模块名称"></el-input>
+  <el-form :inline="true" ref="ruleForm" :model="value" label-width='80px' class="demo-form-inline">
+  <el-form-item label="模块名称" prop="MenuName" :rules="[{required:true, message: '模块名称不能为空'}]">
+    <el-input v-model="value.MenuName" placeholder="模块名称"></el-input>
   </el-form-item>
-  <el-form-item label="上级模块">
-    <el-select v-model="formInline.MenuParentID" placeholder="上级模块">
-      <el-option label="区域一" value="shanghai"></el-option>
-      <el-option label="区域二" value="beijing"></el-option>
+  <el-form-item label="上级模块" prop="MenuParentID">
+    <el-select v-model="value.MenuParentID" placeholder="上级模块">
+      <el-option
+      v-for="item in value.MenuParentIDList"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
     </el-select>
   </el-form-item>
-  <el-form-item label="模块地址">
-    <el-input v-model="formInline.MenuPath" placeholder="模块地址"></el-input>
+  <el-form-item label="模块地址" prop="MenuPath">
+    <el-input v-model="value.MenuPath" placeholder="模块地址"></el-input>
   </el-form-item>
-  <el-form-item label="图标">
-    <el-input v-model="formInline.MenuIcon" placeholder="图标"></el-input>
+  <el-form-item label="图标" prop="MenuIcon">
+    <el-input v-model="value.MenuIcon" placeholder="图标"></el-input>
   </el-form-item>
-  <el-form-item label="有效否"">
-    <el-select v-model="formInline.IsValid" placeholder="有效否"">
-      <el-option label="有效" value="1"></el-option>
-      <el-option label="无效" value="0"></el-option>
+  <el-form-item label="有效否" prop="IsValid">
+    <el-select v-model="value.IsValid" placeholder="有效否">
+      <el-option
+      v-for="item in value.IsValidList"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
     </el-select>
   </el-form-item>
-  <el-form-item label="平台类型"">
-    <el-select v-model="formInline.ApplicationNo" placeholder="平台类型"">
-      <el-option label="有效" value="1"></el-option>
-      <el-option label="无效" value="0"></el-option>
+  <el-form-item label="平台类型" prop="ApplicationNo">
+    <el-select v-model="value.ApplicationNo" placeholder="平台类型">
+      <el-option
+      v-for="item in value.ApplicationNoList"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
     </el-select>
   </el-form-item>
-  <el-form-item label="顺序号">
-    <el-input v-model="formInline.Xh" placeholder="顺序号"></el-input>
+  <el-form-item label="顺序号" prop="Xh">
+    <el-input v-model="value.Xh" placeholder="顺序号"></el-input>
   </el-form-item>
 </el-form>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      formInline: {
-        user: "",
-        region: ""
-      }
-    };
+  props: {
+    value: { type: Object }
   },
   methods: {
     onSubmit() {
