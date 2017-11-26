@@ -40,7 +40,7 @@
       prop="IsValid"
       label="有效否"
       align="center"
-      :formatter="function(row, column){return row.IsValid==1?'有效':'无效'}"
+      :formatter="function(row, column){return row.IsValid==0?'无效':'有效'}"
       header-align="center">
     </el-table-column>    
     <el-table-column
@@ -106,24 +106,26 @@ export default {
     };
   },
   created() {
-    var obj = [
-      {
-        MenuID: 0,
-        label: "所有模块",
-        children: []
-      }
-    ];
-
-    api.FindSysModule().then(result => {
-      obj[0].children = result.data;
-      this.treeData = obj;
-      if (this.treeData.length > 0) {
-        this.handleNodeClick(this.treeData[0]);
-      }
-    });
+    this.iniData();
   },
   mounted() {},
   methods: {
+    iniData() {
+      var obj = [
+        {
+          MenuID: 0,
+          label: "所有模块",
+          children: []
+        }
+      ];
+      api.FindSysModule().then(result => {
+        obj[0].children = result.data;
+        this.treeData = obj;
+        if (this.treeData.length > 0) {
+          this.handleNodeClick(this.treeData[0]);
+        }
+      });
+    },
     GetData() {
       var data = this.conditionData;
       this.pageSize = Math.floor(this.$refs.table.$el.clientHeight / 40);

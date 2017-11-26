@@ -351,7 +351,7 @@ namespace webDmsApi.Areas.Sys
                 MenuName = s.MenuName,
                 MenuPath = s.MenuPath,
                 MenuIcon = s.MenuIcon,
-                IsValid = s.IsValid,
+                IsValid = s.IsValid==null?1:0,
                 IsValidList = new object[] {
                     new { label = "有效", value = 1 },
                     new { label = "无效", value = 0 }
