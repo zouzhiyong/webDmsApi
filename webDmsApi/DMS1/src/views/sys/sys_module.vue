@@ -166,8 +166,8 @@ export default {
   height: 100%;
   background: #fff;
   /deep/ .cust-el-dialog {
-    width: 900px;
-    height: 500px;
+    width: 650px;
+    height: 400px;
   }
   .el-row {
     height: 100%;

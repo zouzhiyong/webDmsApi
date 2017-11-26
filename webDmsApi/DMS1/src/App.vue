@@ -3,8 +3,7 @@
 		<transition name="fade"
 		            mode="out-in">
 			<router-view></router-view>
-		</transition>
-    <vue-progress-bar></vue-progress-bar>
+		</transition>    
 	</div>
 </template>
 
@@ -17,6 +16,9 @@ export default {
 </script>
 
 <style lang="scss">
+html {
+  height: 100%;
+}
 * {
   font-size: 13px !important;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
@@ -29,12 +31,16 @@ export default {
 .el-icon-arrow-right:before {
   content: "下一页";
 }
-
+.el-input__inner,
+.el-button {
+  border-radius: 2px;
+}
 .el-button--text {
   padding-left: 8px;
   padding-right: 8px;
 }
 body {
+  height: 100%;
   margin: 0px;
   padding: 0px;
   /*background: url(assets/bg1.jpg) center !important;
