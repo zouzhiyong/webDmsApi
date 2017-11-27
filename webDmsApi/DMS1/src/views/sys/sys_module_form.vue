@@ -1,12 +1,20 @@
 <template>
-  <el-form :inline="true" ref="ruleForm" :model="value" label-width='80px' class="demo-form-inline">
+<el-dialog
+  custom-class="cust-el-dialog"
+  :visible.sync="dialogVisible"
+  :close-on-click-modal="false"
+  :close-on-press-escape="false"
+  :before-close="handleClose">
+  <span slot="title">{{$route.name}}</span>
+  <span>  
+  <el-form :inline="true" ref="ruleForm" :model="formData" label-width='80px' class="demo-form-inline">
   <el-form-item label="模块名称" prop="MenuName" :rules="[{required:true, message: '模块名称不能为空'}]">
-    <el-input v-model="value.MenuName" placeholder="模块名称"></el-input>
+    <el-input v-model="formData.MenuName" placeholder="模块名称"></el-input>
   </el-form-item>
   <el-form-item label="上级模块" prop="MenuParentID">
-    <el-select v-model="value.MenuParentID" placeholder="上级模块">
+    <el-select v-model="formData.MenuParentID" placeholder="上级模块">
       <el-option
-      v-for="item in value.MenuParentIDList"
+      v-for="item in formData.MenuParentIDList"
       :key="item.value"
       :label="item.label"
       :value="item.value">
@@ -14,15 +22,15 @@
     </el-select>
   </el-form-item>
   <el-form-item label="模块地址" prop="MenuPath">
-    <el-input v-model="value.MenuPath" placeholder="模块地址"></el-input>
+    <el-input v-model="formData.MenuPath" placeholder="模块地址"></el-input>
   </el-form-item>
   <el-form-item label="图标" prop="MenuIcon">
-    <el-input v-model="value.MenuIcon" placeholder="图标"></el-input>
+    <el-input v-model="formData.MenuIcon" placeholder="图标"></el-input>
   </el-form-item>
   <el-form-item label="有效否" prop="IsValid">
-    <el-select v-model="value.IsValid" placeholder="有效否">
+    <el-select v-model="formData.IsValid" placeholder="有效否">
       <el-option
-      v-for="item in value.IsValidList"
+      v-for="item in formData.IsValidList"
       :key="item.value"
       :label="item.label"
       :value="item.value">
@@ -30,9 +38,9 @@
     </el-select>
   </el-form-item>
   <el-form-item label="平台类型" prop="ApplicationNo">
-    <el-select v-model="value.ApplicationNo" placeholder="平台类型">
+    <el-select v-model="formData.ApplicationNo" placeholder="平台类型">
       <el-option
-      v-for="item in value.ApplicationNoList"
+      v-for="item in formData.ApplicationNoList"
       :key="item.value"
       :label="item.label"
       :value="item.value">
@@ -40,19 +48,48 @@
     </el-select>
   </el-form-item>
   <el-form-item label="顺序号" prop="Xh">
-    <el-input v-model="value.Xh" placeholder="顺序号"></el-input>
+    <el-input v-model="formData.Xh" placeholder="顺序号"></el-input>
   </el-form-item>
 </el-form>
+  </span>
+  <span slot="footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="handleSave">保存</el-button>
+  </span>
+</el-dialog>
+  
 </template>
 
 <script>
+import { FindMoudleForm, SaveSysMoudleForm } from "../../api/api";
 export default {
-  props: {
-    value: { type: Object }
+  data() {
+    return {
+      dialogVisible: false,
+      formData: {}
+    };
   },
   methods: {
-    onSubmit() {
-      console.log("submit!");
+    GetData(row) {
+      FindMoudleForm(row).then(result => {
+        this.formData = result.data;
+        this.dialogVisible = true;
+      });
+    },
+    handleSave() {
+      this.$refs.ruleForm.validate(valid => {
+        if (valid) {
+          SaveSysMoudleForm(this.formData).then(result => {
+            this.dialogVisible = false;
+            this.$parent.$parent.$refs.table.GetData();
+          });
+        } else {
+          return false;
+        }
+      });
+    },
+    handleClose(done) {
+      done();
     }
   }
 };

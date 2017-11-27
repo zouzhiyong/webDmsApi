@@ -339,6 +339,7 @@
     <Content Include="DMS1\src\mock\mock.js" />
     <Content Include="DMS1\src\routes.js" />
     <Content Include="DMS1\.jsbeautifyrc" />
+    <Content Include="DMS1\src\views\layout\layout_left_right.vue" />
     <None Include="DMS1\src\views\sys\sys_module.vue" />
     <Content Include="DMS1\src\vuex\actions.js" />
     <Content Include="DMS1\src\vuex\getters.js" />
