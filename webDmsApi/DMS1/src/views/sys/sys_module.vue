@@ -1,9 +1,9 @@
-﻿<template> 
-<layout>
-  <moduleTree slot="tree"></moduleTree>   
-  <moduleTable slot="table" ref="table"></moduleTable> 
-  <moduleForm slot="form" ref="form"></moduleForm>
-</layout>
+﻿<template>
+  <layout>
+    <moduleTree slot="tree"></moduleTree>
+    <moduleTable slot="table" ref="table"></moduleTable>
+    <moduleForm slot="form" ref="form"></moduleForm>
+  </layout>
 </template>
 
 <script>
@@ -21,4 +21,3 @@ export default {
   }
 };
 </script>
-
