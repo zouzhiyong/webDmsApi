@@ -115,6 +115,7 @@ export default {
       )[0].style.display = status ? "block" : "none";
     }
   },
+  mounted() {},
   created() {
     var obj = {
       path: "/",
@@ -128,7 +129,6 @@ export default {
         }
       ]
     };
-
     getMenu().then(result => {
       result.data.splice(0, 0, obj);
       this.menuData = result.data;
