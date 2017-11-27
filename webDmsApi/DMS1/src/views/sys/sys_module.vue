@@ -1,7 +1,7 @@
 ﻿<template> 
 <layout>
-  <moduleTree slot="tree" @node-click="handleNodeClick"></moduleTree>   
-  <moduleTable slot="table" ref="table" @edit-click="handleEditClick"></moduleTable> 
+  <moduleTree slot="tree"></moduleTree>   
+  <moduleTable slot="table" ref="table"></moduleTable> 
   <moduleForm slot="form" ref="form"></moduleForm>
 </layout>
 </template>
@@ -18,15 +18,6 @@ export default {
     moduleForm,
     moduleTree,
     moduleTable
-  },
-  methods: {
-    handleNodeClick(data) {
-      this.$refs.table.conditionData = data;
-      this.$refs.table.GetData();
-    },
-    handleEditClick(row) {
-      this.$refs.form.GetData(row);
-    }
   }
 };
 </script>

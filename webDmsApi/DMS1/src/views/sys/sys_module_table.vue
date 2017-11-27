@@ -87,7 +87,7 @@ export default {
       this.GetData();
     },
     handleEditClick(row) {
-      this.$emit("edit-click", row);
+      this.$parent.$parent.$parent.$parent.$refs.form.GetData(row);
     }
   }
 };
