@@ -37,12 +37,15 @@
 			<section class="content-container">
 				<div class="grid-content bg-purple-light">
 					<el-col :span="24" class="breadcrumb-container">
-						<strong class="title">{{$route.name}}</strong>
+						<strong class="title">{{$route.name}}</strong>                    
 						<el-breadcrumb separator="/" class="breadcrumb-inner">
 							<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
 								{{ item.name }}
 							</el-breadcrumb-item>
 						</el-breadcrumb>
+            <el-button-group style="float:right;margin-right:40px;">
+              <el-button type="text" icon="document" style="padding-top:0;padding-bottom:0">新建</el-button>
+              </el-button-group>    
 					</el-col>
 					<el-col :span="24" class="content-wrapper">
 						<!-- <transition name="fade" mode="out-in"> -->

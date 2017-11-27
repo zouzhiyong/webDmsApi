@@ -11,6 +11,7 @@ import Vuex from 'vuex'
 //import NProgress from 'nprogress'
 //import 'nprogress/nprogress.css'
 import routes from './routes'
+import ExportJsonExcel from 'js-export-excel'
 // import Mock from './mock'
 // Mock.bootstrap();
 import 'font-awesome/css/font-awesome.min.css'
@@ -18,11 +19,13 @@ import 'font-awesome/css/font-awesome.min.css'
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(Vuex)
-    // Vue.use(VueProgressBar, {
-    //     color: 'rgb(143, 255, 199)',
-    //     failedColor: 'red',
-    //     height: '2px'
-    // })
+
+Vue.prototype.ExportJsonExcel = ExportJsonExcel;
+// Vue.use(VueProgressBar, {
+//     color: 'rgb(143, 255, 199)',
+//     failedColor: 'red',
+//     height: '2px'
+// })
 
 Vue.config.productionTip = false;
 
