@@ -43,13 +43,13 @@
 								{{ item.name }}
 							</el-breadcrumb-item>
 						</el-breadcrumb>
-            <custBotton>
+            <custBotton  style="float:right;margin-right:40px;">
               <el-button slot="newButton" type="text" icon="document" style="padding-top:0;padding-bottom:0">新建</el-button>
               </custBotton>    
 					</el-col>
 					<el-col :span="24" class="content-wrapper">
 						<!-- <transition name="fade" mode="out-in"> -->
-							<router-view></router-view>
+							<router-view :view-data="1"></router-view>
 						<!-- </transition> -->
 					</el-col>
 				</div>
@@ -114,7 +114,6 @@ export default {
   },
   mounted() {},
   created() {
-    console.log(this.$router.options.routes);
     this.menuData = JSON.parse(sessionStorage.menuData);
   },
   mounted() {
@@ -122,7 +121,7 @@ export default {
     if (user) {
       user = JSON.parse(user);
       this.sysUserName = user.name || "";
-      this.sysUserAvatar = user.avatar || "";
+      this.sysUserAvatar = require("./../assets/" + user.avatar);
     }
   }
 };

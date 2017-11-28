@@ -59,7 +59,7 @@ namespace webDmsApi.Areas.Login
                     MenuPath = s1.MenuPath,
                     Xh = s1.Xh,
                     MenuID = s1.MenuID,
-                    Button = new string[] { "save" }.ToList()
+                    Button = new string[] { "save","cancle","new" }.ToList()
                 }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList()
             }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList();
 

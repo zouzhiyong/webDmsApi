@@ -39,6 +39,10 @@ export default {
       checked: true
     };
   },
+  created() {
+    let leng = this.$router.options.routes.length;
+    this.$router.options.routes.splice(3, leng - 3);
+  },
   methods: {
     handleReset2() {
       this.$refs.ruleForm2.resetFields();
@@ -64,8 +68,11 @@ export default {
                 type: "error"
               });
             } else {
-              sessionStorage.setItem("user", JSON.stringify(user));
               this.GetMenuData(menu);
+
+              sessionStorage.setItem("user", JSON.stringify(user));
+
+              this.$router.push({ path: "/index" });
             }
           });
         } else {
@@ -91,10 +98,12 @@ export default {
       };
       data.splice(0, 0, obj);
       sessionStorage.menuData = JSON.stringify(data);
+
       data.map(item => {
         delete item.name;
         item.component = resolve => require([`./Home.vue`], resolve);
         item.children.map(_item => {
+          _item.meta = _item.Button;
           if (_item.MenuPath != null && _item.MenuPath != "") {
             let str = JSON.stringify(_item.MenuPath)
               .replace(/\"/g, "")
@@ -104,11 +113,10 @@ export default {
           }
         });
 
-        this.$router.options.routes.push(item);
+        //this.$router.options.routes.push(item);
       });
-
-      this.$router.addRoutes(this.$router.options.routes);
-      this.$router.push({ path: "/index" });
+      console.log(this.$router);
+      this.$router.addRoutes(data);
     }
   }
 };

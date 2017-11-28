@@ -35,13 +35,13 @@ const router = new VueRouter({
     routes
 })
 
-//重新获取路由表
-let data = JSON.parse(sessionStorage.menuData || null);
-if (data != null) {
+let data = JSON.parse(sessionStorage.menuData || "[]");
+if (data.length > 0) {
     data.map(item => {
         delete item.name;
         item.component = resolve => require([`./views/Home.vue`], resolve);
         item.children.map(_item => {
+            _item.meta = _item.Button;
             if (_item.MenuPath != null && _item.MenuPath != "") {
                 let str = JSON.stringify(_item.MenuPath)
                     .replace(/\"/g, "")
@@ -51,20 +51,21 @@ if (data != null) {
             }
         });
 
-        router.options.routes.push(item);
+        // router.options.routes.push(item);
     });
-
-    router.addRoutes(router.options.routes);
+    router.addRoutes(data);
 }
 
 router.beforeEach((to, from, next) => {
     //NProgress.start();
-
     if (to.path == '/login') {
         sessionStorage.removeItem('user');
+        sessionStorage.removeItem('menuData');
     }
     let user = JSON.parse(sessionStorage.getItem('user'));
     if (!user && to.path != '/login') {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('menuData');
         next({ path: '/login' })
     } else {
         next()
