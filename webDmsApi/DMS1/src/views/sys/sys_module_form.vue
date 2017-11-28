@@ -52,22 +52,27 @@
   </el-form-item>
 </el-form>
   </span>
-  <span slot="footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="handleSave">保存</el-button>
+  <span slot="footer">    
+    <custBotton>
+      <el-button slot="cancleButton" @click="dialogVisible = false">取 消</el-button>
+      <el-button slot="saveButton" type="primary" @click="handleSave">保存</el-button>
+    </custBotton>
   </span>
-</el-dialog>
-  
+</el-dialog>  
 </template>
 
 <script>
 import { FindMoudleForm, SaveSysMoudleForm } from "../../api/api";
+import custBotton from "./../layout/layout_button";
 export default {
   data() {
     return {
       dialogVisible: false,
       formData: {}
     };
+  },
+  components: {
+    custBotton
   },
   methods: {
     GetData(row) {

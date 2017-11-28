@@ -42,8 +42,30 @@ namespace webDmsApi.Areas.Login
                             FormsAuthentication.FormsCookiePath);
             webDmsEntities db = new webDmsEntities();
             var UserInfo = db.Sys_User.Where(w => w.LoginName == loginData.strUser).FirstOrDefault();
+
+
+            var list = db.View_menu.Where<View_menu>(p => p.UserID.ToString() == UserInfo.UserID.ToString() && p.MenuParentID == 0).Select(s => new
+            {
+                path = "/",
+                name = s.MenuName,
+                component = "",
+                Xh = s.Xh,
+                MenuID = s.MenuID,
+                iconCls = s.MenuIcon,
+                children = db.View_menu.Where<View_menu>(p1 => p1.MenuParentID == s.MenuID).Select(s1 => new
+                {
+                    path = "/" + s1.MenuPath,
+                    name = s1.MenuName,
+                    MenuPath = s1.MenuPath,
+                    Xh = s1.Xh,
+                    MenuID = s1.MenuID,
+                    Button = new string[] { "save" }.ToList()
+                }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList()
+            }).OrderBy(o => o.Xh).ThenBy(o => o.MenuID).ToList();
+
+
             //返回登录结果、用户信息、用户验证票据信息
-            var oUser = new UserInfo { bRes = true, UserName = loginData.strUser, Password = loginData.strPwd, user = new { name= UserInfo.RealName, avatar=UserInfo.Avatar }, Ticket = FormsAuthentication.Encrypt(ticket) };
+            var oUser = new UserInfo { bRes = true, UserName = loginData.strUser, Password = loginData.strPwd, user = new { name= UserInfo.RealName, avatar=UserInfo.Avatar }, Ticket = FormsAuthentication.Encrypt(ticket) , menu= list };
             //将身份信息保存在session中，验证当前请求是否是有效请求
             HttpContext.Current.Session[loginData.strUser] = oUser;            
             return oUser;
@@ -77,6 +99,7 @@ namespace webDmsApi.Areas.Login
             public string Ticket { get; set; }
 
             public object user { get; set; }
+            public object menu { get; set; }
         }
     }
 }

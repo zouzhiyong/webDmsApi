@@ -8,11 +8,13 @@
 </template>
 
 <script>
+import { getMenu } from "./api/api";
 export default {
   name: "app",
   components: {},
   created() {},
-  mounted() {}
+  mounted() {},
+  methods: {}
 };
 </script>
 

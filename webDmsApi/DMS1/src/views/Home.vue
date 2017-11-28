@@ -43,9 +43,9 @@
 								{{ item.name }}
 							</el-breadcrumb-item>
 						</el-breadcrumb>
-            <el-button-group style="float:right;margin-right:40px;">
-              <el-button type="text" icon="document" style="padding-top:0;padding-bottom:0">新建</el-button>
-              </el-button-group>    
+            <custBotton>
+              <el-button slot="newButton" type="text" icon="document" style="padding-top:0;padding-bottom:0">新建</el-button>
+              </custBotton>    
 					</el-col>
 					<el-col :span="24" class="content-wrapper">
 						<!-- <transition name="fade" mode="out-in"> -->
@@ -61,6 +61,7 @@
 
 <script>
 import { getMenu } from "../api/api";
+import custBotton from "./layout/layout_button";
 export default {
   data() {
     return {
@@ -69,17 +70,10 @@ export default {
       sysUserName: "",
       sysUserAvatar: "",
       menuData: ""
-      // form: {
-      //   name: "",
-      //   region: "",
-      //   date1: "",
-      //   date2: "",
-      //   delivery: false,
-      //   type: [],
-      //   resource: "",
-      //   desc: ""
-      // }
     };
+  },
+  components: {
+    custBotton
   },
   methods: {
     onSubmit() {
@@ -120,35 +114,8 @@ export default {
   },
   mounted() {},
   created() {
-    var obj = {
-      path: "/",
-      name: "主页",
-      iconCls: "fa fa-home",
-      leaf: true, //只有一个节点
-      children: [
-        {
-          path: "/index",
-          name: "主页"
-        }
-      ]
-    };
-    getMenu().then(result => {
-      result.data.splice(0, 0, obj);
-      this.menuData = result.data;
-
-      // this.menuData.map(item => {
-      //   item.component = resolve => require([`./Home.vue`], resolve);
-      //   item.children.map(_item => {
-      //     if (_item.component) {
-      //       var path =
-      //         "./" + _item.component.split("_")[0] + "/" + _item.component;
-      //       _item.component = resolve => require([path + `.vue`], resolve);
-      //     }
-      //   });
-      // });
-
-      // this.$router.addRoutes(this.menuData);
-    });
+    console.log(this.$router.options.routes);
+    this.menuData = JSON.parse(sessionStorage.menuData);
   },
   mounted() {
     var user = sessionStorage.getItem("user");

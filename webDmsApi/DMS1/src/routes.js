@@ -1,7 +1,7 @@
 import Login from './views/Login.vue'
 import index from './views/index.vue'
 import NotFound from './views/404.vue'
-import Home from './views/Home.vue'
+// import Home from './views/Home.vue'
 // import sys_module from './views/sys/sys_module.vue'
 // import Main from './views/Main.vue'
 // import Table from './views/nav1/Table.vue'
@@ -26,28 +26,28 @@ let routes = [{
         name: '',
         hidden: true
     },
-    {
-        path: '/',
-        component: Home,
-        name: '',
-        iconCls: 'fa fa-home',
-        leaf: true, //只有一个节点
-        children: [{
-            path: '/index',
-            component: index,
-            name: '主页'
-        }]
-    },
-    {
-        path: '/',
-        component: Home,
-        name: '系统设置',
-        children: [{
-            path: '/sys_module',
-            component: resolve => require([`./views/sys/sys_module.vue`], resolve), //sys_module,
-            name: '模块设置'
-        }]
-    },
+    // {
+    //     path: '/',
+    //     component: resolve => require([`./views/Home.vue`], resolve),
+    //     name: '',
+    //     iconCls: 'fa fa-home',
+    //     leaf: true, //只有一个节点
+    //     children: [{
+    //         path: '/index',
+    //         component: index,
+    //         name: '主页'
+    //     }]
+    // },
+    // {
+    //     path: '/',
+    //     component: resolve => require([`./views/Home.vue`], resolve),
+    //     name: '系统设置',
+    //     children: [{
+    //         path: '/sys_module',
+    //         component: resolve => require([`./views/sys/sys_module.vue`], resolve), //sys_module,
+    //         name: '模块设置'
+    //     }]
+    // },
     //{ path: '/main', component: Main },
     // {
     //     path: '/',
@@ -96,9 +96,6 @@ let routes = [{
         redirect: { path: '/404' }
     }
 ];
-
-
-
 
 
 export default routes;

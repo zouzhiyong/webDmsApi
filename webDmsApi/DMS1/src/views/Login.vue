@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { requestLogin } from "../api/api";
+import { requestLogin, getMenu } from "../api/api";
 //import NProgress from 'nprogress'
 export default {
   data() {
@@ -57,7 +57,7 @@ export default {
           requestLogin(loginParams).then(result => {
             this.logining = false;
             // this.$Progress.finish();
-            let { message, bRes, user } = result;
+            let { message, bRes, user, menu } = result;
             if (bRes !== true) {
               this.$message({
                 message: message,
@@ -65,7 +65,7 @@ export default {
               });
             } else {
               sessionStorage.setItem("user", JSON.stringify(user));
-              this.$router.push({ path: "/index" });
+              this.GetMenuData(menu);
             }
           });
         } else {
@@ -73,6 +73,42 @@ export default {
           return false;
         }
       });
+    },
+    GetMenuData(data) {
+      var obj = {
+        path: "/",
+        name: "主页",
+        iconCls: "fa fa-home",
+        component: resolve => require([`./Home.vue`], resolve),
+        leaf: true, //只有一个节点
+        children: [
+          {
+            path: "/index",
+            component: resolve => require([`./index.vue`], resolve),
+            name: "主页"
+          }
+        ]
+      };
+      data.splice(0, 0, obj);
+      sessionStorage.menuData = JSON.stringify(data);
+      data.map(item => {
+        delete item.name;
+        item.component = resolve => require([`./Home.vue`], resolve);
+        item.children.map(_item => {
+          if (_item.MenuPath != null && _item.MenuPath != "") {
+            let str = JSON.stringify(_item.MenuPath)
+              .replace(/\"/g, "")
+              .split("_")[0];
+            let path = "./" + str + "/" + _item.MenuPath;
+            _item.component = resolve => require([path + `.vue`], resolve);
+          }
+        });
+
+        this.$router.options.routes.push(item);
+      });
+
+      this.$router.addRoutes(this.$router.options.routes);
+      this.$router.push({ path: "/index" });
     }
   }
 };

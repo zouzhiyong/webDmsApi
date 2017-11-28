@@ -35,8 +35,31 @@ const router = new VueRouter({
     routes
 })
 
+//重新获取路由表
+let data = JSON.parse(sessionStorage.menuData || null);
+if (data != null) {
+    data.map(item => {
+        delete item.name;
+        item.component = resolve => require([`./views/Home.vue`], resolve);
+        item.children.map(_item => {
+            if (_item.MenuPath != null && _item.MenuPath != "") {
+                let str = JSON.stringify(_item.MenuPath)
+                    .replace(/\"/g, "")
+                    .split("_")[0];
+                let path = "./views/" + str + "/" + _item.MenuPath;
+                _item.component = resolve => require([path + `.vue`], resolve);
+            }
+        });
+
+        router.options.routes.push(item);
+    });
+
+    router.addRoutes(router.options.routes);
+}
+
 router.beforeEach((to, from, next) => {
     //NProgress.start();
+
     if (to.path == '/login') {
         sessionStorage.removeItem('user');
     }
@@ -47,6 +70,8 @@ router.beforeEach((to, from, next) => {
         next()
     }
 })
+
+
 
 //router.afterEach(transition => {
 //NProgress.done();
