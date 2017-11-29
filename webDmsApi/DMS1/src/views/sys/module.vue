@@ -8,9 +8,9 @@
 
 <script>
 import layout from "./../layout/layout_left_right";
-import moduleTree from "./sys_module_tree";
-import moduleTable from "./sys_module_table";
-import moduleForm from "./sys_module_form";
+import moduleTree from "./module_tree";
+import moduleTable from "./module_table";
+import moduleForm from "./module_form";
 
 export default {
   components: {

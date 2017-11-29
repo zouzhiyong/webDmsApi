@@ -48,7 +48,6 @@ namespace webDmsApi.Areas.Login
             {
                 path = "/",
                 name = s.MenuName,
-                component = "",
                 Xh = s.Xh,
                 MenuID = s.MenuID,
                 iconCls = s.MenuIcon,
@@ -56,7 +55,7 @@ namespace webDmsApi.Areas.Login
                 {
                     path = "/" + s1.MenuPath,
                     name = s1.MenuName,
-                    MenuPath = s1.MenuPath,
+                    MenuPath = s1.MenuPath.Replace("_","/"),
                     Xh = s1.Xh,
                     MenuID = s1.MenuID,
                     Button = new string[] { "save","cancle","new" }.ToList()

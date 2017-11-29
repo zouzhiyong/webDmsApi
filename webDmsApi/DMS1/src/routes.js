@@ -90,11 +90,11 @@ let routes = [{
     //         { path: '/echarts', component: echarts, name: 'echarts' }
     //     ]
     // },
-    {
-        path: '*',
-        hidden: true,
-        redirect: { path: '/404' }
-    }
+    // {
+    //     path: '*',
+    //     hidden: true,
+    //     redirect: { path: '/404' }
+    // }
 ];
 
 

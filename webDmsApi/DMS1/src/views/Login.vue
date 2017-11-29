@@ -84,15 +84,15 @@ export default {
     GetMenuData(data) {
       var obj = {
         path: "/",
-        name: "主页",
+        name: "",
         iconCls: "fa fa-home",
-        component: resolve => require([`./Home.vue`], resolve),
         leaf: true, //只有一个节点
         children: [
           {
             path: "/index",
-            component: resolve => require([`./index.vue`], resolve),
-            name: "主页"
+            MenuPath: "index",
+            name: "主页",
+            meta: ""
           }
         ]
       };
@@ -100,23 +100,34 @@ export default {
       sessionStorage.menuData = JSON.stringify(data);
 
       data.map(item => {
-        delete item.name;
-        item.component = resolve => require([`./Home.vue`], resolve);
-        item.children.map(_item => {
-          _item.meta = _item.Button;
-          if (_item.MenuPath != null && _item.MenuPath != "") {
-            let str = JSON.stringify(_item.MenuPath)
-              .replace(/\"/g, "")
-              .split("_")[0];
-            let path = "./" + str + "/" + _item.MenuPath;
-            _item.component = resolve => require([path + `.vue`], resolve);
-          }
-        });
+        let temObj = {
+          meta: { name: item.name, button: [] },
+          path: item.path,
+          component: resolve => require([`./Home.vue`], resolve)
+        };
+        if (item.children) {
+          temObj.children = [];
+          item.children.map(_item => {
+            let path = "./" + _item.MenuPath;
+            temObj.children.push({
+              meta: { name: _item.name, button: _item.Button },
+              name: _item.name,
+              path: _item.path,
+              component: resolve => require([path + `.vue`], resolve)
+            });
+          });
+        }
 
-        //this.$router.options.routes.push(item);
+        this.$router.options.routes.push(temObj);
       });
-      console.log(this.$router);
-      this.$router.addRoutes(data);
+
+      this.$router.options.routes.push({
+        path: "*",
+        hidden: true,
+        redirect: { path: "/404" }
+      });
+      sessionStorage.routes = this.$router.options.routes;
+      this.$router.addRoutes(this.$router.options.routes);
     }
   }
 };
