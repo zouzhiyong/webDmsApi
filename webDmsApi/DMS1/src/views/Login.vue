@@ -69,9 +69,7 @@ export default {
               });
             } else {
               this.GetMenuData(menu);
-
               sessionStorage.setItem("user", JSON.stringify(user));
-
               this.$router.push({ path: "/index" });
             }
           });
@@ -82,51 +80,15 @@ export default {
       });
     },
     GetMenuData(data) {
-      var obj = {
-        path: "/",
-        name: "",
-        iconCls: "fa fa-home",
-        leaf: true, //只有一个节点
-        children: [
-          {
-            path: "/index",
-            MenuPath: "index",
-            name: "主页",
-            meta: ""
-          }
-        ]
-      };
-      data.splice(0, 0, obj);
-      sessionStorage.menuData = JSON.stringify(data);
-
+      sessionStorage.routes = JSON.stringify(data);
       data.map(item => {
-        let temObj = {
-          meta: { name: item.name, button: [] },
-          path: item.path,
-          component: resolve => require([`./Home.vue`], resolve)
-        };
-        if (item.children) {
-          temObj.children = [];
-          item.children.map(_item => {
-            let path = "./" + _item.MenuPath;
-            temObj.children.push({
-              meta: { name: _item.name, button: _item.Button },
-              name: _item.name,
-              path: _item.path,
-              component: resolve => require([path + `.vue`], resolve)
-            });
-          });
-        }
-
-        this.$router.options.routes.push(temObj);
+        item.component = resolve => require([`./Home.vue`], resolve);
+        item.children.map(_item => {
+          _item.component = resolve =>
+            require(["./" + _item.MenuPath + `.vue`], resolve);
+        });
+        this.$router.options.routes.push(item);
       });
-
-      this.$router.options.routes.push({
-        path: "*",
-        hidden: true,
-        redirect: { path: "/404" }
-      });
-      sessionStorage.routes = this.$router.options.routes;
       this.$router.addRoutes(this.$router.options.routes);
     }
   }

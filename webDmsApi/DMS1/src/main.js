@@ -37,57 +37,18 @@ const router = new VueRouter({
     routes
 })
 
-// let data = JSON.parse(sessionStorage.menuData || "[]");
-// if (data.length > 0) {
-//     data.map(item => {
-//         // delete item.name;
-//         item.component = resolve => require([`./views/Home.vue`], resolve);
-//         item.children.map(_item => {
-//             _item.meta = _item.Button;
-//             if (_item.MenuPath != null && _item.MenuPath != "") {
-//                 let path = "./views/" + _item.MenuPath + "/" + _item.MenuPath;
-//                 _item.component = resolve => require([path + `.vue`], resolve);
-//             }
-//         });
-
-//         // router.options.routes.push(item);
-//     });
-//     router.addRoutes(data);
-// }
 //检测本地路由
 let localRoutes = sessionStorage.routes;
-let data = sessionStorage.menuData;
-if (localRoutes && data) {
-    let data = JSON.parse(sessionStorage.menuData);
-
-    data.map(item => {
-        let temObj = {
-            meta: { name: item.name, button: [] },
-            path: item.path,
-            component: resolve => require([`./views/Home.vue`], resolve)
-        };
-        if (item.children) {
-            temObj.children = [];
-            item.children.map(_item => {
-                let path = "./views/" + _item.MenuPath;
-                temObj.children.push({
-                    meta: { name: _item.name, button: _item.Button },
-                    name: _item.name,
-                    path: _item.path,
-                    component: resolve => require([path + `.vue`], resolve)
-                });
-            });
-        }
-
-        router.options.routes.push(temObj);
+if (localRoutes) {
+    JSON.parse(localRoutes).map(item => {
+        item.component = resolve => require([`./views/Home.vue`], resolve);
+        item.children.map(_item => {
+            _item.component = resolve =>
+                require(["./views/" + _item.MenuPath + `.vue`], resolve);
+        });
+        router.options.routes.push(item);
     });
 
-    router.options.routes.push({
-        path: "*",
-        hidden: true,
-        redirect: { path: "/404" }
-    });
-    sessionStorage.routes = router.options.routes;
     router.addRoutes(router.options.routes);
 }
 
@@ -95,12 +56,15 @@ router.beforeEach((to, from, next) => {
     //NProgress.start();
     if (to.path == '/login') {
         sessionStorage.removeItem('user');
-        sessionStorage.removeItem('menuData');
+        sessionStorage.removeItem('routes');
+        if (from.path == '/index') {
+            location.reload();
+        }
     }
     let user = JSON.parse(sessionStorage.getItem('user'));
     if (!user && to.path != '/login') {
         sessionStorage.removeItem('user');
-        sessionStorage.removeItem('menuData');
+        sessionStorage.removeItem('routes');
         next({ path: '/login' })
     } else {
         next()
