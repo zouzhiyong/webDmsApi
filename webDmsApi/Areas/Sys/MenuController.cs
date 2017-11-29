@@ -338,37 +338,76 @@ namespace webDmsApi.Areas.Sys
         {
             int MenuID = obj == null ? 0 : obj.MenuID;
 
-            var list = db.Sys_Menu.Where(w => w.MenuID == MenuID).Select(s => new
+
+            if (MenuID == 0)
             {
-                MenuID = s.MenuID,
-                MenuParentID = s.MenuParentID,
-                MenuParentIDList = new object[] { new { label = "未对应上级", value = 0 } }.
+                var list =new {
+                    MenuID =0,
+                    MenuParentID = 0,
+                    MenuParentIDList = new object[] { new { label = "未对应上级", value = 0 } }.
                         Concat(db.Sys_Menu.Where(w1 => w1.MenuParentID == 0).Select(s1 => new
                         {
                             label = s1.MenuName,
                             value = s1.MenuID
                         })),
-                MenuName = s.MenuName,
-                MenuPath = s.MenuPath,
-                MenuIcon = s.MenuIcon,
-                IsValid = s.IsValid == null ? 1 : s.IsValid,
-                IsValidList = new object[] {
+                    MenuName = "",
+                    MenuPath = "",
+                    MenuIcon = "",
+                    IsValid = 1,
+                    IsValidList = new object[] {
                     new { label = "有效", value = 1 },
                     new { label = "无效", value = 0 }
                 }.ToList(),
-                ApplicationNo = s.ApplicationNo,
-                ApplicationNoList = db.Sys_Application.Select(s2 => new
+                    ApplicationNo = "",
+                    ApplicationNoList = db.Sys_Application.Select(s2 => new
+                    {
+                        label = s2.ApplicationName,
+                        value = s2.ApplicationNo
+                    }).ToList(),
+                    Xh = 0
+
+                };
+                return Json(true, "", list);
+            }else
+            {
+                var list = db.Sys_Menu.Where(w => w.MenuID == MenuID).Select(s => new
                 {
-                    label = s2.ApplicationName,
-                    value = s2.ApplicationNo
-                }).ToList(),
-                Xh = s.Xh
+                    MenuID = s.MenuID,
+                    MenuParentID = s.MenuParentID,
+                    MenuParentIDList = new object[] { new { label = "未对应上级", value = 0 } }.
+                        Concat(db.Sys_Menu.Where(w1 => w1.MenuParentID == 0).Select(s1 => new
+                        {
+                            label = s1.MenuName,
+                            value = s1.MenuID
+                        })),
+                    MenuName = s.MenuName,
+                    MenuPath = s.MenuPath,
+                    MenuIcon = s.MenuIcon,
+                    IsValid = s.IsValid == null ? 1 : s.IsValid,
+                    IsValidList = new object[] {
+                    new { label = "有效", value = 1 },
+                    new { label = "无效", value = 0 }
+                }.ToList(),
+                    ApplicationNo = s.ApplicationNo,
+                    ApplicationNoList = db.Sys_Application.Select(s2 => new
+                    {
+                        label = s2.ApplicationName,
+                        value = s2.ApplicationNo
+                    }).ToList(),
+                    Xh = s.Xh
 
-            }).FirstOrDefault();
+                }).FirstOrDefault();
 
-            return Json(true, "", list);
+                return Json(true, "", list);
+            } 
+        }
 
+        [HttpPost]
+        public HttpResponseMessage DeleteMoudleRow(Sys_Menu obj)
+        {
+            var result = new DBHelper<Sys_Menu>().Remove(obj);
 
+            return Json(true, result == 1 ? "删除成功！" : "删除失败");
         }
     }
 }

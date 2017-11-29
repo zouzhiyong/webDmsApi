@@ -57,7 +57,7 @@ namespace webDmsApi.Areas.Login
                 {
                     path = "/" + s1.MenuPath,
                     name = s1.MenuName,
-                    meta = new { name = s1.MenuName, button = new string[] { "save", "cancle", "new" }.ToList() },
+                    meta = new { name = s1.MenuName, button = new string[] { "save", "cancle", "new" }.ToList(),isButton=false },
                     MenuPath = s1.MenuPath.Replace("_", "/"),
                     Xh = s1.Xh,
                     MenuID = s1.MenuID

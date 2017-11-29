@@ -17,7 +17,7 @@
       <el-table-column label="操作" align="center" header-align="center">
         <template slot-scope="scope">
           <el-button type="text" icon="edit" @click="handleEditClick(scope.row)"></el-button>
-          <el-button type="text" icon="delete"></el-button>
+          <el-button type="text" icon="delete" @click="handleDeleteClick(scope.row)"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { FindSysMoudleRow } from "../../api/api";
+import { FindSysMoudleRow, DeleteSysMoudleForm } from "../../api/api";
 export default {
   data() {
     return {
@@ -56,6 +56,17 @@ export default {
     },
     handleEditClick(row) {
       this.$parent.$parent.$parent.$parent.$refs.form.GetData(row);
+    },
+    handleDeleteClick(row) {
+      this.$confirm("是否确认删除?", "提示", {
+        type: "warning"
+      })
+        .then(() => {
+          DeleteSysMoudleForm(row).then(result => {
+            this.GetData();
+          });
+        })
+        .catch(() => {});
     }
   }
 };

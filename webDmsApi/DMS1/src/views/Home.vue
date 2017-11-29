@@ -48,10 +48,7 @@
               <el-breadcrumb-item v-if="item.meta.name!=''" v-for="item in $route.matched" :key="item.path">
                 {{ item.meta.name }}
               </el-breadcrumb-item>
-            </el-breadcrumb>
-            <custBotton style="float:right;margin-right:40px;">
-              <el-button slot="newButton" type="text" icon="document" style="padding-top:0;padding-bottom:0">新建</el-button>
-            </custBotton>
+            </el-breadcrumb>            
           </el-col>
           <el-col :span="24" class="content-wrapper">
             <!-- <transition name="fade" mode="out-in"> -->

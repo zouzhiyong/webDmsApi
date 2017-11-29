@@ -70,3 +70,4 @@ export const FindSysModule = params => { return axios.post(`${base}/api/Menu/Fin
 export const FindSysMoudleRow = params => { return axios.post(`${base}/api/Menu/FindSysMoudleRow`, params).then(res => res.data); };
 export const FindMoudleForm = params => { return axios.post(`${base}/api/Menu/FindMoudleForm`, params).then(res => res.data); };
 export const SaveSysMoudleForm = params => { return axios.post(`${base}/api/Menu/SaveSysMoudleForm`, params).then(res => res.data); };
+export const DeleteSysMoudleForm = params => { return axios.post(`${base}/api/Menu/DeleteMoudleRow`, params).then(res => res.data); };
