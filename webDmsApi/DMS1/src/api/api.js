@@ -25,7 +25,10 @@ let _time = null;
 axios.interceptors.request.use(function(config) {
     // 在发送请求之前做些什么
     // new Vue().$Progress.start()
-    loadingInstance = Loading.service(options)
+    _time = setTimeout(() => {
+        loadingInstance = Loading.service(options)
+    }, 500);
+
 
     return config;
 }, function(error) {
@@ -39,10 +42,12 @@ axios.interceptors.request.use(function(config) {
 axios.interceptors.response.use(function(response) {
     // 对响应数据做点什么
     // new Vue().$Progress.finish();
-
-    loadingInstance.close();
     clearTimeout(_time);
+    try {
+        loadingInstance.close();
+    } catch (e) {
 
+    }
     if (response.data.result === true) {
         if (response.data.message !== "" && response.data.message !== null) {
             new Vue().$message({

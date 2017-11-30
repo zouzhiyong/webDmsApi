@@ -1,8 +1,9 @@
 import babelpolyfill from 'babel-polyfill'
 import Vue from 'vue'
+import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+
 //import './assets/theme/theme-green/index.css'
 import VueRouter from 'vue-router'
 import store from './vuex/store'
