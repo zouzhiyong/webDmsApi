@@ -1,5 +1,5 @@
 <template>
-  <el-tree :data="treeData" :props="defaultProps" node-key="MenuID" :current-node-key="0" :highlight-current=true :default-expanded-keys="[0]" @node-click="handleNodeClick"></el-tree>
+  <el-tree ref="tree" :data="treeData" :props="defaultProps" node-key="MenuID" :current-node-key="0" :highlight-current="true" :default-expanded-keys="[0]" @node-click="handleNodeClick"></el-tree>
 </template>
 
 <script>
@@ -30,7 +30,10 @@ export default {
         obj[0].children = result.data;
         this.treeData = obj;
         if (this.treeData.length > 0) {
-          this.handleNodeClick(this.treeData[0]);
+          this.$nextTick(() => {
+            this.$refs.tree.setCurrentKey(this.treeData[0].MenuID);
+            this.handleNodeClick(this.treeData[0]);
+          });
         }
       });
     },

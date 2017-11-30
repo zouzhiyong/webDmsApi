@@ -28,11 +28,14 @@ html {
     Microsoft YaHei, SimSun, sans-serif;
   box-sizing: border-box;
 }
-.el-icon-arrow-left:before {
-  content: "上一页";
-}
-.el-icon-arrow-right:before {
-  content: "下一页";
+// .el-icon-arrow-left:before {
+//   content: "上一页";
+// }
+// .el-icon-arrow-right:before {
+//   content: "下一页";
+// }
+.el-select > .el-input {
+  width: 200px;
 }
 .el-input__inner,
 .el-button {
@@ -41,6 +44,37 @@ html {
 .el-button--text {
   padding-left: 8px;
   padding-right: 8px;
+}
+.el-tree {
+  cursor: default;
+  // background: #fff;
+  border: 1px solid #d1dbe5;
+}
+.el-tree-node__content {
+  height: 36px;
+  line-height: 36px;
+}
+.el-table th {
+  padding: 2px 0px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #eef1f6;
+}
+.el-table td {
+  padding: 2px 0px;
+  height: 40px;
+  line-height: 40px;
+}
+.el-pagination {
+  font-weight: normal;
+}
+.el-pagination button {
+  width: 50px;
+}
+.el-table__footer-wrapper thead div,
+.el-table__header-wrapper thead div {
+  background-color: #eef1f6;
+  color: #1f2d3d;
 }
 body {
   height: 100%;
@@ -82,13 +116,13 @@ body {
   }
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.2s ease;
-}
+// .fade-enter-active,
+// .fade-leave-active {
+//   transition: all 0.2s ease;
+// }
 
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
+// .fade-enter,
+// .fade-leave-active {
+//   opacity: 0;
+// }
 </style>

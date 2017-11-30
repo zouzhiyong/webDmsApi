@@ -4,7 +4,10 @@ import { Loading } from "element-ui";
 
 let options = {
     text: '正在加载',
-    //target: document.querySelector('.content-container')
+    lock: true,
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+        //target: document.querySelector('.content-container')
 }
 let loadingInstance;
 // import VueProgressBar from 'vue-progressbar'
@@ -17,11 +20,13 @@ let loadingInstance;
 
 let base = 'http://localhost/webDmsApi';
 
+let _time = null;
 // 添加请求拦截器
 axios.interceptors.request.use(function(config) {
     // 在发送请求之前做些什么
     // new Vue().$Progress.start()
-    loadingInstance = Loading.service(options);
+    loadingInstance = Loading.service(options)
+
     return config;
 }, function(error) {
     // 对请求错误做些什么
@@ -34,7 +39,10 @@ axios.interceptors.request.use(function(config) {
 axios.interceptors.response.use(function(response) {
     // 对响应数据做点什么
     // new Vue().$Progress.finish();
+
     loadingInstance.close();
+    clearTimeout(_time);
+
     if (response.data.result === true) {
         if (response.data.message !== "" && response.data.message !== null) {
             new Vue().$message({

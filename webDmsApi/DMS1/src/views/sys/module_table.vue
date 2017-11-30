@@ -16,12 +16,12 @@
       </el-table-column>
       <el-table-column label="操作" align="center" header-align="center">
         <template slot-scope="scope">
-          <el-button type="text" icon="edit" @click="handleEditClick(scope.row)"></el-button>
-          <el-button type="text" icon="delete" @click="handleDeleteClick(scope.row)"></el-button>
+          <el-button type="text" icon="el-icon-edit" @click="handleEditClick(scope.row)"></el-button>
+          <el-button type="text" icon="el-icon-delete" @click="handleDeleteClick(scope.row)"></el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="pageSize" layout="slot,->,prev, pager, next" :total="total">
+    <el-pagination background prev-text="上一页" next-text="下一页" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="pageSize" layout="slot,->,prev, pager, next" :total="total">
       <span class="demonstration">显示第 {{pageSize * currentPage - pageSize + (total==0?0:1)}} 到第 {{((pageSize * currentPage) > total ? total : (pageSize * currentPage))}} 条记录，总共 {{total}} 条记录</span>
     </el-pagination>
   </div>

@@ -1,13 +1,13 @@
 <template>
 <el-dialog
-  custom-class="cust-el-dialog"
+  width="650px"
   :visible.sync="dialogVisible"
   :close-on-click-modal="false"
   :close-on-press-escape="false"
   :before-close="handleClose">
   <span slot="title">{{$route.name}}</span>
   <span>  
-  <el-form :inline="true" ref="ruleForm" :model="formData" label-width='80px' class="demo-form-inline">
+  <el-form @submit.native.prevent size="small" :inline="true" ref="ruleForm" :model="formData" label-width='80px' class="demo-form-inline">
   <el-form-item label="模块名称" prop="MenuName" :rules="[{required:true, message: '模块名称不能为空',trigger: 'blur' }]">
     <el-input v-model="formData.MenuName" placeholder="模块名称"></el-input>
   </el-form-item>

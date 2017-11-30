@@ -21,10 +21,10 @@
   padding: 10px;
   height: 100%;
   background: #fff;
-  /deep/ .cust-el-dialog {
-    width: 650px;
-    height: 400px;
-  }
+  // /deep/ .cust-el-dialog {
+  //   width: 650px;
+  //   height: 400px;
+  // }
   .button {
     text-align: right;
   }

@@ -1,5 +1,5 @@
 <template>
-  <el-button slot="newButton" type="text" icon="document" style="padding-top:0;padding-bottom:0" @click="handleClickNew">新建</el-button>
+  <el-button slot="newButton" type="text" icon="el-icon-news" style="padding-top:0;padding-bottom:0" @click="handleClickNew">新建</el-button>
 </template>
 <script>
 export default {

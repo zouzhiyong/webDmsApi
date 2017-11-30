@@ -24,7 +24,7 @@
     <el-col :span="24" class="main">
       <aside :class="collapsed?'menu-collapsed':'menu-expanded'">
         <!--导航菜单-->
-        <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" unique-opened router :collapse="collapsed" theme="dark">
+        <el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect" unique-opened router :collapse="collapsed" background-color="#393d49" text-color="#fff" active-text-color="#20a0ff">
           <template v-for="(item,index) in menuData" v-if="!item.hidden">
             <el-submenu :index="index+''" v-if="!item.leaf" :key="index">
               <template slot="title">
@@ -48,7 +48,7 @@
               <el-breadcrumb-item v-if="item.meta.name!=''" v-for="item in $route.matched" :key="item.path">
                 {{ item.meta.name }}
               </el-breadcrumb-item>
-            </el-breadcrumb>            
+            </el-breadcrumb>
           </el-col>
           <el-col :span="24" class="content-wrapper">
             <!-- <transition name="fade" mode="out-in"> -->
@@ -216,23 +216,30 @@ export default {
       .el-menu {
         height: 100%;
         border-radius: 0;
+        // .is-active {
+        //   background-color: #20a0ff !important;
+        // }
         .el-menu-item {
           [class^="fa"] {
             margin-right: 5px;
             width: 24px;
             text-align: center;
+            color: #fff;
           }
         }
+
         .el-submenu {
           [class^="fa"] {
             vertical-align: middle;
             margin-right: 5px;
             width: 24px;
             text-align: center;
+            color: #fff;
           }
           .el-menu-item {
             min-width: auto;
             padding-right: 20px;
+            background-color: #282b33 !important;
           }
         }
       } // .collapsed {
