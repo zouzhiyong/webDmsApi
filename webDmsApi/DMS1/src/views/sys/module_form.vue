@@ -2,8 +2,8 @@
   <el-dialog width="650px" :visible.sync="dialogVisible" :close-on-click-modal="false" :close-on-press-escape="false" :before-close="handleClose">
     <span slot="title">{{$route.name}}</span>
     <span>
-      <el-form @submit.native.prevent size="small" :inline="true" ref="ruleForm" :model="formData" label-width='80px' class="demo-form-inline">
-        <el-form-item label="模块名称" prop="MenuName" :rules="[{required:true, message: '模块名称不能为空', trigger: 'blur' }]">
+      <el-form @submit.native.prevent :rules="rules" size="small" :inline="true" ref="ruleForm" :model="formData" label-width='80px' class="demo-form-inline">
+        <el-form-item label="模块名称" prop="MenuName">
           <el-input v-model="formData.MenuName" placeholder="模块名称"></el-input>
         </el-form-item>
         <el-form-item label="上级模块" prop="MenuParentID">
@@ -37,7 +37,7 @@
     </span>
     <span slot="footer">
       <custBotton>
-        <el-button slot="cancleButton" @click="handleClose">取 消</el-button>
+        <el-button slot="cancleButton" @click="dialogVisible = false;$refs.ruleForm.resetFields()">取 消</el-button>
         <el-button slot="saveButton" type="primary" @click="handleSave">保存</el-button>
       </custBotton>
     </span>
@@ -51,7 +51,11 @@ export default {
   data() {
     return {
       dialogVisible: false,
-      formData: {}
+      formData: {},
+      rules: {
+        MenuName: [{ required: true, message: "模块名称不能为空" }],
+        MenuPath: [{ required: true, message: "地址不能为空" }]
+      }
     };
   },
   components: {
@@ -76,9 +80,9 @@ export default {
         }
       });
     },
-    handleClose() {
-      this.dialogVisible = false;
+    handleClose(done) {
       this.$refs.ruleForm.resetFields();
+      done();
     }
   }
 };
