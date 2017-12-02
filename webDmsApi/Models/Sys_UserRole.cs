@@ -22,5 +22,7 @@ namespace webDmsApi.Models
         public Nullable<int> ModifyUserID { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public Nullable<System.DateTime> RecTimeStamp { get; set; }
+    
+        public virtual Sys_User Sys_User { get; set; }
     }
 }

@@ -14,8 +14,6 @@ namespace webDmsApi.Areas.Bas
 {
     public class CustomerController : ApiBaseController
     {
-        webDmsEntities db = new webDmsEntities();
-
         partial class customerForm : Bas_Customer
         {
             public IQueryable<object> RegionList { get; set; }

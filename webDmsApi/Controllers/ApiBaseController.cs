@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Web.Http;
 using webDmsApi.App_Start;
+using webDmsApi.Models;
 
 namespace webDmsApi.Controllers
 {
@@ -41,6 +42,8 @@ namespace webDmsApi.Controllers
             var obj = new { rows = data, currentPage = currentPage, pageSize = pageSize, total = total };
             return Json(obj, false);
         }
+
+        public static webDmsEntities db = new webDmsEntities();
 
     }
 }

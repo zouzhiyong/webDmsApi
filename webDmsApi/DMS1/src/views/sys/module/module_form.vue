@@ -37,7 +37,7 @@
     </span>
     <span slot="footer">
       <custBotton>
-        <el-button slot="cancleButton" @click="dialogVisible = false;$refs.ruleForm.resetFields()">取 消</el-button>
+        <el-button slot="cancleButton" @click="handleCanle">取 消</el-button>
         <el-button slot="saveButton" type="primary" @click="handleSave">保存</el-button>
       </custBotton>
     </span>
@@ -45,16 +45,15 @@
 </template>
 
 <script>
-import { FindMoudleForm, SaveSysMoudleForm } from "../../api/api";
-import custBotton from "./../layout/layout_button";
+import { FindSysMoudleForm, SaveSysMoudleForm } from "../../../api/api";
+import custBotton from "./../../layout/layout_button";
 export default {
   data() {
     return {
       dialogVisible: false,
       formData: {},
       rules: {
-        MenuName: [{ required: true, message: "模块名称不能为空" }],
-        MenuPath: [{ required: true, message: "地址不能为空" }]
+        MenuName: [{ required: true, message: "模块名称不能为空" }]
       }
     };
   },
@@ -63,7 +62,7 @@ export default {
   },
   methods: {
     GetData(row) {
-      FindMoudleForm(row).then(result => {
+      FindSysMoudleForm(row).then(result => {
         this.formData = result.data;
         this.dialogVisible = true;
       });
@@ -74,13 +73,19 @@ export default {
           SaveSysMoudleForm(this.formData).then(result => {
             this.dialogVisible = false;
             this.$parent.$parent.$refs.table.GetData();
+            this.$refs.ruleForm.resetFields();
           });
         } else {
           return false;
         }
       });
     },
+    handleCanle() {
+      this.dialogVisible = false;
+      this.$refs.ruleForm.resetFields();
+    },
     handleClose(done) {
+      this.dialogVisible = false;
       this.$refs.ruleForm.resetFields();
       done();
     }

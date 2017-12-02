@@ -505,9 +505,11 @@
     <Compile Include="App_Start\WebApiExceptionFilterAttribute.cs" />
     <Compile Include="Areas\Bas\ComoditiesController.cs" />
     <Compile Include="Areas\Bas\CustomerController.cs" />
+    <Compile Include="Areas\Bas\DeptController.cs" />
     <Compile Include="Areas\Login\LoginController.cs" />
     <Compile Include="Areas\Sys\ConfigController.cs" />
     <Compile Include="Areas\Sys\MenuController.cs" />
+    <Compile Include="Areas\Sys\UserController.cs" />
     <Compile Include="Common\Exception\DomainException.cs" />
     <Compile Include="Common\LoggingProvider.cs" />
     <Compile Include="Common\LoggingProviderCollection.cs" />
@@ -530,6 +532,9 @@
     <Compile Include="Models\Bas_Customer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Bas_Dept.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Bas_Supplier.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -547,6 +552,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sys_Application.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -581,6 +595,9 @@
     <Compile Include="Models\Sys_UserRole.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Sys_UserType.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\View_Customer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -588,6 +605,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\View_Region.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_user.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

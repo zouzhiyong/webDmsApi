@@ -12,16 +12,12 @@ namespace webDmsApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Sys_Menu
+    public partial class Bas_Dept
     {
-        public int MenuID { get; set; }
-        public Nullable<int> MenuParentID { get; set; }
-        public string MenuName { get; set; }
-        public string MenuUrl { get; set; }
-        public string MenuPath { get; set; }
-        public string MenuIcon { get; set; }
+        public int DeptID { get; set; }
+        public Nullable<int> WSID { get; set; }
+        public string Name { get; set; }
         public Nullable<int> IsValid { get; set; }
-        public string ApplicationNo { get; set; }
-        public Nullable<int> Xh { get; set; }
+        public string Comment { get; set; }
     }
 }

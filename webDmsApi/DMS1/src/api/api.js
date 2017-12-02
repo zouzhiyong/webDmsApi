@@ -6,7 +6,7 @@ let options = {
     text: '正在加载',
     lock: true,
     spinner: 'el-icon-loading',
-    background: 'rgba(0, 0, 0, 0.7)'
+    background: 'transparent'
         //target: document.querySelector('.content-container')
 }
 let loadingInstance;
@@ -45,9 +45,7 @@ axios.interceptors.response.use(function(response) {
     clearTimeout(_time);
     try {
         loadingInstance.close();
-    } catch (e) {
-
-    }
+    } catch (e) {}
     if (response.data.result === true) {
         if (response.data.message !== "" && response.data.message !== null) {
             new Vue().$message({
@@ -67,10 +65,15 @@ axios.interceptors.response.use(function(response) {
 }, function(error) {
     // 对响应错误做点什么
     // this.$Progress.fail()
+    clearTimeout(_time);
+    try {
+        loadingInstance.close();
+    } catch (e) {}
     new Vue().$message({
-        message: error,
+        message: error.response.data.ExceptionMessage,
         type: 'error'
     });
+
     return Promise.reject(error);
 });
 
@@ -79,8 +82,15 @@ axios.interceptors.response.use(function(response) {
 export const requestLogin = params => { return axios.post(`${base}/api/Login/Login`, params).then(res => res.data); };
 //模块设置页面
 export const getMenu = params => { return axios.post(`${base}/api/Menu/FindMenu`).then(res => res.data); };
-export const FindSysModule = params => { return axios.post(`${base}/api/Menu/FindSysModule`).then(res => res.data); };
-export const FindSysMoudleRow = params => { return axios.post(`${base}/api/Menu/FindSysMoudleRow`, params).then(res => res.data); };
-export const FindMoudleForm = params => { return axios.post(`${base}/api/Menu/FindMoudleForm`, params).then(res => res.data); };
+export const FindSysModuleTree = params => { return axios.post(`${base}/api/Menu/FindSysModuleTree`).then(res => res.data); };
+export const FindSysMoudleTable = params => { return axios.post(`${base}/api/Menu/FindSysMoudleTable`, params).then(res => res.data); };
+export const FindSysMoudleForm = params => { return axios.post(`${base}/api/Menu/FindSysMoudleForm`, params).then(res => res.data); };
 export const SaveSysMoudleForm = params => { return axios.post(`${base}/api/Menu/SaveSysMoudleForm`, params).then(res => res.data); };
 export const DeleteSysMoudleForm = params => { return axios.post(`${base}/api/Menu/DeleteMoudleRow`, params).then(res => res.data); };
+//部门设置页面
+
+//用户设置页面
+export const FindBasDeptTree = params => { return axios.post(`${base}/api/User/FindBasDeptTree`).then(res => res.data); };
+export const FindSysUserTable = params => { return axios.post(`${base}/api/User/FindSysUserTable`, params).then(res => res.data); };
+export const FindSysUserForm = params => { return axios.post(`${base}/api/User/FindSysUserForm`, params).then(res => res.data); };
+export const SaveSysUserForm = params => { return axios.post(`${base}/api/User/SaveSysUserForm`, params).then(res => res.data); };

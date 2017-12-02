@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import layout from "./../layout/layout_left_right";
-import moduleTools from "./module_tools";
-import moduleTree from "./module_tree";
-import moduleTable from "./module_table";
-import moduleForm from "./module_form";
+import layout from "./../../layout/layout_left_right";
+import moduleTools from "./user_tools";
+import moduleTree from "./user_tree";
+import moduleTable from "./user_table";
+import moduleForm from "./user_form";
 
 export default {
   components: {

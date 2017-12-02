@@ -17,7 +17,7 @@ namespace webDmsApi.Areas.Sys
 {
     public class MenuController : ApiBaseController
     {
-        webDmsEntities db = new webDmsEntities();
+        
         partial class sysMenuForm : Sys_Menu
         {
             public IQueryable<object> ApplicationNoList { get; set; }
@@ -119,7 +119,7 @@ namespace webDmsApi.Areas.Sys
         /// 获取菜单编辑窗口右边表格
         /// </summary>
         /// <returns></returns>
-        public HttpResponseMessage FindSysMoudleRow(dynamic obj)
+        public HttpResponseMessage FindSysMoudleTable(dynamic obj)
         {
             DBHelper<Sys_Menu> dbhelp = new DBHelper<Sys_Menu>();
 
@@ -137,7 +137,7 @@ namespace webDmsApi.Areas.Sys
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public HttpResponseMessage FindSysMoudleForm(dynamic obj)
+        public HttpResponseMessage FindSysMoudleForm1(dynamic obj)
         {
             int MenuID = obj == null ? 0 : obj.MenuID;
             int MenuParentID = obj.MenuParentID;
@@ -315,7 +315,7 @@ namespace webDmsApi.Areas.Sys
             return Json(true, "", list);
         }
 
-        public HttpResponseMessage FindSysModule()
+        public HttpResponseMessage FindSysModuleTree()
         {
             var list = db.View_menu.Where<View_menu>(p => p.MenuParentID == 0).Select(s => new
             {
@@ -334,7 +334,7 @@ namespace webDmsApi.Areas.Sys
             return Json(true, "", list);
         }
 
-        public HttpResponseMessage FindMoudleForm(dynamic obj)
+        public HttpResponseMessage FindSysMoudleForm(dynamic obj)
         {
             int MenuID = obj == null ? 0 : obj.MenuID;
 
@@ -403,7 +403,7 @@ namespace webDmsApi.Areas.Sys
         }
 
         [HttpPost]
-        public HttpResponseMessage DeleteMoudleRow(Sys_Menu obj)
+        public HttpResponseMessage DeleteSysMoudleRow(Sys_Menu obj)
         {
             var result = new DBHelper<Sys_Menu>().Remove(obj);
 

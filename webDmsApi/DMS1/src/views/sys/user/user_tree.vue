@@ -1,9 +1,9 @@
 <template>
-  <el-tree ref="tree" :data="treeData" :props="defaultProps" node-key="MenuID" :current-node-key="0" :highlight-current="true" :default-expanded-keys="[0]" @node-click="handleNodeClick"></el-tree>
+  <el-tree ref="tree" :data="treeData" :props="defaultProps" node-key="DeptID" :current-node-key="0" :highlight-current="true" :default-expanded-keys="[0]" @node-click="handleNodeClick"></el-tree>
 </template>
 
 <script>
-import { FindSysModule } from "../../api/api";
+import { FindBasDeptTree } from "../../../api/api";
 export default {
   data() {
     return {
@@ -21,17 +21,16 @@ export default {
     iniData() {
       var obj = [
         {
-          MenuID: 0,
-          label: "所有模块",
-          children: []
+          DeptID: 0,
+          label: "所有部门"
         }
       ];
-      FindSysModule().then(result => {
+      FindBasDeptTree().then(result => {
         obj[0].children = result.data;
         this.treeData = obj;
         if (this.treeData.length > 0) {
           this.$nextTick(() => {
-            this.$refs.tree.setCurrentKey(this.treeData[0].MenuID);
+            this.$refs.tree.setCurrentKey(this.treeData[0].DeptID);
             this.handleNodeClick(this.treeData[0]);
           });
         }
