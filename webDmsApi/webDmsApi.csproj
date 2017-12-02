@@ -340,11 +340,6 @@
     <Content Include="DMS1\src\routes.js" />
     <Content Include="DMS1\.jsbeautifyrc" />
     <Content Include="DMS1\src\views\layout\layout_left_right.vue" />
-    <Content Include="DMS1\src\views\sys\module.vue" />
-    <Content Include="DMS1\src\views\sys\module_form.vue" />
-    <Content Include="DMS1\src\views\sys\module_table.vue" />
-    <Content Include="DMS1\src\views\sys\module_tools.vue" />
-    <Content Include="DMS1\src\views\sys\module_tree.vue" />
     <Content Include="DMS1\src\vuex\actions.js" />
     <Content Include="DMS1\src\vuex\getters.js" />
     <Content Include="DMS1\src\vuex\store.js" />
@@ -474,6 +469,16 @@
     <Content Include="DMS1\src\views\nav3\Page6.vue" />
     <Content Include="DMS1\static\.gitkeep" />
     <Content Include="DMS1\src\views\layout\layout_button.vue" />
+    <Content Include="DMS1\src\views\sys\module\index.vue" />
+    <Content Include="DMS1\src\views\sys\module\module_form.vue" />
+    <Content Include="DMS1\src\views\sys\module\module_table.vue" />
+    <Content Include="DMS1\src\views\sys\module\module_tools.vue" />
+    <Content Include="DMS1\src\views\sys\module\module_tree.vue" />
+    <Content Include="DMS1\src\views\sys\user\index.vue" />
+    <Content Include="DMS1\src\views\sys\user\user_form.vue" />
+    <Content Include="DMS1\src\views\sys\user\user_table.vue" />
+    <Content Include="DMS1\src\views\sys\user\user_tools.vue" />
+    <Content Include="DMS1\src\views\sys\user\user_tree.vue" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
