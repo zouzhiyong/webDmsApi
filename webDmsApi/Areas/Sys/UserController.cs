@@ -7,6 +7,7 @@ using System.Web.Http;
 using webDmsApi.Controllers;
 using webDmsApi.Models;
 using System.Data.Entity;
+using System.Transactions;
 
 namespace webDmsApi.Areas.Sys
 {
@@ -93,7 +94,7 @@ namespace webDmsApi.Areas.Sys
             }
             else
             {
-                var list = db.Sys_User.Include(u=>u.Sys_UserRole).Where(w => w.UserID == UserID).Select(s => new
+                var list = db.Sys_User.Where(w => w.UserID == UserID).Select(s => new
                 {
                     UserID = s.UserID,
                     LoginName = s.LoginName,
@@ -106,7 +107,7 @@ namespace webDmsApi.Areas.Sys
                     LastLoginDate = s.LastLoginDate,
                     Email = s.Email,
                     IMEICode = s.IMEICode,
-                    RoleID = s.Sys_UserRole.Select(s1 => s1.RoleID).FirstOrDefault(),//db.Sys_UserRole.Where(w1 => w1.UserID == s.UserID).Select(s1 => s1.RoleID).FirstOrDefault(),
+                    RoleID = db.Sys_UserRole.Where(w1 => w1.UserID == s.UserID).Select(s1 => s1.RoleID).FirstOrDefault(),
                     IsValid = s.IsValid == null ? 1 : s.IsValid,
                     WorkingPlace = s.WorkingPlace,
                     Avatar = s.Avatar,
@@ -136,18 +137,46 @@ namespace webDmsApi.Areas.Sys
             }
         }
 
-        public HttpResponseMessage SaveSysUserForm(Sys_User obj)
+        public HttpResponseMessage SaveSysUserForm(dynamic obj)
         {
+            var destination = new Sys_User
+            {
+                LoginName = obj.LoginName,
+                LoginPassword = "",
+                DeptID = obj.DeptID,
+                RealName = obj.RealName,
+                Phone = obj.Phone,
+                UserTypeID = obj.UserTypeID,
+                BirthDate = DateTime.Now,
+                CreateDate = DateTime.Now,
+                LastLoginDate = DateTime.Now,
+                Email = obj.Email,
+                IMEICode = obj.IMEICode,
+                IsValid = obj.IsValid,
+                WorkingPlace = obj.WorkingPlace,
+                Avatar = obj.Avatar,
+                Comment = obj.Comment,
+                SessionId = Guid.NewGuid(),
+                RecTimeStamp = DateTime.Now,
+                Sys_UserRole = new List<Sys_UserRole>
+                    {
+                        new Sys_UserRole {
+                            RoleID =obj.RoleID,
+                            CreateUserID=0,
+                            CreateDate=DateTime.Now,
+                            ModifyUserID=obj.RoleID,
+                            ModifyDate=DateTime.Now,
+                            RecTimeStamp=DateTime.Now
+                        }
+                    }
+            };
+
+
             DBHelper<Sys_User> dbhelp = new DBHelper<Sys_User>();
 
-            obj.RecTimeStamp = DateTime.Now;
-            obj.SessionId = Guid.NewGuid();
-            obj.CreateDate = DateTime.Now;
-            
+            var result = obj.UserID == 0 ? dbhelp.Add(destination) : dbhelp.Update(destination);
 
-            var result = obj.UserID == 0 ? dbhelp.Add(obj) : dbhelp.Update(obj);
-
-            return Json(true, result == 1 ? "保存成功！" : "保存失败");
+            return Json(true, result >0 ? "保存成功！" : "保存失败");
         }
 
 

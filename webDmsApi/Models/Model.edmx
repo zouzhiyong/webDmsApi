@@ -216,7 +216,7 @@
           <Property Name="UserRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="RoleID" Type="int" Nullable="false" />
-          <Property Name="CreateUserID" Type="datetime" />
+          <Property Name="CreateUserID" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="ModifyUserID" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
@@ -449,32 +449,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="webDmsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="webDmsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Bas_Comodities" EntityType="webDmsModel.Bas_Comodities" />
-          <EntitySet Name="Bas_ComoditiesType" EntityType="webDmsModel.Bas_ComoditiesType" />
-          <EntitySet Name="Bas_Customer" EntityType="webDmsModel.Bas_Customer" />
-          <EntitySet Name="Bas_Dept" EntityType="webDmsModel.Bas_Dept" />
-          <EntitySet Name="Bas_Supplier" EntityType="webDmsModel.Bas_Supplier" />
-          <EntitySet Name="Sys_Application" EntityType="webDmsModel.Sys_Application" />
-          <EntitySet Name="Sys_Button" EntityType="webDmsModel.Sys_Button" />
-          <EntitySet Name="Sys_DictionaryData" EntityType="webDmsModel.Sys_DictionaryData" />
-          <EntitySet Name="Sys_Menu" EntityType="webDmsModel.Sys_Menu" />
-          <EntitySet Name="Sys_OperateLog" EntityType="webDmsModel.Sys_OperateLog" />
-          <EntitySet Name="Sys_Region" EntityType="webDmsModel.Sys_Region" />
-          <EntitySet Name="Sys_Role" EntityType="webDmsModel.Sys_Role" />
-          <EntitySet Name="Sys_RoleMenu" EntityType="webDmsModel.Sys_RoleMenu" />
-          <EntitySet Name="Sys_Templates" EntityType="webDmsModel.Sys_Templates" />
-          <EntitySet Name="Sys_UserRole" EntityType="webDmsModel.Sys_UserRole" />
-          <EntitySet Name="Sys_UserType" EntityType="webDmsModel.Sys_UserType" />
-          <EntitySet Name="View_Customer" EntityType="webDmsModel.View_Customer" />
-          <EntitySet Name="View_menu" EntityType="webDmsModel.View_menu" />
-          <EntitySet Name="View_Region" EntityType="webDmsModel.View_Region" />
-          <EntitySet Name="View_user" EntityType="webDmsModel.View_user" />
-          <EntitySet Name="Sys_User" EntityType="webDmsModel.Sys_User" />
-          <EntitySet Name="sysdiagrams" EntityType="webDmsModel.sysdiagrams" />
-          <AssociationSet Name="FK_Sys_UserRole_Sys_User" Association="webDmsModel.FK_Sys_UserRole_Sys_User">
-            <End Role="Sys_User" EntitySet="Sys_User" />
-            <End Role="Sys_UserRole" EntitySet="Sys_UserRole" />
-          </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -505,7 +479,44 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-        </EntityContainer>
+          <EntitySet Name="Bas_Comodities" EntityType="webDmsModel.Bas_Comodities" />
+          <EntitySet Name="Bas_ComoditiesType" EntityType="webDmsModel.Bas_ComoditiesType" />
+          <EntitySet Name="Bas_Customer" EntityType="webDmsModel.Bas_Customer" />
+          <EntitySet Name="Bas_Dept" EntityType="webDmsModel.Bas_Dept" />
+          <EntitySet Name="Bas_Supplier" EntityType="webDmsModel.Bas_Supplier" />
+          <EntitySet Name="Sys_Application" EntityType="webDmsModel.Sys_Application" />
+          <EntitySet Name="Sys_Button" EntityType="webDmsModel.Sys_Button" />
+          <EntitySet Name="Sys_DictionaryData" EntityType="webDmsModel.Sys_DictionaryData" />
+          <EntitySet Name="Sys_Menu" EntityType="webDmsModel.Sys_Menu" />
+          <EntitySet Name="Sys_OperateLog" EntityType="webDmsModel.Sys_OperateLog" />
+          <EntitySet Name="Sys_Region" EntityType="webDmsModel.Sys_Region" />
+          <EntitySet Name="Sys_Role" EntityType="webDmsModel.Sys_Role" />
+          <EntitySet Name="Sys_RoleMenu" EntityType="webDmsModel.Sys_RoleMenu" />
+          <EntitySet Name="Sys_Templates" EntityType="webDmsModel.Sys_Templates" />
+          <EntitySet Name="Sys_UserType" EntityType="webDmsModel.Sys_UserType" />
+          <EntitySet Name="sysdiagrams" EntityType="webDmsModel.sysdiagrams" />
+          <EntitySet Name="View_Customer" EntityType="webDmsModel.View_Customer" />
+          <EntitySet Name="View_menu" EntityType="webDmsModel.View_menu" />
+          <EntitySet Name="View_Region" EntityType="webDmsModel.View_Region" />
+          <EntitySet Name="View_user" EntityType="webDmsModel.View_user" />
+          <EntitySet Name="Sys_User" EntityType="webDmsModel.Sys_User" />
+          <EntitySet Name="Sys_UserRole" EntityType="webDmsModel.Sys_UserRole" />
+          <AssociationSet Name="FK_Sys_UserRole_Sys_User" Association="webDmsModel.FK_Sys_UserRole_Sys_User">
+            <End Role="Sys_User" EntitySet="Sys_User" />
+            <End Role="Sys_UserRole" EntitySet="Sys_UserRole" />
+          </AssociationSet>
+          </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         <EntityType Name="Bas_Comodities">
           <Key>
             <PropertyRef Name="ComoditiesID" />
@@ -687,26 +698,22 @@
           <Property Name="Controls" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Sys_UserRole">
-          <Key>
-            <PropertyRef Name="UserRoleID" />
-          </Key>
-          <Property Name="UserRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="CreateUserID" Type="DateTime" Precision="3" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifyUserID" Type="Int32" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Sys_User" Relationship="webDmsModel.FK_Sys_UserRole_Sys_User" FromRole="Sys_UserRole" ToRole="Sys_User" />
-        </EntityType>
         <EntityType Name="Sys_UserType">
           <Key>
             <PropertyRef Name="UserTypeID" />
           </Key>
           <Property Name="UserTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="View_Customer">
           <Key>
@@ -803,15 +810,19 @@
           <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Sys_UserRole" Relationship="webDmsModel.FK_Sys_UserRole_Sys_User" FromRole="Sys_User" ToRole="Sys_UserRole" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="Sys_UserRole">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="UserRoleID" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="UserRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="CreateUserID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUserID" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sys_User" Relationship="webDmsModel.FK_Sys_UserRole_Sys_User" FromRole="Sys_UserRole" ToRole="Sys_User" />
         </EntityType>
         <Association Name="FK_Sys_UserRole_Sys_User">
           <End Type="webDmsModel.Sys_User" Role="Sys_User" Multiplicity="1" />
@@ -825,23 +836,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="webDmsModelStoreContainer" CdmEntityContainer="webDmsEntities">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="webDmsModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="webDmsModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="webDmsModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="webDmsModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="webDmsModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="webDmsModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="webDmsModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="webDmsModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="webDmsModel.Store.sp_upgraddiagrams" />
           <EntitySetMapping Name="Bas_Comodities">
             <EntityTypeMapping TypeName="webDmsModel.Bas_Comodities">
               <MappingFragment StoreEntitySet="Bas_Comodities">
@@ -1037,25 +1061,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sys_UserRole">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_UserRole">
-              <MappingFragment StoreEntitySet="Sys_UserRole">
-                <ScalarProperty Name="RecTimeStamp" ColumnName="RecTimeStamp" />
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sys_UserType">
             <EntityTypeMapping TypeName="webDmsModel.Sys_UserType">
               <MappingFragment StoreEntitySet="Sys_UserType">
                 <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
                 <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="webDmsModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1150,42 +1171,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="webDmsModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
+          <EntitySetMapping Name="Sys_UserRole">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_UserRole">
+              <MappingFragment StoreEntitySet="Sys_UserRole">
+                <ScalarProperty Name="RecTimeStamp" ColumnName="RecTimeStamp" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="webDmsModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="webDmsModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="webDmsModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="webDmsModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="webDmsModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="webDmsModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="webDmsModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="webDmsModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="webDmsModel.Store.sp_upgraddiagrams" />
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

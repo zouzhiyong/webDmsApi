@@ -17,7 +17,7 @@ namespace webDmsApi.Models
         public int UserRoleID { get; set; }
         public int UserID { get; set; }
         public int RoleID { get; set; }
-        public Nullable<System.DateTime> CreateUserID { get; set; }
+        public Nullable<int> CreateUserID { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<int> ModifyUserID { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }

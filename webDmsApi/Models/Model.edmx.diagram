@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="059581fd371d4a4398d83492d812799d" Name="Diagram1" DisplayType="false">
+      <Diagram DiagramId="059581fd371d4a4398d83492d812799d" Name="Diagram1" DisplayType="false" ZoomLevel="100">
         <EntityTypeShape EntityType="webDmsModel.Bas_Comodities" Width="1.5" PointX="5.75" PointY="0.75" />
         <EntityTypeShape EntityType="webDmsModel.Bas_ComoditiesType" Width="1.5" PointX="2.75" PointY="5.75" />
         <EntityTypeShape EntityType="webDmsModel.Bas_Customer" Width="1.5" PointX="4.75" PointY="5.75" />
@@ -19,14 +19,14 @@
         <EntityTypeShape EntityType="webDmsModel.Sys_Role" Width="1.5" PointX="10.75" PointY="4.75" />
         <EntityTypeShape EntityType="webDmsModel.Sys_RoleMenu" Width="1.5" PointX="10.75" PointY="8.75" />
         <EntityTypeShape EntityType="webDmsModel.Sys_Templates" Width="1.5" PointX="11.75" PointY="0.75" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_UserRole" Width="1.5" PointX="3" PointY="2" />
         <EntityTypeShape EntityType="webDmsModel.Sys_UserType" Width="1.5" PointX="12.75" PointY="3.75" />
-        <EntityTypeShape EntityType="webDmsModel.View_Customer" Width="1.5" PointX="4.75" PointY="12.75" />
-        <EntityTypeShape EntityType="webDmsModel.View_menu" Width="1.5" PointX="12.75" PointY="6.75" />
-        <EntityTypeShape EntityType="webDmsModel.View_Region" Width="1.5" PointX="6.75" PointY="12.75" />
-        <EntityTypeShape EntityType="webDmsModel.View_user" Width="1.5" PointX="8.75" PointY="12.75" />
+        <EntityTypeShape EntityType="webDmsModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="12.75" />
+        <EntityTypeShape EntityType="webDmsModel.View_Customer" Width="1.5" PointX="12.75" PointY="6.75" />
+        <EntityTypeShape EntityType="webDmsModel.View_menu" Width="1.5" PointX="6.75" PointY="12.75" />
+        <EntityTypeShape EntityType="webDmsModel.View_Region" Width="1.5" PointX="8.75" PointY="12.75" />
+        <EntityTypeShape EntityType="webDmsModel.View_user" Width="1.5" PointX="10.75" PointY="12.75" />
         <EntityTypeShape EntityType="webDmsModel.Sys_User" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="webDmsModel.sysdiagrams" Width="1.5" PointX="10.75" PointY="12.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_UserRole" Width="1.5" PointX="3" PointY="2" />
         <AssociationConnector Association="webDmsModel.FK_Sys_UserRole_Sys_User" />
       </Diagram>
     </edmx:Diagrams>

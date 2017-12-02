@@ -6,7 +6,7 @@ let options = {
     text: '正在加载',
     lock: true,
     spinner: 'el-icon-loading',
-    background: 'transparent'
+    background: 'rgba(0, 0, 0, 0.8)'
         //target: document.querySelector('.content-container')
 }
 let loadingInstance;
