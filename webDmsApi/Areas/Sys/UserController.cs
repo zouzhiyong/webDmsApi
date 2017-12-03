@@ -56,10 +56,10 @@ namespace webDmsApi.Areas.Sys
                 {
                     UserID = 0,
                     LoginName = "",
-                    DeptID = "",
+                    DeptID = DBNull.Value,
                     RealName = "",
                     Phone = "",
-                    UserTypeID = "",
+                    UserTypeID = DBNull.Value,
                     BirthDate = "",
                     CreateDate = "",
                     LastLoginDate = "",
@@ -139,8 +139,9 @@ namespace webDmsApi.Areas.Sys
 
         public HttpResponseMessage SaveSysUserForm(dynamic obj)
         {
-            var destination = new Sys_User
+            var destination = new Sys_User()
             {
+                UserID=obj.UserID,
                 LoginName = obj.LoginName,
                 LoginPassword = "",
                 DeptID = obj.DeptID,
@@ -162,9 +163,10 @@ namespace webDmsApi.Areas.Sys
                     {
                         new Sys_UserRole {
                             RoleID =obj.RoleID,
+                            UserID=obj.UserID,
                             CreateUserID=0,
                             CreateDate=DateTime.Now,
-                            ModifyUserID=obj.RoleID,
+                            ModifyUserID=obj.UserID,
                             ModifyDate=DateTime.Now,
                             RecTimeStamp=DateTime.Now
                         }
@@ -183,9 +185,24 @@ namespace webDmsApi.Areas.Sys
         [HttpPost]
         public HttpResponseMessage DeleteSysUserRow(Sys_User obj)
         {
-            var result = new DBHelper<Sys_User>().Remove(obj);
+            //var sysUser = new Sys_User();
 
-            return Json(true, result == 1 ? "删除成功！" : "删除失败");
+
+            //var result = new DBHelper<Sys_User>().Remove(obj);
+
+            var sysUser = (from t in db.Sys_User
+                          where t.UserID==obj.UserID
+                          select t).Single();
+
+            foreach (var sysUserRole in sysUser.Sys_UserRole.ToList())
+            {
+                db.Sys_UserRole.Remove(sysUserRole);   //先标记相关的从表数据为删除状态
+            }
+            db.Sys_User.Remove(sysUser);    //再标记主表数据为删除装填
+            var result=db.SaveChanges();   //执行上面的所有标记
+
+
+            return Json(true, result >0 ? "删除成功！" : "删除失败");
         }
     }
 }

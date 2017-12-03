@@ -480,6 +480,11 @@
     <Content Include="DMS1\src\views\sys\user\user_table.vue" />
     <Content Include="DMS1\src\views\sys\user\user_tools.vue" />
     <Content Include="DMS1\src\views\sys\user\user_tree.vue" />
+    <Content Include="DMS1\src\views\sys\role\index.vue" />
+    <Content Include="DMS1\src\views\sys\role\role_form.vue" />
+    <Content Include="DMS1\src\views\sys\role\role_table.vue" />
+    <Content Include="DMS1\src\views\sys\role\role_tools.vue" />
+    <Content Include="DMS1\src\views\sys\role\role_tree.vue" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -515,6 +520,7 @@
     <Compile Include="Areas\Login\LoginController.cs" />
     <Compile Include="Areas\Sys\ConfigController.cs" />
     <Compile Include="Areas\Sys\MenuController.cs" />
+    <Compile Include="Areas\Sys\RoleController.cs" />
     <Compile Include="Areas\Sys\UserController.cs" />
     <Compile Include="Common\Exception\DomainException.cs" />
     <Compile Include="Common\LoggingProvider.cs" />

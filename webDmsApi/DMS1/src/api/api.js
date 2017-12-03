@@ -86,7 +86,7 @@ export const FindSysModuleTree = params => { return axios.post(`${base}/api/Menu
 export const FindSysMoudleTable = params => { return axios.post(`${base}/api/Menu/FindSysMoudleTable`, params).then(res => res.data); };
 export const FindSysMoudleForm = params => { return axios.post(`${base}/api/Menu/FindSysMoudleForm`, params).then(res => res.data); };
 export const SaveSysMoudleForm = params => { return axios.post(`${base}/api/Menu/SaveSysMoudleForm`, params).then(res => res.data); };
-export const DeleteSysMoudleForm = params => { return axios.post(`${base}/api/Menu/DeleteMoudleRow`, params).then(res => res.data); };
+export const DeleteSysMoudleRow = params => { return axios.post(`${base}/api/Menu/DeleteSysMoudleRow`, params).then(res => res.data); };
 //部门设置页面
 
 //用户设置页面
@@ -94,3 +94,7 @@ export const FindBasDeptTree = params => { return axios.post(`${base}/api/User/F
 export const FindSysUserTable = params => { return axios.post(`${base}/api/User/FindSysUserTable`, params).then(res => res.data); };
 export const FindSysUserForm = params => { return axios.post(`${base}/api/User/FindSysUserForm`, params).then(res => res.data); };
 export const SaveSysUserForm = params => { return axios.post(`${base}/api/User/SaveSysUserForm`, params).then(res => res.data); };
+export const DeleteSysUserRow = params => { return axios.post(`${base}/api/User/DeleteSysUserRow`, params).then(res => res.data); };
+//权限设置页面
+export const FindSysRoleTree = params => { return axios.post(`${base}/api/Role/FindSysRoleTree`).then(res => res.data); };
+export const FindSysMenuTable = params => { return axios.post(`${base}/api/Role/FindSysMenuTable`).then(res => res.data); };

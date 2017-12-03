@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { FindSysMoudleTable, DeleteSysMoudleForm } from "../../../api/api";
+import { FindSysMoudleTable, DeleteSysMoudleRow } from "../../../api/api";
 export default {
   data() {
     return {
@@ -62,7 +62,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          DeleteSysMoudleForm(row).then(result => {
+          DeleteSysMoudleRow(row).then(result => {
             this.GetData();
           });
         })

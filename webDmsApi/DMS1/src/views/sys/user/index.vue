@@ -1,26 +1,26 @@
 ﻿<template>
   <layout>
-    <moduleTools slot="toolbar"></moduleTools>
-    <moduleTree slot="tree"></moduleTree>
-    <moduleTable slot="table" ref="table"></moduleTable>
-    <moduleForm slot="form" ref="form"></moduleForm>
+    <userTools slot="toolbar"></userTools>
+    <userTree slot="tree"></userTree>
+    <userTable slot="table" ref="table"></userTable>
+    <userForm slot="form" ref="form"></userForm>
   </layout>
 </template>
 
 <script>
 import layout from "./../../layout/layout_left_right";
-import moduleTools from "./user_tools";
-import moduleTree from "./user_tree";
-import moduleTable from "./user_table";
-import moduleForm from "./user_form";
+import userTools from "./user_tools";
+import userTree from "./user_tree";
+import userTable from "./user_table";
+import userForm from "./user_form";
 
 export default {
   components: {
     layout,
-    moduleTools,
-    moduleForm,
-    moduleTree,
-    moduleTable
+    userTools,
+    userForm,
+    userTree,
+    userTable
   }
 };
 </script>

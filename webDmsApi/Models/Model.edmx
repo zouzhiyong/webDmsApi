@@ -129,6 +129,7 @@
           <Property Name="IsValid" Type="int" />
           <Property Name="ApplicationNo" Type="nvarchar" MaxLength="10" />
           <Property Name="Xh" Type="int" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="Sys_OperateLog">
           <Key>
@@ -641,6 +642,7 @@
           <Property Name="IsValid" Type="Int32" />
           <Property Name="ApplicationNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Xh" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sys_OperateLog">
           <Key>
@@ -988,6 +990,7 @@
           <EntitySetMapping Name="Sys_Menu">
             <EntityTypeMapping TypeName="webDmsModel.Sys_Menu">
               <MappingFragment StoreEntitySet="Sys_Menu">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Xh" ColumnName="Xh" />
                 <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />

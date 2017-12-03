@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { FindSysUserTable, DeleteSysMoudleForm } from "../../../api/api";
+import { FindSysUserTable, DeleteSysUserRow } from "../../../api/api";
 export default {
   data() {
     return {
@@ -66,7 +66,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          DeleteSysMoudleForm(row).then(result => {
+          DeleteSysUserRow(row).then(result => {
             this.GetData();
           });
         })

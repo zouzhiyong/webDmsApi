@@ -73,6 +73,7 @@ export default {
         RoleID: [{ required: true, message: "角色不能为空" }],
         UserTypeID: [{ required: true, message: "用户类型不能为空" }],
         Email: [{ type: "email", message: "请输入正确的邮箱地址" }]
+        // DeptID: [{ required: true, message: "部门不能为空" }]
       }
     };
   },
