@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="height:100%">
   <div class="title">角色</div>
   <el-tree ref="tree" :data="treeData" :props="defaultProps" node-key="RoleID" :current-node-key="0" :highlight-current="true" :default-expanded-keys="[0]" @node-click="handleNodeClick"></el-tree>
 </div>
@@ -50,7 +50,7 @@ export default {
   font-weight: bold;
 }
 .el-tree {
-  height: 100%;
+  height: calc(100% - 36px);
   overflow-y: auto;
 }
 </style>
