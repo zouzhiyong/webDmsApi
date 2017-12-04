@@ -14,7 +14,6 @@ namespace webDmsApi.Models
     
     public partial class Sys_RoleMenu
     {
-        public int RoleMenuID { get; set; }
         public int RoleID { get; set; }
         public int MenuID { get; set; }
         public Nullable<System.DateTime> RecTimeStamp { get; set; }

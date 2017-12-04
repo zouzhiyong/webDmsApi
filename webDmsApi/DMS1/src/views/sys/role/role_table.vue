@@ -5,45 +5,79 @@
       </el-table-column>
       <el-table-column label="一级模块" width="180" header-align="center">
         <template slot-scope="scope">
-        <i :class="scope.row.MenuIcon"></i>
-        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">{{scope.row.MenuName}}</el-checkbox>
-      </template>
+          <i :class="scope.row.MenuIcon"></i>
+          <el-checkbox :indeterminate="scope.row.isIndeterminate" v-model="scope.row.isMenuRole" @change="handleCheckAllChange(scope.row)">{{scope.row.MenuName}}</el-checkbox>
+        </template>
       </el-table-column>
       <el-table-column label="二级模块" width="180" header-align="center">
         <template slot-scope="scope">
-        <el-checkbox-group v-model="checkedData" @change="handleCheckedCitiesChange">
+          <el-checkbox-group v-model="scope.row.MenuRolesData" @change="handleCheckedDataChange(scope.row)">
             <el-checkbox v-for="item in scope.row.chilDren" :label="item.MenuID" :key="item.MenuID">{{item.MenuName}}</el-checkbox>
-        </el-checkbox-group>
-      </template>
+          </el-checkbox-group>
+        </template>
       </el-table-column>
-      <el-table-column label="说明" prop="Comment" header-align="center">      
+      <el-table-column label="说明" prop="Comment" header-align="center">
       </el-table-column>
-    </el-table>   
+    </el-table>
   </div>
 </template>
 
 <script>
-import { FindSysMenuTable, DeleteSysMoudleRow } from "../../../api/api";
+import { FindSysMenuTable } from "../../../api/api";
 export default {
   data() {
     return {
-      checkAll: false,
       tableData: [],
-      conditionData: {},
-      checkedData: [],
-      isIndeterminate: true
+      conditionData: {}
     };
+  },
+  computed: {
+    checkedData() {
+      var arr = [];
+      var obj = {};
+      this.tableData.map(item => {
+        arr = arr.concat(item.MenuRolesData);
+        if (item.isMenuRole == true || item.isIndeterminate == true) {
+          arr.push(item.MenuID);
+        }
+      });
+      // arr.map(item => {
+      //   obj.push({
+      //     RoleID: this.conditionData.RoleID,
+      //     MenuID: item
+      //   });
+      // });
+      obj.RoleID = this.conditionData.RoleID;
+      obj.MenuID = arr;
+      return obj;
+    }
   },
   methods: {
     GetData() {
-      FindSysMenuTable().then(result => {
+      var data = this.conditionData;
+      FindSysMenuTable(data).then(result => {
+        result.data.map(item => {
+          item.isMenuRole = item.MenuRolesData.length > 0 ? true : false;
+          item.isIndeterminate =
+            item.MenuRolesData.length > 0 &&
+            item.MenuRolesData.length < item.chilDren.length;
+        });
         this.tableData = result.data;
       });
     },
-    handleCheckedCitiesChange(value) {},
-    handleCheckAllChange(val) {
-      this.checkedData = val ? checkedData : [];
-      this.isIndeterminate = false;
+    handleCheckAllChange(row) {
+      var tempArr = [];
+      row.chilDren.map(item => {
+        tempArr.push(item.MenuID);
+      });
+      row.MenuRolesData = row.isMenuRole ? tempArr : [];
+      row.isIndeterminate = false;
+    },
+    handleCheckedDataChange(row) {
+      let checkedCount = row.MenuRolesData.length;
+      row.isMenuRole = checkedCount === row.chilDren.length;
+      row.isIndeterminate =
+        checkedCount > 0 && checkedCount < row.chilDren.length;
     }
   }
 };
@@ -52,6 +86,7 @@ export default {
 .el-table {
   height: 100%;
 }
+
 .el-checkbox {
   margin-left: 30px;
   margin-top: 5px;

@@ -1,12 +1,16 @@
 <template>
-  <el-button slot="newButton" type="text" icon="el-icon-news" style="padding-top:0;padding-bottom:0" @click="handleClickNew">新建</el-button>
+  <el-button slot="saveButton" type="text" icon="fa fa-save" style="padding-top:0;padding-bottom:0" @click="handleClickSave">保存</el-button>
 </template>
 <script>
+import { SaveSysRoleForm } from "../../../api/api";
 export default {
   methods: {
-    handleClickNew() {
-      let row = { RoleID: 0 };
-      this.$parent.$parent.$parent.$parent.$refs.form.GetData(row);
+    handleClickSave() {
+      let data = this.$parent.$parent.$parent.$parent.$refs.table.checkedData;
+      console.log(data);
+      SaveSysRoleForm(data).then(result => {
+        console.log(result.data);
+      });
     }
   }
 };

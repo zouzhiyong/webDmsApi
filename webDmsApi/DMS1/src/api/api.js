@@ -97,4 +97,5 @@ export const SaveSysUserForm = params => { return axios.post(`${base}/api/User/S
 export const DeleteSysUserRow = params => { return axios.post(`${base}/api/User/DeleteSysUserRow`, params).then(res => res.data); };
 //权限设置页面
 export const FindSysRoleTree = params => { return axios.post(`${base}/api/Role/FindSysRoleTree`).then(res => res.data); };
-export const FindSysMenuTable = params => { return axios.post(`${base}/api/Role/FindSysMenuTable`).then(res => res.data); };
+export const FindSysMenuTable = params => { return axios.post(`${base}/api/Role/FindSysMenuTable`, params).then(res => res.data); };
+export const SaveSysRoleForm = params => { return axios.post(`${base}/api/Role/SaveSysRoleForm`, params).then(res => res.data); };

@@ -34,6 +34,9 @@ html {
 // .el-icon-arrow-right:before {
 //   content: "下一页";
 // }
+.fa {
+  width: 24px;
+}
 .el-select > .el-input {
   width: 200px;
 }
@@ -48,7 +51,7 @@ html {
 .el-tree {
   cursor: default;
   // background: #fff;
-  border: 1px solid #d1dbe5;
+  // border: 1px solid #d1dbe5;
 }
 .el-tree-node__content {
   height: 36px;

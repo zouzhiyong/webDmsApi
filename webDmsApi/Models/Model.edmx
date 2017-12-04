@@ -166,9 +166,9 @@
         </EntityType>
         <EntityType Name="Sys_RoleMenu">
           <Key>
-            <PropertyRef Name="RoleMenuID" />
+            <PropertyRef Name="RoleID" />
+            <PropertyRef Name="MenuID" />
           </Key>
-          <Property Name="RoleMenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="MenuID" Type="int" Nullable="false" />
           <Property Name="RecTimeStamp" Type="datetime" />
@@ -492,7 +492,6 @@
           <EntitySet Name="Sys_OperateLog" EntityType="webDmsModel.Sys_OperateLog" />
           <EntitySet Name="Sys_Region" EntityType="webDmsModel.Sys_Region" />
           <EntitySet Name="Sys_Role" EntityType="webDmsModel.Sys_Role" />
-          <EntitySet Name="Sys_RoleMenu" EntityType="webDmsModel.Sys_RoleMenu" />
           <EntitySet Name="Sys_Templates" EntityType="webDmsModel.Sys_Templates" />
           <EntitySet Name="Sys_UserType" EntityType="webDmsModel.Sys_UserType" />
           <EntitySet Name="sysdiagrams" EntityType="webDmsModel.sysdiagrams" />
@@ -506,6 +505,7 @@
             <End Role="Sys_User" EntitySet="Sys_User" />
             <End Role="Sys_UserRole" EntitySet="Sys_UserRole" />
           </AssociationSet>
+          <EntitySet Name="Sys_RoleMenu" EntityType="webDmsModel.Sys_RoleMenu" />
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -677,19 +677,6 @@
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="RoleDesc" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Sys_RoleMenu">
-          <Key>
-            <PropertyRef Name="RoleMenuID" />
-          </Key>
-          <Property Name="RoleMenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="MenuID" Type="Int32" Nullable="false" />
-          <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
-          <Property Name="CreateUserID" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifyUserID" Type="Int32" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="Sys_Templates">
           <Key>
             <PropertyRef Name="TemplateID" />
@@ -838,6 +825,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Sys_RoleMenu">
+          <Key>
+            <PropertyRef Name="RoleID" />
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="MenuID" Type="Int32" Nullable="false" />
+          <Property Name="RecTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="CreateUserID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUserID" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1039,20 +1039,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sys_RoleMenu">
-            <EntityTypeMapping TypeName="webDmsModel.Sys_RoleMenu">
-              <MappingFragment StoreEntitySet="Sys_RoleMenu">
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
-                <ScalarProperty Name="RecTimeStamp" ColumnName="RecTimeStamp" />
-                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="RoleMenuID" ColumnName="RoleMenuID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sys_Templates">
             <EntityTypeMapping TypeName="webDmsModel.Sys_Templates">
               <MappingFragment StoreEntitySet="Sys_Templates">
@@ -1185,6 +1171,19 @@
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_RoleMenu">
+            <EntityTypeMapping TypeName="webDmsModel.Sys_RoleMenu">
+              <MappingFragment StoreEntitySet="Sys_RoleMenu">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="RecTimeStamp" ColumnName="RecTimeStamp" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

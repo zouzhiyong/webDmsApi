@@ -6,7 +6,9 @@
     </el-row>
     <el-row class="content">
     <el-col class='left'>
-      <slot name="tree"></slot>      
+      <div class="leftbox">
+        <slot name="tree"></slot>  
+      </div>    
     </el-col>
     <el-col class='right'>
         <slot name="table"></slot>      
@@ -34,6 +36,10 @@
       width: 200px;
       height: 100%;
       padding-right: 5px;
+      .leftbox {
+        border: 1px solid #d1dbe5;
+        height: 100%;
+      }
     }
     .right {
       height: 100%;
