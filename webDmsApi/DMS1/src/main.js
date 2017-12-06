@@ -38,6 +38,7 @@ const router = new VueRouter({
     routes
 })
 
+
 //检测本地路由
 let localRoutes = sessionStorage.routes;
 if (localRoutes) {

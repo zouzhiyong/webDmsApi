@@ -88,14 +88,21 @@ export const FindSysMoudleForm = params => { return axios.post(`${base}/api/Menu
 export const SaveSysMoudleForm = params => { return axios.post(`${base}/api/Menu/SaveSysMoudleForm`, params).then(res => res.data); };
 export const DeleteSysMoudleRow = params => { return axios.post(`${base}/api/Menu/DeleteSysMoudleRow`, params).then(res => res.data); };
 //部门设置页面
-
+export const FindSysDeptTable = params => { return axios.post(`${base}/api/Dept/FindSysDeptTable`, params).then(res => res.data); };
+export const DeleteSysDeptRow = params => { return axios.post(`${base}/api/Dept/DeleteSysDeptRow`, params).then(res => res.data); };
+export const FindSysDeptForm = params => { return axios.post(`${base}/api/Dept/FindSysDeptForm`, params).then(res => res.data); };
+export const SaveSysDeptForm = params => { return axios.post(`${base}/api/Dept/SaveSysDeptForm`, params).then(res => res.data); };
 //用户设置页面
-export const FindBasDeptTree = params => { return axios.post(`${base}/api/User/FindBasDeptTree`).then(res => res.data); };
+export const FindSysDeptTree = params => { return axios.post(`${base}/api/User/FindSysDeptTree`).then(res => res.data); };
 export const FindSysUserTable = params => { return axios.post(`${base}/api/User/FindSysUserTable`, params).then(res => res.data); };
 export const FindSysUserForm = params => { return axios.post(`${base}/api/User/FindSysUserForm`, params).then(res => res.data); };
 export const SaveSysUserForm = params => { return axios.post(`${base}/api/User/SaveSysUserForm`, params).then(res => res.data); };
 export const DeleteSysUserRow = params => { return axios.post(`${base}/api/User/DeleteSysUserRow`, params).then(res => res.data); };
 //权限设置页面
 export const FindSysRoleTree = params => { return axios.post(`${base}/api/Role/FindSysRoleTree`).then(res => res.data); };
-export const FindSysMenuTable = params => { return axios.post(`${base}/api/Role/FindSysMenuTable`, params).then(res => res.data); };
+export const FindSysRoleMenuTable = params => { return axios.post(`${base}/api/Role/FindSysRoleMenuTable`, params).then(res => res.data); };
+export const SaveSysRoleMenuForm = params => { return axios.post(`${base}/api/Role/SaveSysRoleMenuForm`, params).then(res => res.data); };
+export const FindSysRoleTable = params => { return axios.post(`${base}/api/Role/FindSysRoleTable`, params).then(res => res.data); };
+export const DeleteSysRoleRow = params => { return axios.post(`${base}/api/Role/DeleteSysRoleRow`, params).then(res => res.data); };
+export const FindSysRoleForm = params => { return axios.post(`${base}/api/Role/FindSysRoleForm`, params).then(res => res.data); };
 export const SaveSysRoleForm = params => { return axios.post(`${base}/api/Role/SaveSysRoleForm`, params).then(res => res.data); };

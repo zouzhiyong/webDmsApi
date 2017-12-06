@@ -23,7 +23,7 @@ namespace webDmsApi.Areas.Sys
             return Json(true, "", list);
         }
 
-        public HttpResponseMessage FindSysMenuTable(Sys_RoleMenu obj)
+        public HttpResponseMessage FindSysRoleMenuTable(Sys_RoleMenu obj)
         {
             var list = db.Sys_Menu.Where(w => w.IsValid != 0 && w.MenuParentID == 0).Select(s => new
             {
@@ -42,7 +42,7 @@ namespace webDmsApi.Areas.Sys
             return Json(true, "", list);
         }
 
-        public HttpResponseMessage SaveSysRoleForm(dynamic obj)
+        public HttpResponseMessage SaveSysRoleMenuForm(dynamic obj)
         {            
             int RoleID = obj.RoleID;
             var arr = obj.MenuID;
@@ -82,6 +82,81 @@ namespace webDmsApi.Areas.Sys
             result += db.SaveChanges();
 
             return Json(true, result>0 ? "保存成功！" : "保存失败");
+        }
+
+        public HttpResponseMessage FindSysRoleTable(dynamic obj)
+        {
+            DBHelper<View_role> dbhelp = new DBHelper<View_role>();
+
+            int pageSize = obj.pageSize;
+            int currentPage = obj.currentPage;
+            int total = 0;
+
+            var list = dbhelp.FindPagedList(currentPage, pageSize, out total, x => 1==1, s => s.RoleID, true);
+
+            return Json(list, currentPage, pageSize, total);
+        }
+
+        [HttpPost]
+        public HttpResponseMessage DeleteSysRoleRow(Sys_Role obj)
+        {
+            var result = new DBHelper<Sys_Role>().Remove(obj);
+
+            return Json(true, result == 1 ? "删除成功！" : "删除失败");
+        }
+
+        public HttpResponseMessage FindSysRoleForm(dynamic obj)
+        {
+            int RoleID = obj == null ? 0 : obj.RoleID;
+
+
+            if (RoleID == 0)
+            {
+                var list = new
+                {
+                    RoleID = 0,
+                    MenuName = "",
+                    IsValid = 1,
+                    IsValidList = new object[] {
+                    new { label = "有效", value = 1 },
+                    new { label = "无效", value = 0 }
+                }.ToList(),
+                    ModifyUserID = "",
+                    ModifyDate = DateTime.Now,
+                    CreateUserID = "",
+                    CreateDate = DateTime.Now,
+                    RoleDesc = ""
+                };
+                return Json(true, "", list);
+            }
+            else
+            {
+                var list = db.Sys_Role.Where(w => w.RoleID == RoleID).Select(s => new
+                {
+                    RoleID = s.RoleID,
+                    RoleName = s.RoleName,
+                    IsValid = s.IsValid == null ? 1 : s.IsValid,
+                    IsValidList = new object[] {
+                    new { label = "有效", value = 1 },
+                    new { label = "无效", value = 0 }
+                }.ToList(),
+                    ModifyUserID = "",
+                    ModifyDate = DateTime.Now,
+                    CreateUserID="",
+                    CreateDate= DateTime.Now,
+                    RoleDesc =s.RoleDesc
+                }).FirstOrDefault();
+
+                return Json(true, "", list);
+            }
+        }
+
+        public HttpResponseMessage SaveSysRoleForm(Sys_Role obj)
+        {
+            DBHelper<Sys_Role> dbhelp = new DBHelper<Sys_Role>();
+            var result = obj.RoleID == 0 ? dbhelp.Add(obj) : dbhelp.Update(obj);
+
+            return Json(true, result == 1 ? "保存成功！" : "保存失败");
         }
     }
 }

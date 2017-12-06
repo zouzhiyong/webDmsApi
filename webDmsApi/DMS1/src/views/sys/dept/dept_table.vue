@@ -6,13 +6,13 @@
           {{scope.$index + 1 + (pageSize * (currentPage - 1))}}
         </template>
       </el-table-column>
-      <el-table-column prop="RoleName" width="200" label="角色名称" header-align="center">
+      <el-table-column prop="Name" width="200" label="部门名称" header-align="center">
       </el-table-column>
       </el-table-column>
       <el-table-column prop="IsValid" width="200"  label="有效否" align="center" :formatter="function(row, column){return row.IsValid==0?'无效':'有效'}" header-align="center">
       </el-table-column>
       <el-table-column prop="ModifyDate" width="200" label="修改时间" header-align="center"></el-table-column>
-      <el-table-column prop="RoleDesc" label="说明" header-align="center">
+      <el-table-column prop="Comment" label="说明" header-align="center">
       </el-table-column>
       <el-table-column label="操作" width="200" align="center" header-align="center">
         <template slot-scope="scope">
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { FindSysRoleTable, DeleteSysRoleRow } from "../../../api/api";
+import { FindSysDeptTable, DeleteSysDeptRow } from "../../../api/api";
 export default {
   data() {
     return {
@@ -52,7 +52,7 @@ export default {
       this.pageSize = Math.floor(this.$refs.table.$el.clientHeight / 40);
       data.currentPage = this.currentPage;
       data.pageSize = this.pageSize;
-      FindSysRoleTable(data).then(result => {
+      FindSysDeptTable(data).then(result => {
         this.tableData = result.rows;
         this.total = result.total;
       });

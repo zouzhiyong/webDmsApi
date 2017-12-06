@@ -5,12 +5,15 @@
       <el-col class="button"><slot name="toolbar"></slot></el-col>
     </el-row>
     <el-row class="content">
-    <el-col class='left'>
+    <el-col class='left' v-if="$slots.tree">
       <div class="leftbox">
         <slot name="tree"></slot>  
       </div>    
     </el-col>
-    <el-col class='right'>
+    <el-col class='right' v-if="$slots.tree">
+        <slot name="table"></slot>      
+    </el-col>
+    <el-col class="table" v-if="!$slots.tree">
         <slot name="table"></slot>      
     </el-col>
   </el-row>
@@ -44,6 +47,9 @@
     .right {
       height: 100%;
       width: calc(100% - 200px);
+    }
+    .table {
+      height: 100%;
     }
   }
 }

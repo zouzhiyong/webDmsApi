@@ -3,8 +3,8 @@
     <span slot="title">{{$route.name}}</span>
     <span>
       <el-form @submit.native.prevent :rules="rules" size="small" ref="ruleForm" :model="formData" label-width='80px' class="demo-form-inline">
-        <el-form-item label="角色名称" prop="RoleName">
-          <el-input v-model="formData.RoleName" placeholder="角色名称"></el-input>
+        <el-form-item label="部门名称" prop="Name">
+          <el-input v-model="formData.Name" placeholder="部门名称"></el-input>
         </el-form-item>        
         <el-form-item label="有效否" prop="IsValid">
           <el-select v-model="formData.IsValid" placeholder="有效否">
@@ -12,8 +12,8 @@
             </el-option>
           </el-select>
         </el-form-item>   
-        <el-form-item label="说明" prop="RoleDesc">
-          <el-input v-model="formData.RoleDesc" placeholder="角色名称"></el-input>
+        <el-form-item label="说明" prop="Comment">
+          <el-input v-model="formData.Comment" placeholder="角色名称"></el-input>
         </el-form-item>      
       </el-form>
     </span>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { FindSysRoleForm, SaveSysRoleForm } from "../../../api/api";
+import { FindSysDeptForm, SaveSysDeptForm } from "../../../api/api";
 import custBotton from "./../../layout/layout_button";
 export default {
   data() {
@@ -35,7 +35,7 @@ export default {
       dialogVisible: false,
       formData: {},
       rules: {
-        RoleName: [{ required: true, message: "角色名称不能为空" }]
+        Name: [{ required: true, message: "部门名称不能为空" }]
       }
     };
   },
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     GetData(row) {
-      FindSysRoleForm(row).then(result => {
+      FindSysDeptForm(row).then(result => {
         this.formData = result.data;
         this.dialogVisible = true;
       });
@@ -52,7 +52,7 @@ export default {
     handleSave() {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          SaveSysRoleForm(this.formData).then(result => {
+          SaveSysDeptForm(this.formData).then(result => {
             this.dialogVisible = false;
             this.$parent.$parent.$refs.table.GetData();
             this.$refs.ruleForm.resetFields();

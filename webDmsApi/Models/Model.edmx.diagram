@@ -8,26 +8,28 @@
         <EntityTypeShape EntityType="webDmsModel.Bas_Comodities" Width="1.5" PointX="5.75" PointY="0.75" />
         <EntityTypeShape EntityType="webDmsModel.Bas_ComoditiesType" Width="1.5" PointX="2.75" PointY="5.75" />
         <EntityTypeShape EntityType="webDmsModel.Bas_Customer" Width="1.5" PointX="4.75" PointY="5.75" />
-        <EntityTypeShape EntityType="webDmsModel.Bas_Dept" Width="1.5" PointX="6.75" PointY="5.75" />
-        <EntityTypeShape EntityType="webDmsModel.Bas_Supplier" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_Application" Width="1.5" PointX="8.75" PointY="5.75" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_Button" Width="1.5" PointX="6.75" PointY="8.75" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_DictionaryData" Width="1.5" PointX="8.75" PointY="8.75" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_Menu" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_OperateLog" Width="1.5" PointX="0.75" PointY="9.75" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_Region" Width="1.5" PointX="2.75" PointY="10.75" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_Role" Width="1.5" PointX="10.75" PointY="4.75" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_Templates" Width="1.5" PointX="10.75" PointY="8.75" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_UserType" Width="1.5" PointX="11.75" PointY="0.75" />
-        <EntityTypeShape EntityType="webDmsModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="11.75" />
-        <EntityTypeShape EntityType="webDmsModel.View_Customer" Width="1.5" PointX="10.75" PointY="11.75" />
-        <EntityTypeShape EntityType="webDmsModel.View_menu" Width="1.5" PointX="12.75" PointY="3.75" />
-        <EntityTypeShape EntityType="webDmsModel.View_Region" Width="1.5" PointX="4.75" PointY="12.75" />
-        <EntityTypeShape EntityType="webDmsModel.View_user" Width="1.5" PointX="12.75" PointY="8.75" />
+        <EntityTypeShape EntityType="webDmsModel.Bas_Supplier" Width="1.5" PointX="6.75" PointY="5.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_Application" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_Button" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_Dept" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_DictionaryData" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_Menu" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_OperateLog" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_Region" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_Role" Width="1.5" PointX="4.75" PointY="10.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_RoleMenu" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_Templates" Width="1.5" PointX="10.75" PointY="10.75" />
         <EntityTypeShape EntityType="webDmsModel.Sys_User" Width="1.5" PointX="0.75" PointY="1" />
         <EntityTypeShape EntityType="webDmsModel.Sys_UserRole" Width="1.5" PointX="3" PointY="2" />
+        <EntityTypeShape EntityType="webDmsModel.Sys_UserType" Width="1.5" PointX="11.75" PointY="0.75" />
+        <EntityTypeShape EntityType="webDmsModel.sysdiagrams" Width="1.5" PointX="6.75" PointY="11.75" />
+        <EntityTypeShape EntityType="webDmsModel.View_Customer" Width="1.5" PointX="12.75" PointY="3.75" />
+        <EntityTypeShape EntityType="webDmsModel.View_Dept" Width="1.5" PointX="12.75" PointY="8.75" />
+        <EntityTypeShape EntityType="webDmsModel.View_menu" Width="1.5" PointX="12.75" PointY="12.75" />
+        <EntityTypeShape EntityType="webDmsModel.View_Region" Width="1.5" PointX="13.75" PointY="0.75" />
+        <EntityTypeShape EntityType="webDmsModel.View_role" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="webDmsModel.View_user" Width="1.5" PointX="8.75" PointY="13.75" />
         <AssociationConnector Association="webDmsModel.FK_Sys_UserRole_Sys_User" />
-        <EntityTypeShape EntityType="webDmsModel.Sys_RoleMenu" Width="1.5" PointX="12.75" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

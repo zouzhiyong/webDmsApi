@@ -17,9 +17,9 @@ namespace webDmsApi.Areas.Sys
         /// 获取部门
         /// </summary>
         /// <returns></returns>
-        public HttpResponseMessage FindBasDeptTree()
+        public HttpResponseMessage FindSysDeptTree()
         {
-            var list = db.Bas_Dept.Where<Bas_Dept>(p => p.IsValid != 0).Select(s => new
+            var list = db.Sys_Dept.Where<Sys_Dept>(p => p.IsValid != 0).Select(s => new
             {
                 label = s.Name,
                 DeptID = s.DeptID
@@ -69,7 +69,7 @@ namespace webDmsApi.Areas.Sys
                     WorkingPlace = "",
                     Avatar = "",
                     Comment = "",
-                    DeptIDList = db.Bas_Dept.Select(s1 => new
+                    DeptIDList = db.Sys_Dept.Select(s1 => new
                     {
                         value = s1.DeptID,
                         label = s1.Name
@@ -122,7 +122,7 @@ namespace webDmsApi.Areas.Sys
                         value = s1.UserTypeID,
                         label = s1.UserTypeName
                     }).ToList(),
-                    DeptIDList = db.Bas_Dept.Select(s1 => new
+                    DeptIDList = db.Sys_Dept.Select(s1 => new
                     {
                         value = s1.DeptID,
                         label = s1.Name

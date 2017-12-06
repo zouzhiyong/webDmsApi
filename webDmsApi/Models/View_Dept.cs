@@ -12,12 +12,16 @@ namespace webDmsApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Bas_Dept
+    public partial class View_Dept
     {
         public int DeptID { get; set; }
-        public Nullable<int> WSID { get; set; }
         public string Name { get; set; }
         public Nullable<int> IsValid { get; set; }
+        public string ModifyDate { get; set; }
+        public Nullable<int> ModifyUserID { get; set; }
+        public string CreateDate { get; set; }
+        public Nullable<int> CreateUserID { get; set; }
+        public Nullable<int> isRole { get; set; }
         public string Comment { get; set; }
     }
 }

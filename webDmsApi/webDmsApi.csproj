@@ -484,7 +484,14 @@
     <Content Include="DMS1\src\views\sys\role\role_form.vue" />
     <Content Include="DMS1\src\views\sys\role\role_table.vue" />
     <Content Include="DMS1\src\views\sys\role\role_tools.vue" />
-    <Content Include="DMS1\src\views\sys\role\role_tree.vue" />
+    <Content Include="DMS1\src\views\sys\dept\dept_form.vue" />
+    <Content Include="DMS1\src\views\sys\dept\dept_table.vue" />
+    <Content Include="DMS1\src\views\sys\dept\dept_tools.vue" />
+    <Content Include="DMS1\src\views\sys\dept\index.vue" />
+    <Content Include="DMS1\src\views\sys\rolemenu\index.vue" />
+    <Content Include="DMS1\src\views\sys\rolemenu\rolemenu_table.vue" />
+    <Content Include="DMS1\src\views\sys\rolemenu\rolemenu_tools.vue" />
+    <Content Include="DMS1\src\views\sys\rolemenu\rolemenu_tree.vue" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -519,6 +526,7 @@
     <Compile Include="Areas\Bas\DeptController.cs" />
     <Compile Include="Areas\Login\LoginController.cs" />
     <Compile Include="Areas\Sys\ConfigController.cs" />
+    <Compile Include="Areas\Sys\DeptController.cs" />
     <Compile Include="Areas\Sys\MenuController.cs" />
     <Compile Include="Areas\Sys\RoleController.cs" />
     <Compile Include="Areas\Sys\UserController.cs" />
@@ -542,9 +550,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Bas_Customer.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Bas_Dept.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Bas_Supplier.cs">
@@ -580,6 +585,9 @@
     <Compile Include="Models\Sys_Button.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Sys_Dept.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Sys_DictionaryData.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -613,10 +621,16 @@
     <Compile Include="Models\View_Customer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\View_Dept.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\View_menu.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\View_Region.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\View_user.cs">
@@ -628,6 +642,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Home\" />
+    <Folder Include="DMS1\src\views\bas\" />
     <Folder Include="webDms\Build\" />
   </ItemGroup>
   <ItemGroup>
