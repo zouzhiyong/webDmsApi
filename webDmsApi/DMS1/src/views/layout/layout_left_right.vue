@@ -1,8 +1,8 @@
 <template> 
   <div class='body'>
     <el-row class="toolbar">
-      <el-col class="condition"><slot name="condition"></slot></el-col>
-      <el-col class="button"><slot name="toolbar"></slot></el-col>
+      <el-col :span="12" class="condition"><slot name="condition"></slot></el-col>
+      <el-col :span="$slots.condition?12:24" class="button"><slot name="toolbar"></slot></el-col>
     </el-row>
     <el-row class="content">
     <el-col class='left' v-if="$slots.tree">
@@ -30,8 +30,13 @@
   //   width: 650px;
   //   height: 400px;
   // }
+  .toolbar {
+    margin-bottom: 10px;
+  }
   .button {
     text-align: right;
+    height: 33px;
+    line-height: 33px;
   }
   .content {
     height: calc(100% - 40px);

@@ -13,7 +13,7 @@
           </el-select>
         </el-form-item>   
         <el-form-item label="说明" prop="RoleDesc">
-          <el-input v-model="formData.RoleDesc" placeholder="角色名称"></el-input>
+          <el-input v-model="formData.RoleDesc" placeholder="说明"></el-input>
         </el-form-item>      
       </el-form>
     </span>

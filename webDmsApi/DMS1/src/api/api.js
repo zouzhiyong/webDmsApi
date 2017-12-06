@@ -106,3 +106,9 @@ export const FindSysRoleTable = params => { return axios.post(`${base}/api/Role/
 export const DeleteSysRoleRow = params => { return axios.post(`${base}/api/Role/DeleteSysRoleRow`, params).then(res => res.data); };
 export const FindSysRoleForm = params => { return axios.post(`${base}/api/Role/FindSysRoleForm`, params).then(res => res.data); };
 export const SaveSysRoleForm = params => { return axios.post(`${base}/api/Role/SaveSysRoleForm`, params).then(res => res.data); };
+//客户设置页面
+export const FindBasRegionList = params => { return axios.post(`${base}/api/customer/FindBasRegionList`).then(res => res.data); };
+export const FindBasCustomerTable = params => { return axios.post(`${base}/api/customer/FindBasCustomerTable`, params).then(res => res.data); };
+export const DeleteBasCustomerRow = params => { return axios.post(`${base}/api/customer/DeleteBasCustomerRow`, params).then(res => res.data); };
+export const FindBasCustomerForm = params => { return axios.post(`${base}/api/customer/FindBasCustomerForm`, params).then(res => res.data); };
+export const SaveBasCustomerForm = params => { return axios.post(`${base}/api/customer/SaveBasCustomerForm`, params).then(res => res.data); };

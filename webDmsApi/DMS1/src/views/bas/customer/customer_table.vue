@@ -6,22 +6,26 @@
           {{scope.$index + 1 + (pageSize * (currentPage - 1))}}
         </template>
       </el-table-column>
-      <el-table-column prop="Name" width="200" label="部门名称" header-align="center">
+      <el-table-column prop="CustomerName" label="客户名称" header-align="center">
+      </el-table-column>
+      <el-table-column prop="LinkMan"label="联系人" header-align="center">
+      </el-table-column>
+      <el-table-column prop="LinkManPhone" label="联系电话" header-align="center">
+      </el-table-column>
+      <el-table-column prop="RegionName" label="销售区域" header-align="center">
       </el-table-column>
       </el-table-column>
-      <el-table-column prop="IsValid" width="200"  label="有效否" align="center" :formatter="function(row, column){return row.IsValid==0?'无效':'有效'}" header-align="center">
+      <el-table-column prop="IsValid" label="有效否" align="center" :formatter="function(row, column){return row.IsValid==0?'关门':'正常'}" header-align="center">
       </el-table-column>
-      <el-table-column prop="ModifyDate" width="200" label="修改时间" header-align="center"></el-table-column>
-      <el-table-column prop="Comment" label="说明" header-align="center">
-      </el-table-column>
-      <el-table-column label="操作" width="200" align="center" header-align="center">
+      <el-table-column prop="ModifyDate" label="修改时间" header-align="center"></el-table-column>
+      <el-table-column label="操作" align="center" header-align="center">
         <template slot-scope="scope">
           <span style="width:32px;display:inline-block">
           <el-button type="text" icon="el-icon-edit" @click="handleEditClick(scope.row)"></el-button>
           </span>
-          <span style="width:32px;display:inline-block">
-          <el-button v-if="parseInt(scope.row.isRole)==0" type="text" icon="el-icon-delete" @click="handleDeleteClick(scope.row)"></el-button>
-        </span>
+          <!-- <span style="width:32px;display:inline-block">
+          <el-button type="text" icon="el-icon-delete" @click="handleDeleteClick(scope.row)"></el-button>
+        </span> -->
         </template>
       </el-table-column>
     </el-table>
@@ -32,7 +36,7 @@
 </template>
 
 <script>
-import { FindSysDeptTable, DeleteSysDeptRow } from "../../../api/api";
+import { FindBasCustomerTable, DeleteBasCustomerRow } from "../../../api/api";
 export default {
   data() {
     return {
@@ -44,15 +48,15 @@ export default {
     };
   },
   mounted() {
-    this.GetData();
+    //this.GetData();
   },
   methods: {
     GetData() {
-      var data = {};
+      var data = this.conditionData;
       this.pageSize = Math.floor(this.$refs.table.$el.clientHeight / 40);
       data.currentPage = this.currentPage;
       data.pageSize = this.pageSize;
-      FindSysDeptTable(data).then(result => {
+      FindBasCustomerTable(data).then(result => {
         this.tableData = result.rows;
         this.total = result.total;
       });
@@ -63,18 +67,18 @@ export default {
     },
     handleEditClick(row) {
       this.$parent.$parent.$parent.$parent.$refs.form.GetData(row);
-    },
-    handleDeleteClick(row) {
-      this.$confirm("是否确认删除?", "提示", {
-        type: "warning"
-      })
-        .then(() => {
-          DeleteSysDeptRow(row).then(result => {
-            this.GetData();
-          });
-        })
-        .catch(() => {});
     }
+    // handleDeleteClick(row) {
+    //   this.$confirm("是否确认删除?", "提示", {
+    //     type: "warning"
+    //   })
+    //     .then(() => {
+    //       DeleteBasCustomerRow(row).then(result => {
+    //         this.GetData();
+    //       });
+    //     })
+    //     .catch(() => {});
+    // }
   }
 };
 </script>

@@ -492,6 +492,11 @@
     <Content Include="DMS1\src\views\sys\rolemenu\rolemenu_table.vue" />
     <Content Include="DMS1\src\views\sys\rolemenu\rolemenu_tools.vue" />
     <Content Include="DMS1\src\views\sys\rolemenu\rolemenu_tree.vue" />
+    <Content Include="DMS1\src\views\bas\customer\customer_condition.vue" />
+    <Content Include="DMS1\src\views\bas\customer\customer_form.vue" />
+    <Content Include="DMS1\src\views\bas\customer\customer_table.vue" />
+    <Content Include="DMS1\src\views\bas\customer\customer_tools.vue" />
+    <Content Include="DMS1\src\views\bas\customer\index.vue" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -523,7 +528,6 @@
     <Compile Include="App_Start\WebApiExceptionFilterAttribute.cs" />
     <Compile Include="Areas\Bas\ComoditiesController.cs" />
     <Compile Include="Areas\Bas\CustomerController.cs" />
-    <Compile Include="Areas\Bas\DeptController.cs" />
     <Compile Include="Areas\Login\LoginController.cs" />
     <Compile Include="Areas\Sys\ConfigController.cs" />
     <Compile Include="Areas\Sys\DeptController.cs" />
@@ -642,7 +646,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Home\" />
-    <Folder Include="DMS1\src\views\bas\" />
     <Folder Include="webDms\Build\" />
   </ItemGroup>
   <ItemGroup>

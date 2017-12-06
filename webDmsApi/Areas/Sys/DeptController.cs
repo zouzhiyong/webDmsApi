@@ -42,7 +42,7 @@ namespace webDmsApi.Areas.Sys
                 var list = new
                 {
                     DeptID = 0,
-                    RoleName = "",
+                    Name = "",
                     IsValid = 1,
                     IsValidList = new object[] {
                     new { label = "有效", value = 1 },
@@ -61,7 +61,7 @@ namespace webDmsApi.Areas.Sys
                 var list = db.Sys_Dept.Where(w => w.DeptID == DeptID).Select(s => new
                 {
                     DeptID = s.DeptID,
-                    RoleName = s.Name,
+                    Name = s.Name,
                     IsValid = s.IsValid == null ? 1 : s.IsValid,
                     IsValidList = new object[] {
                     new { label = "有效", value = 1 },
@@ -78,7 +78,7 @@ namespace webDmsApi.Areas.Sys
             }
         }
 
-        public HttpResponseMessage SaveSysRoleForm(Sys_Dept obj)
+        public HttpResponseMessage SaveSysDeptForm(Sys_Dept obj)
         {
             DBHelper<Sys_Dept> dbhelp = new DBHelper<Sys_Dept>();
             var result = obj.DeptID == 0 ? dbhelp.Add(obj) : dbhelp.Update(obj);
