@@ -91,6 +91,7 @@ export default {
 </script>
 
 <style scoped>
+.el-cascader,
 .el-input,
 .el-input__inner {
   width: 200px;
