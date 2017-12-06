@@ -31,5 +31,7 @@ namespace webDmsApi.Models
         public string RegionName { get; set; }
         public string IsValidName { get; set; }
         public string Remark { get; set; }
+        public string Code { get; set; }
+        public string ModifyDate { get; set; }
     }
 }

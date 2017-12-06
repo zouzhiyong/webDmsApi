@@ -268,6 +268,8 @@
           <Property Name="RegionName" Type="nvarchar" MaxLength="152" />
           <Property Name="IsValidName" Type="nvarchar" MaxLength="10" />
           <Property Name="Remark" Type="nvarchar" MaxLength="200" />
+          <Property Name="Code" Type="nvarchar" MaxLength="60" />
+          <Property Name="ModifyDate" Type="varchar" MaxLength="100" />
         </EntityType>
         <!--生成过程中发现错误:
 警告 6002: 表/视图“webDms.dbo.View_Dept”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -438,7 +440,9 @@
     [View_Customer].[IsValid] AS [IsValid], 
     [View_Customer].[RegionName] AS [RegionName], 
     [View_Customer].[IsValidName] AS [IsValidName], 
-    [View_Customer].[Remark] AS [Remark]
+    [View_Customer].[Remark] AS [Remark], 
+    [View_Customer].[Code] AS [Code], 
+    [View_Customer].[ModifyDate] AS [ModifyDate]
     FROM [dbo].[View_Customer] AS [View_Customer]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="View_Dept" EntityType="Self.View_Dept" store:Type="Views" store:Schema="dbo">
@@ -849,6 +853,8 @@
           <Property Name="RegionName" Type="String" MaxLength="152" FixedLength="false" Unicode="true" />
           <Property Name="IsValidName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyDate" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="View_Dept">
           <Key>
@@ -1231,6 +1237,8 @@
           <EntitySetMapping Name="View_Customer">
             <EntityTypeMapping TypeName="webDmsModel.View_Customer">
               <MappingFragment StoreEntitySet="View_Customer">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="IsValidName" ColumnName="IsValidName" />
                 <ScalarProperty Name="RegionName" ColumnName="RegionName" />
