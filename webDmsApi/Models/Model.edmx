@@ -54,6 +54,7 @@
           <Property Name="Address2" Type="nvarchar" MaxLength="100" />
           <Property Name="DepositAmount" Type="money" />
           <Property Name="IsValid" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Bas_Supplier">
@@ -635,6 +636,7 @@
           <Property Name="DepositAmount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="IsValid" Type="Int32" />
           <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Bas_Supplier">
           <Key>
@@ -1004,6 +1006,7 @@
           <EntitySetMapping Name="Bas_Customer">
             <EntityTypeMapping TypeName="webDmsModel.Bas_Customer">
               <MappingFragment StoreEntitySet="Bas_Customer">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="DepositAmount" ColumnName="DepositAmount" />

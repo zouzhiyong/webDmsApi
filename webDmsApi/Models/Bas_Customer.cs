@@ -30,5 +30,6 @@ namespace webDmsApi.Models
         public Nullable<decimal> DepositAmount { get; set; }
         public Nullable<int> IsValid { get; set; }
         public string Remark { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     }
 }
