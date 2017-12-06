@@ -79,8 +79,8 @@ export default {
       this.$refs.ruleForm.resetFields();
     },
     handleClose(done) {
-      this.dialogVisible = false;
       this.$refs.ruleForm.resetFields();
+      this.dialogVisible = false;
       done();
     },
     handleChange(value) {
